@@ -57,7 +57,7 @@ nav{display:flex;gap:clamp(16px,3vw,44px);font-size:clamp(15px,1.5vw,20px)}
 .title h1{font-size:var(--x3);line-height:1.15}
 .title p{margin-top:10px;color:var(--plum)}
 .months{display:flex;justify-content:center;align-items:center;gap:26px;margin:30px 0 22px}
-.months h2{font-size:var(--x2);min-width:190px;text-align:center}
+.months h2{font-size:var(--x2);min-width:230px;text-align:center}
 .arrow{width:38px;height:38px;border:1px solid var(--maroon);display:grid;place-items:center;transition:all .3s}
 .arrow:hover{background:var(--red);border-color:var(--red);color:var(--beige)}
 .arrow svg{width:19px}.arrow.next svg{transform:scaleX(-1)}
@@ -213,6 +213,9 @@ const teamOf=w=>({'Chef Tam':'kitchen','Chef Tur':'kitchen','Kitchen team':'kitc
 const STATUS=[['todo','To do'],['prog','In progress'],['done','Done'],['stuck','Stuck']];
 const TABS=[['overview','Overview'],['team','Team'],['mise','Mise en place'],['buy','To buy'],['marketing','Marketing'],['costs','Costs'],['notes','Notes']];
 const YEAR=2027;
+const VERSION='5';
+try{if(location.protocol.indexOf('http')===0)fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():'').then(v=>{v=v.trim();if(v&&v!==VERSION&&!location.search.includes('v='+v))location.replace(location.pathname+'?v='+v+location.hash)}).catch(()=>{})}catch(e){}
+const FOOT=`<div class="foot">TEPA GARDEN<div style="letter-spacing:.2px;font-family:var(--body);color:var(--plum);margin-top:10px">Version ${VERSION}</div></div>`;
 
 /* ---------- starting content (drafts, all editable) ---------- */
 const SETS0=[
@@ -302,32 +305,40 @@ const clone=o=>JSON.parse(JSON.stringify(o));
 function fromTpl(tid,date,over){const t=S.TPL.find(x=>x.id===tid)||S.TPL[0];
   return Object.assign({id:'e'+(S.seq++),tpl:tid,name:t.name,date,time:t.time,price:t.price,guests:t.guests,series:'',purpose:t.purpose,audience:t.audience,takehome:t.takehome,sets:t.sets.slice(),packed:{},duties:clone(t.duties),buy:clone(t.buy),
     mk:[{t:'Graphic for the post',who:'K Toey',st:'todo'},{t:'Photos and video on the day',who:'K Tong',st:'todo'}],ch:tid==='other'?[]:['Instagram','LINE'],notes:{worked:'',change:'',came:''}},over||{});}
+const mk=(tid,date,over)=>{const e=fromTpl(tid,date,over);e.base=e.name;return e};
 function seed(){
   const E=[];
+  ['2026-12-03','2026-12-10','2026-12-17'].forEach(d=>E.push(mk('free',d)));
+  ['2026-12-04','2026-12-18'].forEach(d=>E.push(mk('tea',d,{price:'899',time:'Time tbc'})));
+  E.push(mk('gw','2026-12-12',{name:'Garden Taste and Tour',time:'10:00 to 11:30',price:'599 tbc',guests:'12',purpose:'A guided walk through the garden with tastings along the way.',takehome:'',buy:B(['Tastings and drinks','12','1200'])}));
+  E.push(mk('cw','2026-12-19',{name:'Mulled Wine Workshop',time:'10:00 to 12:00',price:'599 tbc',guests:'10',purpose:'Make mulled wine with garden herbs and spices.',takehome:'A bottle of your mulled wine spice mix.',buy:B(['Wine, spices and garden herbs','10','2500'])}));
+  E.push(mk('g101','2026-12-26',{name:'Gardening Club',time:'9:30 to 11:30',price:'699',purpose:'Paid gardening session with a lunch wrap station and coffee.',takehome:'A share of the harvest.',buy:B(['Lunch wrap station and coffee','12','1800'])}));
   for(let m=0;m<12;m++){ if(CLOSED.includes(m)) continue;
     const sat=[];
     for(let d=1;d<=31;d++){const x=new Date(YEAR,m,d); if(x.getMonth()!==m)break; const w=x.getDay(); if(w===6)sat.push(x);}
-    if(sat[0])E.push(fromTpl('g101',iso(sat[0])));
-    if(sat[2])E.push(fromTpl('tea',iso(sat[2])));
-    const s=SERIES[m]; if(s) s.w.forEach((w,i)=>{const x=[sat[1],sat[3]][i]; if(x){const o={name:w[1],price:w[2],series:s.name,purpose:w[3],takehome:w[4]};if(w[2]==='Free')o.buy=[];E.push(fromTpl(w[0],iso(x),o))}});
+    if(sat[0])E.push(mk('g101',iso(sat[0])));
+    if(sat[2])E.push(mk('tea',iso(sat[2])));
+    const s=SERIES[m]; if(s) s.w.forEach((w,i)=>{const x=[sat[1],sat[3]][i]; if(x){const o={name:w[1],price:w[2],series:s.name,purpose:w[3],takehome:w[4]};if(w[2]==='Free')o.buy=[];E.push(mk(w[0],iso(x),o))}});
     if(m===0){
-      E.push(fromTpl('other','2027-01-10',{name:'Singapore School Visit',time:'Time tbc',purpose:'Show visiting students how a restaurant garden works.',audience:'School group from Singapore.'}));
-      E.push(fromTpl('other','2027-01-28',{name:"Shannon's New York Farmer Friends",time:'Time tbc',purpose:'Host visiting farmers and swap ideas on urban growing.',audience:'Farmer friends of Shannon, from New York.'}));
-      ['2027-01-30','2027-01-31'].forEach(d=>E.push(fromTpl('other',d,{name:'Farmers Market',time:'Time tbc',series:'ReWaste',purpose:'Bring growers and makers into the garden and close the ReWaste month.',audience:'Neighbours, Baan Tepa guests and local growers.'})));}
+      E.push(mk('other','2027-01-10',{name:'Singapore School Visit',time:'Time tbc',purpose:'Show visiting students how a restaurant garden works.',audience:'School group from Singapore.'}));
+      E.push(mk('other','2027-01-28',{name:"Shannon's New York Farmer Friends",time:'Time tbc',purpose:'Host visiting farmers and swap ideas on urban growing.',audience:'Farmer friends of Shannon, from New York.'}));
+      ['2027-01-30','2027-01-31'].forEach(d=>E.push(mk('other',d,{name:'Farmers Market',time:'Time tbc',series:'ReWaste',purpose:'Bring growers and makers into the garden and close the ReWaste month.',audience:'Neighbours, Baan Tepa guests and local growers.'})));}
   }
   return E;
 }
 
 /* ---------- state ---------- */
-const KEY='tepa-garden-v4';
+const KEY='tepa-garden-v5';
 let S={seq:1,TPL:clone(TPL0),SET:clone(SETS0),EV:[],PROJ:clone(PROJ0),IDEAS:clone(IDEAS0),open:10,fill:1,cap:60};
 let saved=null; try{saved=JSON.parse(localStorage.getItem(KEY))}catch(e){}
 if(saved&&saved.EV&&saved.PROJ&&saved.IDEAS&&saved.cap!==undefined){S=saved}else{S.EV=seed()}
+S.EV.forEach(e=>{if(!e.base)e.base=e.name});
 S.EV.concat(S.TPL).forEach(x=>(x.duties||[]).forEach(d=>{if(!d.team)d.team=teamOf(d.who)}));
 let saveT; function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},250)}
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const today=iso(new Date());
 const isDone=e=>e.date<today;
+const MI0=11,MI1=23;const mi=s=>{const d=pd(s);return Math.min(MI1,Math.max(MI0,(d.getFullYear()-2026)*12+d.getMonth()))};
 const pd=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
 const nice=s=>{const d=pd(s);return DOW[(d.getDay()+6)%7]+' '+d.getDate()+' '+MONTHS[d.getMonth()]+' '+d.getFullYear()};
 const num=s=>{const n=parseFloat(String(s).replace(/,/g,''));return isNaN(n)?0:n};
@@ -357,32 +368,34 @@ function evLink(e){return`<a class="ev ${isDone(e)?'done':''}" href="#/event/${e
 const head=(t,p)=>`<div class="title"><div class="eyebrow">TEPA GARDEN</div><h1>${t}</h1><p>${p}</p></div>`;
 
 function calendar(r){
-  let m=parseInt(r.a,10); if(isNaN(m)||m<0||m>11) m=(new Date().getFullYear()===YEAR?new Date().getMonth():0);
-  const first=new Date(YEAR,m,1), lead=(first.getDay()+6)%7, days=new Date(YEAR,m+1,0).getDate();
+  let i=parseInt(r.a,10); if(isNaN(i)||i<MI0||i>MI1){const n=new Date();i=Math.min(MI1,Math.max(MI0,(n.getFullYear()-2026)*12+n.getMonth()))}
+  const y=2026+Math.floor(i/12), m=i%12;
+  const first=new Date(y,m,1), lead=(first.getDay()+6)%7, days=new Date(y,m+1,0).getDate();
   const by={}; S.EV.forEach(e=>{(by[e.date]=by[e.date]||[]).push(e)});
-  const any=S.EV.some(e=>e.date.slice(0,7)===YEAR+'-'+String(m+1).padStart(2,'0'));
+  const any=S.EV.some(e=>e.date.slice(0,7)===y+'-'+String(m+1).padStart(2,'0'));
   let cells='',rows='';
-  for(let i=0;i<lead;i++)cells+='<div class="cell"></div>';
-  for(let d=1;d<=days;d++){const k=iso(new Date(YEAR,m,d)),ev=(by[k]||[]);
+  for(let k=0;k<lead;k++)cells+='<div class="cell"></div>';
+  for(let d=1;d<=days;d++){const k=iso(new Date(y,m,d)),ev=(by[k]||[]);
     cells+=`<div class="cell ${k===today?'today':''}"><span class="d">${d}</span>${ev.map(evLink).join('')}</div>`;
-    if(ev.length)rows+=`<div class="row"><div><div class="d">${d}</div><div class="sm plum">${DOW[(new Date(YEAR,m,d).getDay()+6)%7]}</div></div><div>${ev.map(evLink).join('')}</div></div>`}
-  const s=SERIES[m];
+    if(ev.length)rows+=`<div class="row"><div><div class="d">${d}</div><div class="sm plum">${DOW[(new Date(y,m,d).getDay()+6)%7]}</div></div><div>${ev.map(evLink).join('')}</div></div>`}
+  const s=y===YEAR?SERIES[m]:null, closed=y===YEAR&&CLOSED.includes(m);
+  let strip='';for(let k=MI0;k<=MI1;k++)strip+=`<a class="ul ${k===i?'on':''}" href="#/calendar/${k}">${MONTHS[k%12].slice(0,3)}${k<12?' 2026':k===12?' 2027':''}</a>`;
   return header('calendar')+`<main class="wrap fi">
-   ${head('Garden Calendar '+YEAR,'A living garden for growing, learning and gathering.')}
-   <div class="months"><a class="arrow" href="#/calendar/${(m+11)%12}" aria-label="Previous month">${IC('arrow-left-dark')}</a>
-     <h2>${MONTHS[m]}</h2>
-     <a class="arrow next" href="#/calendar/${(m+1)%12}" aria-label="Next month">${IC('arrow-left-dark')}</a></div>
-   <div class="strip">${MONTHS.map((n,i)=>`<a class="ul ${i===m?'on':''}" href="#/calendar/${i}">${n.slice(0,3)}</a>`).join('')}</div>
+   ${head('Garden Calendar '+y,'A living garden for growing, learning and gathering.')}
+   <div class="months"><a class="arrow" href="#/calendar/${Math.max(MI0,i-1)}" aria-label="Previous month" style="${i===MI0?'opacity:.25':''}">${IC('arrow-left-dark')}</a>
+     <h2>${MONTHS[m]} ${y}</h2>
+     <a class="arrow next" href="#/calendar/${Math.min(MI1,i+1)}" aria-label="Next month" style="${i===MI1?'opacity:.25':''}">${IC('arrow-left-dark')}</a></div>
+   <div class="strip">${strip}</div>
    ${s&&any?`<p class="centre" style="margin:-4px 0 28px"><span class="sm plum">This month's series</span><br><span class="classic" style="font-size:var(--xl)">${esc(s.name)}</span></p>`:''}
-   ${!any&&CLOSED.includes(m)?`<div class="closed"><h3>The garden is resting</h3><p class="plum" style="margin-top:8px">Closed for product development.</p><p style="margin-top:22px"><a class="btn" href="#/templates">Add an event</a></p></div>`:
+   ${!any&&closed?`<div class="closed"><h3>The garden is resting</h3><p class="plum" style="margin-top:8px">Closed for product development.</p><p style="margin-top:22px"><a class="btn" href="#/templates">Add an event</a></p></div>`:
    `<div class="dow">${DOW.map(d=>`<span>${d}</span>`).join('')}</div><div class="grid">${cells}</div><div class="list">${rows||'<p class="hint" style="padding:30px 0">No events this month.</p>'}</div>`}
-   <div class="foot">TEPA GARDEN</div>
+   ${FOOT}
   </main>`}
 
 function templates(){
   return header('templates')+`<main class="wrap fi">${head('Base Events','Our base events and workshop types. Open one to edit it or add it to the calendar.')}
    <div class="cards">${S.TPL.map(t=>`<a class="tcard" href="#/templates/${t.id}"><div class="ic">${IC(t.icon)}</div><h3>${esc(t.name)}</h3><p class="sm">${esc(t.kind)}</p><p class="sm plum">${esc([t.time,t.price&&money(t.price)].filter(Boolean).join(' · ')||'Details tbc')}</p></a>`).join('')}</div>
-   <div class="foot">TEPA GARDEN</div></main>`}
+   ${FOOT}</main>`}
 
 function tplPage(t){const n=S.EV.filter(e=>e.tpl===t.id).length;
   const f=(k,l)=>`<div class="f"><label>${l}</label><textarea rows="1" data-tpl="${t.id}" data-k="${k}" placeholder="Not stated">${esc(t[k])}</textarea></div>`;
@@ -402,13 +415,13 @@ function mise(r){
     <p class="hint">Changes here apply to every event that uses this set.</p></div></div>`;
   return header('mise')+`<main class="wrap fi">${head('Mise en place','Everything in its place before guests arrive. Sets can be added to any event.')}
    <div class="cards">${S.SET.map(s=>`<a class="tcard" href="#/mise/${s.id}"><div class="ic">${IC(s.icon)}</div><h3>${esc(s.name)}</h3><p class="sm">${esc(s.note)}</p><p class="sm plum">${s.items.length} items</p></a>`).join('')}</div>
-   <div class="centre"><button class="btn" data-act="newset">Add a set</button></div><div class="foot">TEPA GARDEN</div></main>`}
+   <div class="centre"><button class="btn" data-act="newset">Add a set</button></div>${FOOT}</main>`}
 
 function ideas(){
   return header('ideas')+`<main class="wrap fi">${head('Workshop Ideas','A place to keep ideas until they are ready for the calendar.')}
    <div class="centre" style="margin-top:30px"><button class="btn" data-act="addidea">Add an idea</button></div>
    <div class="ideas">${S.IDEAS.map((d,i)=>`<div class="card idea"><input type="text" data-idea="${i}" data-k="n" value="${esc(d.n)}" placeholder="Idea name"><select data-idea="${i}" data-k="tpl">${opts(S.TPL.map(t=>[t.id,t.name]),d.tpl)}</select><textarea rows="1" data-idea="${i}" data-k="note" placeholder="Notes: who could lead it, season, price, what guests take home">${esc(d.note)}</textarea><div class="acts"><button class="btn" data-act="ideacal" data-i="${i}">Add to calendar</button><button class="link" data-act="delidea" data-i="${i}">Remove</button></div></div>`).join('')}</div>
-   <div class="foot">TEPA GARDEN</div></main>`}
+   ${FOOT}</main>`}
 
 /* projection */
 function calc(rows,f){f=f||num(S.fill)||1;let inc=0,cost=0,hrs=0,ses=0;rows.forEach(r=>{const g=num(r.guests)*f,n=num(r.per);inc+=num(r.price)*g*n;cost+=(num(r.cpg)*g+num(r.fixed))*n;hrs+=num(r.hrs)*n;ses+=n});return{inc,cost,profit:inc-cost,hrs,ses,perhr:hrs?(inc-cost)/hrs:0}}
@@ -435,11 +448,11 @@ function projOut(plan){const c=calc(S.PROJ[plan]),o=num(S.open),F=num(S.fill)||1
 function projection(r){const plan=PLANS.some(p=>p[0]===r.a)?r.a:'jess';
   return header('projection')+`<main class="wrap fi">${head('Projection and Workload','What our events cost, what they earn, and what they ask of the team.')}
    <div class="plans">${PLANS.map(p=>`<a class="btn ${p[0]===plan?'on':''}" href="#/projection/${p[0]}">${esc(p[1])}</a>`).join('')}</div>
-   <div class="plans" style="margin:0 0 20px"><button class="btn ${(num(S.fill)||1)===1?'on':''}" data-act="fill" data-id="1">Full capacity</button><button class="btn ${num(S.fill)===.5?'on':''}" data-act="fill" data-id="0.5">Half capacity</button></div><div id="proj">${projBody(plan)}</div><div class="foot">TEPA GARDEN</div></main>`}
+   <div class="plans" style="margin:0 0 20px"><button class="btn ${(num(S.fill)||1)===1?'on':''}" data-act="fill" data-id="1">Full capacity</button><button class="btn ${num(S.fill)===.5?'on':''}" data-act="fill" data-id="0.5">Half capacity</button></div><div id="proj">${projBody(plan)}</div>${FOOT}</main>`}
 
 function eventPage(r){
   const e=S.EV.find(x=>x.id===r.a); if(!e) return header('calendar')+`<main class="wrap">${head('Event not found','')}<p class="centre"><a class="btn" href="#/calendar">Back to the calendar</a></p></main>`;
-  const tab=TABS.some(t=>t[0]===r.b)?r.b:'overview', t=S.TPL.find(x=>x.id===e.tpl)||S.TPL[0], m=pd(e.date).getMonth();
+  const tab=TABS.some(t=>t[0]===r.b)?r.b:'overview', t=S.TPL.find(x=>x.id===e.tpl)||S.TPL[0], m=mi(e.date);
   return `<div class="detail fi">${header('calendar')}
    <div class="panel"><div class="eyebrow">${esc((e.series||t.kind).toUpperCase())}</div><h1>${esc(e.name)}</h1><p>${esc(nice(e.date))}${e.time?' · '+esc(e.time):''}${isDone(e)?' · Completed':''}</p><p>${esc([e.price&&money(e.price),e.guests&&e.guests+' guests'].filter(Boolean).join(' · '))}</p></div>
    <div class="pane"><a class="back" href="#/calendar/${m}">${IC('arrow-left-dark')}Back</a><div class="tabs">${TABS.map(x=>`<button type="button" class="btn ${x[0]===tab?'on':''}" data-act="tab" data-id="${e.id}" data-t="${x[0]}">${x[1]}</button>`).join('')}</div><div id="tab">${tabBody(e,tab)}</div></div></div>`}
@@ -452,13 +465,16 @@ function dutyLine(e,list,i,cls){const d=e[list][i];return`<div class="line ${cls
   <select class="p" data-ev="${e.id}" data-list="${list}" data-i="${i}" data-k="who">${opts(PEOPLE,d.who,'Unassigned')}</select>
   <select class="s st-${d.st}" data-ev="${e.id}" data-list="${list}" data-i="${i}" data-k="st">${opts(STATUS,d.st)}</select>
   <button class="x" data-act="del" data-ev="${e.id}" data-list="${list}" data-i="${i}" aria-label="Remove">&times;</button></div>`}
-function tabBody(e,tab){
+function applyBtn(e,tab){const t=S.TPL.find(x=>x.id===e.tpl)||S.TPL[0],n=S.EV.filter(x=>x!==e&&x.tpl===e.tpl&&!isDone(x)).length;
+  return n?`<div class="card" style="background:transparent;border:1px solid rgba(51,15,15,.25)"><button type="button" class="btn" data-act="applyall" data-id="${e.id}" data-t="${tab}">Make these changes to all ${n} other ${esc(t.name)} events</button><p class="hint">Copies this tab to every upcoming ${esc(t.name)} event. Past events are left alone.</p></div>`:''}
+function tabBody(e,tab){return tabInner(e,tab)+(['overview','team','mise','buy','marketing'].includes(tab)?applyBtn(e,tab):'')}
+function tabInner(e,tab){
   if(tab==='overview') return `<div class="tiles">
      ${tile('seasonality','Date',`<input type="date" data-ev="${e.id}" data-k="date" value="${e.date}">`)}
      ${tile('category','Time',`<input type="text" data-ev="${e.id}" data-k="time" value="${esc(e.time)}" placeholder="Not stated">`)}
      ${tile('grower','Price (THB)',`<input type="text" data-ev="${e.id}" data-k="price" value="${esc(e.price)}" placeholder="Not stated">`)}
      ${tile('family','Guests',`<input type="text" data-ev="${e.id}" data-k="guests" value="${esc(e.guests)}" placeholder="Not stated">`)}</div>
-    <div class="card">${fld(e,'name','Event name')}${fld(e,'series','Series')}${fld(e,'purpose','Purpose')}${fld(e,'audience','Who it is for')}${fld(e,'takehome','What guests take home')}</div>
+    <div class="card">${fld(e,'name','Event name (type here to rename)')}${fld(e,'series','Series')}${fld(e,'purpose','Purpose')}${fld(e,'audience','Who it is for')}${fld(e,'takehome','What guests take home')}</div>
     <p class="hint"><button class="link" data-act="delev" data-id="${e.id}">Remove this event</button></p>`;
   if(tab==='team'){const n=e.duties.filter(d=>d.st==='done').length;return TEAMS.map(T=>{const L=e.duties.map((d,i)=>d.team===T[0]?dutyLine(e,'duties',i):'').join('');const c=e.duties.filter(d=>d.team===T[0]);
      return `<div class="card"><h2 style="display:flex;justify-content:space-between;align-items:baseline"><span>${T[1]}</span><span class="sm plum" style="font-family:var(--body)">${c.length?c.filter(d=>d.st==='done').length+' of '+c.length+' done':''}</span></h2>${L||'<p class="hint" style="margin-top:0">Nothing for this team yet.</p>'}
@@ -497,7 +513,7 @@ app.addEventListener('input',ev=>{const t=ev.target,d=t.dataset;
   if(d.set){S.SET.find(s=>s.id===d.set)[d.k]=t.value;save();return}
   if(d.setitem){S.SET.find(s=>s.id===d.setitem).items[+d.i]=t.value;save();return}
   if(!d.ev||t.type==='checkbox'||t.type==='date'||t.tagName==='SELECT')return;
-  const e=EV(d.ev); if(d.list)e[d.list][+d.i][d.k]=t.value; else if(d.k.includes('.'))e.notes[d.k.split('.')[1]]=t.value; else e[d.k]=t.value; save()});
+  const e=EV(d.ev); if(d.list)e[d.list][+d.i][d.k]=t.value; else if(d.k.includes('.'))e.notes[d.k.split('.')[1]]=t.value; else e[d.k]=t.value; if(d.k==='name'){const h=document.querySelector('.panel h1');if(h)h.textContent=t.value} save()});
 app.addEventListener('change',ev=>{const t=ev.target,d=t.dataset;
   if(d.open||d.cap){render();return}
   if(!d.ev)return;const e=EV(d.ev);
@@ -506,7 +522,7 @@ app.addEventListener('change',ev=>{const t=ev.target,d=t.dataset;
   else if(d.got!==undefined){e.buy[+d.got].got=t.checked}
   else if(t.type==='date'){if(!t.value)return;e.date=t.value;save();render();return}
   else if(t.tagName==='SELECT'){e[d.list][+d.i][d.k]=t.value}
-  else {if(d.k==='name'||d.k==='time'||d.k==='series')render();return}
+  else {return}
   save();retab()});
 app.addEventListener('click',ev=>{
   const a=ev.target.closest('a[href^="#/"]');
@@ -519,7 +535,7 @@ app.addEventListener('click',ev=>{
    case'del':e[d.list].splice(+d.i,1);break;
    case'toggleset':e.sets.includes(d.id)?e.sets.splice(e.sets.indexOf(d.id),1):e.sets.push(d.id);break;
    case'ch':e.ch.includes(d.id)?e.ch.splice(e.ch.indexOf(d.id),1):e.ch.push(d.id);break;
-   case'delev':if(d.sure){const m=pd(EV(d.id).date).getMonth();S.EV=S.EV.filter(x=>x.id!==d.id);save();go('/calendar/'+m)}else{b.dataset.sure=1;b.textContent='Click again to remove'}return;
+   case'delev':if(d.sure){const m=mi(EV(d.id).date);S.EV=S.EV.filter(x=>x.id!==d.id);save();go('/calendar/'+m)}else{b.dataset.sure=1;b.textContent='Click again to remove'}return;
    case'additem':S.SET.find(s=>s.id===d.id).items.push('');save();render();return;
    case'delitem':S.SET.find(s=>s.id===d.id).items.splice(+d.i,1);save();render();return;
    case'newset':{const id='s'+(S.seq++);S.SET.push({id,icon:'category',name:'New set',note:'',items:[]});save();go('/mise/'+id);return}
@@ -527,12 +543,21 @@ app.addEventListener('click',ev=>{
    case'delproj':S.PROJ[d.id].splice(+d.i,1);save();render();return;
    case'new':dialog(d.id);return;
    case'fill':S.fill=+d.id;save();render();return;
+   case'applyall':{if(!d.sure){b.dataset.sure=1;b.textContent='Click again to confirm';return}
+     const src=EV(d.id),reset=a=>clone(a).map(x=>{if(x.st)x.st='todo';if('got' in x)x.got=false;return x});let n=0;
+     S.EV.forEach(x=>{if(x===src||x.tpl!==src.tpl||isDone(x))return;n++;
+       if(d.t==='overview'){['time','price','guests','audience'].forEach(k=>x[k]=src[k]);if(x.base===src.base){['name','purpose','takehome','series'].forEach(k=>x[k]=src[k])}}
+       if(d.t==='team')x.duties=reset(src.duties);
+       if(d.t==='mise'){x.sets=src.sets.slice();x.packed={}}
+       if(d.t==='buy')x.buy=reset(src.buy);
+       if(d.t==='marketing'){x.mk=reset(src.mk);x.ch=src.ch.slice()}});
+     save();b.dataset.sure='';b.textContent='Done. Changed '+n+' events';return}
    case'applytpl':{const t=S.TPL.find(x=>x.id===d.id);let n=0;S.EV.forEach(e=>{if(e.tpl!==t.id)return;n++;['time','guests','audience','price'].forEach(k=>{if(!(k==='price'&&e.price==='Free'&&t.price!=='Free'&&e.name!==t.applied))e[k]=t[k]});if(e.name===t.applied){e.name=t.name;e.purpose=t.purpose;e.takehome=t.takehome}});t.applied=t.name;save();b.textContent='Updated '+n+' events';return}
    case'addidea':S.IDEAS.unshift({n:'',tpl:'gw',note:''});save();render();return;
    case'delidea':if(d.sure){S.IDEAS.splice(+d.i,1);save();render()}else{b.dataset.sure=1;b.textContent='Click again to remove'}return;
    case'ideacal':{const it=S.IDEAS[+d.i];dialog(it.tpl,it.n,it.note);return}
    case'close':{const v=document.querySelector('.veil');if(v)v.remove();return}
-   case'create':{const v=document.getElementById('nd').value;if(!v)return;const n=fromTpl(d.id,v);const nm=document.getElementById('nn').value.trim();if(nm)n.name=nm;if(b.dataset.note)n.purpose=b.dataset.note;S.EV.push(n);save();document.querySelector('.veil').remove();go('/event/'+n.id);return}
+   case'create':{const v=document.getElementById('nd').value;if(!v)return;const n=fromTpl(d.id,v);n.base=n.name;const nm=document.getElementById('nn').value.trim();if(nm)n.name=nm;if(b.dataset.note)n.purpose=b.dataset.note;S.EV.push(n);save();document.querySelector('.veil').remove();go('/event/'+n.id);return}
   }
   save();retab()});
 function dialog(tid,name,note){const t=S.TPL.find(x=>x.id===tid)||S.TPL[0];tid=t.id;const v=document.createElement('div');v.className='veil fi';
