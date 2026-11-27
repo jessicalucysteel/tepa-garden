@@ -5,15 +5,15 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="robots" content="noindex, nofollow">
 <meta name="color-scheme" content="light only">
-<title>Garden Calendar | Baan Tepa</title>
+<title>Garden Calendar | Tepa Garden</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Athiti:wght@400;500&family=Belleza&family=Hanken+Grotesk:wght@400;500&family=Instrument+Serif:ital@1&display=swap" rel="stylesheet">
 <style>
 :root{
   --white:#f5f4f0;--beige:#e6e1d6;--maroon:#330f0f;--plum:#734040;--red:#740b1b;--olive:#6c6947;--green:#485f2e;
-  --tan:#cfc0aa;--sand:#e2d9c6;--amber:#be9d70;
-  --sm:clamp(12px,.9vw,14px);--base:clamp(14px,1.05vw,16px);--lg:clamp(16px,1.2vw,18px);--xl:clamp(18px,1.5vw,22px);--x2:clamp(20px,1.9vw,28px);--x3:clamp(22px,3vw,44px);
+  --tan:#cfc0aa;--sand:#e2d9c6;
+  --sm:clamp(12px,.9vw,14px);--base:clamp(14px,1.05vw,16px);--lg:clamp(16px,1.2vw,18px);--xl:clamp(18px,1.5vw,22px);--x2:clamp(20px,1.9vw,28px);--x3:clamp(24px,3vw,44px);
   --classic:"Classico URW","Classico",Optima,"Belleza","Athiti",sans-serif;
   --body:"Akkurat","Hanken Grotesk","Athiti",Helvetica,Arial,sans-serif;
 }
@@ -23,55 +23,49 @@ body{background:var(--beige);color:var(--maroon);font-family:var(--body);font-si
 h1,h2,h3,.classic{font-family:var(--classic);font-weight:400;letter-spacing:0}
 a{color:inherit;text-decoration:none}
 button,input,select,textarea{font:inherit;color:inherit;letter-spacing:inherit}
-button{background:none;border:0;cursor:pointer}
+button{background:none;border:0;cursor:pointer;text-align:inherit}
 .sm{font-size:var(--sm)}.plum{color:var(--plum)}.it{font-family:"Simula","Instrument Serif",serif;font-style:italic}
 .wrap{max-width:1305px;margin:0 auto;padding:0 24px}
 .fi{animation:fi .7s ease-in-out both}
 @keyframes fi{from{opacity:0}to{opacity:1}}
 
-/* header */
-header{position:sticky;top:0;z-index:30;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:linear-gradient(rgba(230,225,214,.92),rgba(230,225,214,0))}
-header .wrap{display:flex;align-items:center;justify-content:space-between;height:104px}
-header .logo{width:161px;height:67px;display:block}
-nav{display:flex;gap:44px;font-size:20px}.hd-r{font-size:20px}
-.ul{position:relative;display:inline-block;padding-bottom:2px}
+header{position:sticky;top:0;z-index:30;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:linear-gradient(rgba(230,225,214,.94),rgba(230,225,214,0))}
+header .wrap{display:flex;align-items:center;justify-content:space-between;gap:20px;height:104px}
+header .logo{width:150px;height:63px;display:block;color:var(--red);flex:none}
+nav{display:flex;gap:clamp(16px,3vw,44px);font-size:clamp(15px,1.5vw,20px)}
+.hd-r{font-size:clamp(15px,1.5vw,20px);white-space:nowrap}
+.ul{position:relative;display:inline-block;padding-bottom:2px;white-space:nowrap}
 .ul:after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s ease-in-out}
 .ul:hover:after,.ul.on:after{transform:scaleX(1)}
-.burger{display:none}
+.burger{display:none;line-height:0}
 .mob{display:none}
-@media(max-width:1099px){
+@media(max-width:759px){
   header .wrap{height:76px;display:grid;grid-template-columns:1fr auto 1fr}
-  header .logo{width:110px;height:46px}
-  nav{display:none}.burger{display:block;justify-self:start;line-height:0}.hd-r{justify-self:end;font-size:var(--sm)}
+  header .logo{width:104px;height:44px}
+  nav{display:none}.burger{display:block;justify-self:start}.hd-r{justify-self:end;font-size:var(--sm)}
   .mob{position:fixed;inset:0;background:#e5d2be;z-index:40;padding:28px 24px;flex-direction:column;gap:26px;font-family:var(--classic);font-size:28px}
   .mob.open{display:flex}
   .mob button{align-self:flex-end;font-size:26px;line-height:1}
 }
-
-/* buttons */
 .btn{display:inline-block;border:1px solid var(--maroon);padding:8px 14px;font-size:var(--sm);transition:all .3s ease-in-out;background:transparent;white-space:nowrap}
 .btn:hover,.btn.on{background:var(--red);border-color:var(--red);color:var(--beige)}
 .link{font-size:var(--sm);border-bottom:1px solid currentColor;padding-bottom:1px}
 .link:hover{color:var(--red)}
 
-/* calendar */
-.title{text-align:center;padding:36px 0 10px}
+.title{text-align:center;padding:30px 0 10px}
+.title .eyebrow{font-family:var(--classic);letter-spacing:.34em;font-size:var(--sm);color:var(--red);margin-bottom:14px}
 .title h1{font-size:var(--x3);line-height:1.15}
 .title p{margin-top:10px;color:var(--plum)}
-.months{display:flex;justify-content:center;align-items:center;gap:26px;margin:34px 0 26px}
-.months h2{font-size:var(--x2);min-width:210px;text-align:center}
-.months .count{font-size:var(--sm);color:var(--plum);min-width:60px;text-align:center}
+.months{display:flex;justify-content:center;align-items:center;gap:26px;margin:30px 0 22px}
+.months h2{font-size:var(--x2);min-width:190px;text-align:center}
 .arrow{width:38px;height:38px;border:1px solid var(--maroon);display:grid;place-items:center;transition:all .3s}
-.arrow:hover{background:var(--red);border-color:var(--red)}
-.arrow:hover{color:var(--beige)}
-.arrow svg{width:19px}
-.arrow.next svg{transform:scaleX(-1)}
-.strip{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;font-size:var(--sm);margin-bottom:34px}
+.arrow:hover{background:var(--red);border-color:var(--red);color:var(--beige)}
+.arrow svg{width:19px}.arrow.next svg{transform:scaleX(-1)}
+.strip{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 20px;font-size:var(--sm);margin-bottom:30px}
 .dow{display:grid;grid-template-columns:repeat(7,1fr);font-size:var(--sm);color:var(--plum);padding-bottom:10px}
 .grid{display:grid;grid-template-columns:repeat(7,1fr);border-top:1px solid var(--maroon)}
-.cell{min-height:138px;padding:12px 12px 16px 0;border-bottom:1px solid rgba(51,15,15,.25)}
+.cell{min-height:128px;padding:12px 10px 16px 0;border-bottom:1px solid rgba(51,15,15,.25);min-width:0}
 .cell .d{font-family:var(--classic);font-size:var(--lg)}
-.cell.out .d{opacity:.25}
 .cell.today .d{color:var(--red);border-bottom:1px solid var(--red);display:inline-block}
 .ev{display:block;margin-top:10px;font-size:var(--sm);line-height:1.35;transition:color .3s}
 .ev b{font-weight:400;font-family:var(--classic);font-size:var(--base);display:block}
@@ -82,111 +76,125 @@ nav{display:flex;gap:44px;font-size:20px}.hd-r{font-size:20px}
 .list{display:none;border-top:1px solid var(--maroon)}
 .row{display:grid;grid-template-columns:64px 1fr;gap:14px;padding:16px 0;border-bottom:1px solid rgba(51,15,15,.25)}
 .row .d{font-family:var(--classic);font-size:var(--xl);line-height:1.1}
-@media(max-width:899px){.grid,.dow{display:none}.list{display:block}.months{gap:12px}.months h2{min-width:150px}.strip{display:none}}
-.foot{padding:60px 0 150px;text-align:center;color:var(--plum);font-size:var(--sm)}
+@media(max-width:699px){.grid,.dow{display:none}.list{display:block}.months{gap:12px}.months h2{min-width:150px}.strip{display:none}}
+.foot{padding:60px 0 150px;text-align:center;color:var(--red);font-family:var(--classic);letter-spacing:.34em;font-size:var(--sm)}
 
-/* index grids (sets, templates) */
-.index{display:grid;grid-template-columns:repeat(4,1fr);gap:40px 80px;margin-top:50px}
-.item{display:block;text-align:left}
-.item .ph{aspect-ratio:1;border-radius:50%;background:var(--sand);overflow:hidden;display:grid;place-items:center;transition:background .3s}
-.item .ph img{width:100%;height:100%;object-fit:cover}
-.item .ph span{font-family:var(--classic);font-size:var(--x2);color:var(--tan)}
-.item:hover .ph{background:var(--tan)}
-.item .tx{margin-top:40px;border-top:1px solid var(--maroon);padding-top:12px}
-.item .tx h3{font-size:var(--lg)}
-@media(max-width:1099px){.index{grid-template-columns:repeat(3,1fr);gap:28px 20px}.item .tx{margin-top:18px}}
-.centre{text-align:center;margin-top:50px}
+/* tiles and cards (as on the ingredient page) */
+.ic{width:43px;height:43px;border-radius:8px;background:var(--beige);display:grid;place-items:center;flex:none;color:var(--maroon)}
+.ic svg{width:20px;height:20px}
+.cards{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:44px}
+@media(max-width:1099px){.cards{grid-template-columns:repeat(3,1fr)}}
+@media(max-width:759px){.cards{grid-template-columns:repeat(2,1fr)}}
+@media(max-width:459px){.cards{grid-template-columns:1fr}}
+.tcard{background:#fff;border-radius:14px;padding:18px;display:block;width:100%;transition:background .3s ease-in-out}
+.tcard:hover{background:var(--white)}
+.tcard h3{font-size:var(--lg);margin-top:26px}
+.tcard.on{outline:1px solid var(--red)}
+.tcard.on .ic{background:var(--red);color:var(--beige)}
+.centre{text-align:center;margin-top:44px}
 
-/* detail page */
 .detail{background:var(--white);min-height:100vh}
-.photo{position:relative;height:46vh;background:#201d1a center/cover}
-.photo:before{content:"";position:absolute;inset:0;background:rgba(0,0,0,.3)}
-.cap{position:absolute;left:24px;bottom:24px;right:24px;max-width:420px;border-radius:14px;padding:24px;background:rgba(104,87,87,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);color:var(--white)}
-.cap h1{font-size:var(--x2);line-height:1.2}
-.cap p{font-size:var(--sm);margin-top:6px}
-.pane{padding:28px 24px 170px}
-.back{display:inline-flex;align-items:center;gap:10px;font-size:var(--sm);margin-bottom:26px}
+.panel{position:relative;background:var(--red);color:var(--white);padding:104px 24px 30px;min-height:250px;display:flex;flex-direction:column;justify-content:flex-end}
+.panel h1{font-size:var(--x3);line-height:1.12}
+.panel p{margin-top:8px;font-size:var(--base)}
+.panel .eyebrow{font-family:var(--classic);letter-spacing:.34em;font-size:var(--sm);margin-bottom:14px}
+.detail header{position:absolute;left:0;right:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;color:var(--white)}
+.detail header .logo{color:var(--white)}
+.pane{padding:26px 24px 170px}
+.back{display:inline-flex;align-items:center;gap:10px;font-size:var(--sm);margin-bottom:22px}
 .back svg{width:19px}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.tile{background:#fff;border-radius:14px;padding:12px;display:flex;gap:12px;align-items:center}
-.tile .ic{width:43px;height:43px;border-radius:8px;background:var(--beige);display:grid;place-items:center;flex:none}
-.tile .ic svg{width:20px;height:20px}
+.tile{background:#fff;border-radius:14px;padding:12px;display:flex;gap:12px;align-items:center;min-width:0}
 .tile label{display:block;font-size:var(--sm)}
-.tile input,.tile select{border:0;background:transparent;color:var(--plum);font-size:var(--sm);width:100%;outline:0;padding:0}
+.tile input{border:0;background:transparent;color:var(--plum);font-size:var(--sm);width:100%;outline:0;padding:0}
 .card{background:#fff;border-radius:14px;padding:26px;margin-top:12px}
 .card h2{font-size:var(--xl);margin-bottom:18px}
-.f{margin-bottom:28px}.f:last-child{margin-bottom:0}
+.f{margin-bottom:26px}.f:last-child{margin-bottom:0}
 .f label{display:block;font-size:var(--sm);margin-bottom:4px}
-.f textarea,.f input[type=text]{width:100%;border:0;border-bottom:1px solid transparent;background:transparent;resize:none;outline:0;font-size:var(--base);line-height:1.5;overflow:hidden}
+.f textarea,.f input[type=text]{width:100%;border:0;border-bottom:1px solid transparent;background:transparent;resize:none;outline:0;font-size:var(--base);line-height:1.5;overflow:hidden;color:var(--plum)}
 .f textarea:hover,.f textarea:focus,.f input:focus,.f input:hover{border-bottom-color:var(--tan)}
 ::placeholder{color:#b9aa9c}
-@media(min-width:1100px){
-  .photo{position:fixed;left:0;top:0;width:50%;height:100vh}
-  .pane{margin-left:50%;padding:132px 40px 170px}
-  .detail header{position:absolute;left:0;right:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none}
+@media(min-width:900px){
+  .panel{position:fixed;left:0;top:0;width:42%;height:100vh;padding:40px}
+  .pane{margin-left:42%;padding:40px 40px 170px}
+  .detail header{width:42%;right:auto}
   .detail header nav,.detail header .hd-r{display:none}
-  .detail header .logo{color:var(--white)}
+  .detail header .wrap{padding:0 40px}
+  .detail .bar{left:71%;max-width:calc(58vw - 24px)}
 }
-/* lines in cards */
 .line{display:grid;grid-template-columns:22px 1fr 22px;gap:10px;align-items:center;padding:12px 0;border-top:1px solid rgba(51,15,15,.14)}
 .line:first-of-type{border-top:0}
 .line.buy{grid-template-columns:22px 1fr 60px 86px 22px}
 .line.mk{grid-template-columns:1fr 22px}
 .line .p,.line .s{grid-column:2;max-width:220px}.line.mk .p,.line.mk .s{grid-column:1}
 @media(min-width:601px){.line:not(.buy){grid-template-columns:22px 1fr 1fr 22px}.line:not(.buy)>input[type=text]{grid-column:2/4}.line .p{grid-column:2}.line .s{grid-column:3}.line.mk{grid-template-columns:1fr 1fr 22px}.line.mk>input[type=text]{grid-column:1/3}.line.mk .p{grid-column:1}.line.mk .s{grid-column:2}.line:not(.buy) .x{grid-row:1;grid-column:-2}}
-.line input[type=text],.line input[type=number]{border:0;background:transparent;outline:0;width:100%;font-size:var(--base);border-bottom:1px solid transparent}
+.line input[type=text]{border:0;background:transparent;outline:0;width:100%;font-size:var(--base);border-bottom:1px solid transparent;min-width:0}
 .line input:focus{border-bottom-color:var(--tan)}
-.line select{border:1px solid rgba(51,15,15,.3);background:transparent;padding:6px 6px;font-size:var(--sm);width:100%;border-radius:0;outline:0}
+select{border:1px solid rgba(51,15,15,.3);background:transparent;padding:6px;font-size:var(--sm);width:100%;border-radius:0;outline:0}
 .line.is-done input[type=text]{color:#a39489;text-decoration:line-through}
 .x{color:#b9aa9c;font-size:18px;line-height:1}.x:hover{color:var(--red)}
 input[type=checkbox]{appearance:none;-webkit-appearance:none;width:18px;height:18px;border:1px solid var(--maroon);display:inline-grid;place-items:center;cursor:pointer;flex:none;background:transparent}
 input[type=checkbox]:checked{background:var(--red);border-color:var(--red)}
 input[type=checkbox]:checked:after{content:"";width:9px;height:5px;border-left:1.5px solid var(--beige);border-bottom:1.5px solid var(--beige);transform:rotate(-45deg) translateY(-1px)}
-.st-todo{}.st-prog{background:#efe2c8!important}.st-done{background:#dfe5d3!important}.st-stuck{background:#ecd3d1!important}
+.st-prog{background:#efe2c8}.st-done{background:#dfe5d3}.st-stuck{background:#ecd3d1}
 .add{margin-top:16px}
 .hint{font-size:var(--sm);color:var(--plum);margin-top:14px}
-.sets{display:grid;grid-template-columns:repeat(4,1fr);gap:22px 20px}
-.sets .item .tx{margin-top:14px}
-.sets .item.on .ph{outline:1px solid var(--red);outline-offset:4px}
-@media(max-width:600px){.sets{grid-template-columns:repeat(3,1fr)}.line.buy{grid-template-columns:22px 1fr 50px 70px 22px}}
+.sets{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.sets .tcard{background:var(--white);padding:14px}
+.sets .tcard h3{margin-top:16px;font-size:var(--base)}
+@media(max-width:520px){.sets{grid-template-columns:repeat(2,1fr)}.line.buy{grid-template-columns:22px 1fr 44px 70px 22px}}
 .check{display:flex;gap:12px;align-items:center;padding:9px 0}
-.tot{display:flex;justify-content:space-between;padding:12px 0;border-top:1px solid rgba(51,15,15,.14)}
+.tot{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid rgba(51,15,15,.14)}
 .tot:first-of-type{border-top:0}
 .tot.big{font-family:var(--classic);font-size:var(--xl)}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
 
-/* floating tab bar */
-.bar{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);z-index:35;display:flex;gap:14px;padding:14px;border-radius:14px;background:rgba(104,87,87,.4);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);max-width:calc(100vw - 24px);overflow-x:auto;scrollbar-width:none}
+.bar{position:fixed;left:50%;bottom:30px;transform:translateX(-50%);z-index:35;display:flex;gap:14px;padding:14px;border-radius:14px;background:rgba(104,87,87,.55);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);max-width:calc(100vw - 24px);overflow-x:auto;scrollbar-width:none}
 .bar::-webkit-scrollbar{display:none}
 .bar button{border:1px solid var(--beige);color:var(--white);font-size:14px;padding:8px 14px;white-space:nowrap;transition:all .3s ease-in-out}
 .bar button:hover{background:rgba(255,255,255,.15)}
 .bar button.on{background:rgba(255,255,255,.3);border-color:transparent}
-@media(min-width:1100px){.detail .bar{left:75%}}
 @media(max-width:600px){.bar{bottom:14px;gap:8px;padding:10px}}
 
-/* dialog */
+/* projection */
+.plans{display:flex;justify-content:center;flex-wrap:wrap;gap:10px;margin:34px 0 8px}
+.ptable{width:100%;border-collapse:collapse;margin-top:6px}
+.ptable th{font-weight:400;font-size:var(--sm);color:var(--plum);text-align:right;padding:8px 6px;border-bottom:1px solid var(--maroon);vertical-align:bottom;line-height:1.25}
+.ptable th:first-child,.ptable td:first-child{text-align:left;padding-left:0}
+.ptable td{padding:8px 6px;border-bottom:1px solid rgba(51,15,15,.14);text-align:right;white-space:nowrap}
+.ptable input{border:0;border-bottom:1px solid var(--tan);background:transparent;outline:0;width:100%;text-align:right;padding:4px 0;min-width:0}
+.ptable td:first-child input{text-align:left;font-family:var(--classic);font-size:var(--lg);min-width:150px}
+.ptable input:focus{border-bottom-color:var(--red)}
+.ptable .n{width:9%}
+.scroll{overflow-x:auto}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:12px}
+@media(max-width:759px){.kpis{grid-template-columns:1fr 1fr}}
+.kpi{background:#fff;border-radius:14px;padding:16px}
+.kpi b{display:block;font-weight:400;font-family:var(--classic);font-size:var(--x2);line-height:1.2;margin-top:6px}
+.cmp{display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:0}
+.cmp>div{padding:11px 6px;border-top:1px solid rgba(51,15,15,.14);text-align:right}
+.cmp>div:nth-child(4n+1){text-align:left;padding-left:0;color:var(--plum);font-size:var(--sm)}
+.cmp>.h{border-top:0;font-family:var(--classic);font-size:var(--lg)}
+.neg{color:var(--red)}
+.band{background:var(--olive);color:var(--white);border-radius:14px;padding:26px;margin-top:12px;display:grid;grid-template-columns:repeat(3,1fr);gap:24px}
+.band div{border-left:1px solid rgba(245,244,240,.5);padding-left:16px}
+.band h3{font-size:var(--xl);margin-bottom:6px}
+.band p{font-size:var(--sm);line-height:1.6}
+@media(max-width:759px){.band{grid-template-columns:1fr}}
+
 .veil{position:fixed;inset:0;background:rgba(32,29,26,.45);z-index:50;display:grid;place-items:center;padding:20px}
 .dlg{background:var(--white);border-radius:14px;padding:30px;width:100%;max-width:420px}
 .dlg h2{font-size:var(--x2);margin-bottom:20px}
 .dlg label{display:block;font-size:var(--sm);margin:14px 0 6px}
-.dlg input,.dlg select{width:100%;border:1px solid rgba(51,15,15,.3);background:transparent;padding:9px 10px;border-radius:0;outline:0}
+.dlg input{width:100%;border:1px solid rgba(51,15,15,.3);background:transparent;padding:9px 10px;border-radius:0;outline:0}
 .dlg .acts{display:flex;gap:10px;justify-content:flex-end;margin-top:24px}
 </style>
 </head>
 <body>
 <div id="app"></div>
 <script>
-const SITE='https://baantepabkk.com';
-const cms=(p,w)=>SITE+'/_next/image?url='+encodeURIComponent('https://cms.baantepabkk.com/wp-content/uploads/'+p)+'&w='+(w||1920)+'&q=100';
-const PH={
-  tour:cms('2026/11/Screenshot-2569-11-18-at-10.54.30.png'),
-  work:cms('2026/11/Screenshot-2569-11-18-at-10.55.19.png'),
-  grow:cms('2026/11/Screenshot-2569-11-18-at-10.56.02.png'),
-  seed:cms('2026/10/gallery-1-garden-seed.jpg'),
-  bed:cms('2026/10/gallery-2-garden-seed.jpg')
-};
-const ICONS={"arrow-left-dark": "<svg width=\"19\" height=\"11\" viewBox=\"0 0 19 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 5.5H1M5.1 1.2.8 5.5l4.3 4.3\"/></svg>", "menu-dark": "<svg width=\"32\" height=\"17\" viewBox=\"0 0 32 17\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"square\"><path d=\"M.75 1.5h30M.75 8.5h30M.75 15.5h30\"/></svg>", "grower": "<svg width=\"21\" height=\"16\" viewBox=\"0 0 21 16\" fill=\"currentColor\"><path d=\"M20.5746 1.19861C18.7984 0.350061 16.7505 0.271018 14.9135 0.980608C13.0766 1.69106 11.6139 3.12672 10.8695 4.94986C10.1252 3.12683 8.66262 1.69121 6.82559 0.980608C4.98866 0.271025 2.9406 0.350068 1.16454 1.19861C0.971722 1.2898 0.852745 1.48783 0.864018 1.70148C0.979531 3.94669 2.14335 6.00669 4.00727 7.26448C5.87112 8.52209 8.21709 8.8313 10.3422 8.09826V14.9726C10.3422 15.2636 10.5785 15.4998 10.8694 15.4998C11.1604 15.4998 11.3966 15.2636 11.3966 14.9726V8.09826C13.5219 8.83043 15.8677 8.52122 17.7307 7.26361C19.5946 6.006 20.7583 3.94582 20.8749 1.7015C20.8861 1.48784 20.7674 1.28979 20.5746 1.19861Z\"/></svg>", "seasonality": "<svg width=\"20\" height=\"21\" viewBox=\"0 0 20 21\" fill=\"currentColor\"><path fill-rule=\"evenodd\" d=\"M5.1.5h1.6v1.5h2.4V.5h1.6v1.5h2.4V.5h1.5v1.5h.8a4 4 0 0 1 4 4v10.6a4 4 0 0 1-4 4H4.3a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h.8V.5ZM2 7.4h15.8V6a2.3 2.3 0 0 0-2.4-2.4H4.3A2.3 2.3 0 0 0 2 6v1.4Z\"/></svg>", "category": "<svg width=\"19\" height=\"19\" viewBox=\"0 0 19 19\" fill=\"currentColor\"><path d=\"M2.94 8.58H7.8c.36 0 .65-.29.65-.65V3.07A2.57 2.57 0 0 0 5.88.5H2.94A2.57 2.57 0 0 0 .37 3.07V6a2.57 2.57 0 0 0 2.57 2.58ZM15.8.5h-2.93a2.57 2.57 0 0 0-2.57 2.57v4.86c0 .36.28.65.64.65h4.86A2.57 2.57 0 0 0 18.37 6V3.07A2.57 2.57 0 0 0 15.8.5ZM2.94 18.5h2.94a2.57 2.57 0 0 0 2.57-2.57v-4.86a.64.64 0 0 0-.65-.64H2.94a2.57 2.57 0 0 0-2.57 2.57v2.93a2.57 2.57 0 0 0 2.57 2.57ZM15.8 10.43h-4.86a.64.64 0 0 0-.64.64v4.86a2.57 2.57 0 0 0 2.57 2.57h2.93a2.57 2.57 0 0 0 2.57-2.57V13a2.57 2.57 0 0 0-2.57-2.57Z\"/></svg>", "family": "<svg width=\"22\" height=\"20\" viewBox=\"0 0 22 20\" fill=\"currentColor\"><circle cx=\"10.87\" cy=\"5\" r=\"4.5\"/><circle cx=\"16.87\" cy=\"15\" r=\"4.5\"/><circle cx=\"4.87\" cy=\"15\" r=\"4.5\"/></svg>"};
-const IC=n=>ICONS[n];
+const ICONS={"arrow-left-dark": "<svg width=\"19\" height=\"11\" viewBox=\"0 0 19 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 5.5H1M5.1 1.2.8 5.5l4.3 4.3\"/></svg>", "menu-dark": "<svg width=\"32\" height=\"17\" viewBox=\"0 0 32 17\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"square\"><path d=\"M.75 1.5h30M.75 8.5h30M.75 15.5h30\"/></svg>", "grower": "<svg width=\"21\" height=\"16\" viewBox=\"0 0 21 16\" fill=\"currentColor\"><path d=\"M20.5746 1.19861C18.7984 0.350061 16.7505 0.271018 14.9135 0.980608C13.0766 1.69106 11.6139 3.12672 10.8695 4.94986C10.1252 3.12683 8.66262 1.69121 6.82559 0.980608C4.98866 0.271025 2.9406 0.350068 1.16454 1.19861C0.971722 1.2898 0.852745 1.48783 0.864018 1.70148C0.979531 3.94669 2.14335 6.00669 4.00727 7.26448C5.87112 8.52209 8.21709 8.8313 10.3422 8.09826V14.9726C10.3422 15.2636 10.5785 15.4998 10.8694 15.4998C11.1604 15.4998 11.3966 15.2636 11.3966 14.9726V8.09826C13.5219 8.83043 15.8677 8.52122 17.7307 7.26361C19.5946 6.006 20.7583 3.94582 20.8749 1.7015C20.8861 1.48784 20.7674 1.28979 20.5746 1.19861Z\"/></svg>", "seasonality": "<svg width=\"20\" height=\"21\" viewBox=\"0 0 20 21\" fill=\"currentColor\"><path fill-rule=\"evenodd\" d=\"M5.1.5h1.6v1.5h2.4V.5h1.6v1.5h2.4V.5h1.5v1.5h.8a4 4 0 0 1 4 4v10.6a4 4 0 0 1-4 4H4.3a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h.8V.5ZM2 7.4h15.8V6a2.3 2.3 0 0 0-2.4-2.4H4.3A2.3 2.3 0 0 0 2 6v1.4Z\"/></svg>", "category": "<svg width=\"19\" height=\"19\" viewBox=\"0 0 19 19\" fill=\"currentColor\"><path d=\"M2.94 8.58H7.8c.36 0 .65-.29.65-.65V3.07A2.57 2.57 0 0 0 5.88.5H2.94A2.57 2.57 0 0 0 .37 3.07V6a2.57 2.57 0 0 0 2.57 2.58ZM15.8.5h-2.93a2.57 2.57 0 0 0-2.57 2.57v4.86c0 .36.28.65.64.65h4.86A2.57 2.57 0 0 0 18.37 6V3.07A2.57 2.57 0 0 0 15.8.5ZM2.94 18.5h2.94a2.57 2.57 0 0 0 2.57-2.57v-4.86a.64.64 0 0 0-.65-.64H2.94a2.57 2.57 0 0 0-2.57 2.57v2.93a2.57 2.57 0 0 0 2.57 2.57ZM15.8 10.43h-4.86a.64.64 0 0 0-.64.64v4.86a2.57 2.57 0 0 0 2.57 2.57h2.93a2.57 2.57 0 0 0 2.57-2.57V13a2.57 2.57 0 0 0-2.57-2.57Z\"/></svg>", "family": "<svg width=\"22\" height=\"20\" viewBox=\"0 0 22 20\" fill=\"currentColor\"><circle cx=\"10.87\" cy=\"5\" r=\"4.5\"/><circle cx=\"16.87\" cy=\"15\" r=\"4.5\"/><circle cx=\"4.87\" cy=\"15\" r=\"4.5\"/></svg>", "drop": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M10 1.5c3 3.6 5.5 6.5 5.5 9.9a5.5 5.5 0 0 1-11 0C4.5 8 7 5.1 10 1.5Z\"/></svg>", "jar": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M6 1.5h8V4H6zM5 5.5h10A1.5 1.5 0 0 1 16.500 7v9.5a2 2 0 0 1-2 2h-9a2 2 0 0 1-2-2V7A1.500 1.500 0 0 1 5 5.500Z\"/></svg>", "plate": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path fill-rule=\"evenodd\" d=\"M10 1.500a8.500 8.500 0 1 1 0 17 8.500 8.500 0 0 1 0-17Zm0 2.800a5.700 5.700 0 1 0 0 11.400 5.700 5.700 0 0 0 0-11.400Z\"/><circle cx=\"10\" cy=\"10\" r=\"3.600\"/></svg>", "bucket": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M2 3h16v1.800H2zM3 6.300h14L15.400 17a1.800 1.800 0 0 1-1.800 1.500H6.400A1.800 1.800 0 0 1 4.600 17L3 6.300Z\"/></svg>", "cup": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M2.500 5h12v5a6 6 0 0 1-12 0V5ZM15.500 6h1a2.500 2.500 0 0 1 0 5h-1V9.400h1a.900.900 0 0 0 0-1.800h-1V6ZM3 17h11v1.600H3z\"/></svg>", "pot": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M8.500 2h3v1.800h-3zM2 4.800h16v1.800H2zM3 8h14v6.500a3 3 0 0 1-3 3H6a3 3 0 0 1-3-3V8Z\"/></svg>", "print": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path fill-rule=\"evenodd\" d=\"M2.500 2.500h10v10h-10zM7.500 7.500h10v10h-10z\"/></svg>", "moon": "<svg width=\"20\" height=\"20\" viewBox=\"0 0 20 20\" fill=\"currentColor\"><path d=\"M16.800 12.600A7.600 7.600 0 0 1 7.400 3.200a8 8 0 1 0 9.400 9.400Z\"/></svg>"};
+const IC=n=>ICONS[n]||ICONS.category;
 const LOGO="<svg class=\"logo\" viewBox=\"0 0 162 68\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Baan Tepa\"><path d=\"M159.808 66.8467C159.011 66.7241 158.344 66.1823 158.066 65.4244C155.67 58.9132 144.531 28.6498 144.531 28.6498C143.783 26.618 144.789 25.6344 145.563 25.199L143.512 24.8281C143.512 24.8281 141.387 25.3667 140.613 27.4726L126.51 65.4051C126.226 66.1694 125.542 66.7177 124.733 66.8273L122.446 67.1369L122.785 67.582C122.862 67.6819 122.982 67.74 123.107 67.7367L126.374 67.6271C126.478 67.6239 126.584 67.6239 126.687 67.6271L130.825 67.74C130.944 67.7432 131.057 67.6916 131.134 67.6013L131.476 67.1982L130.57 67.0369C129.225 66.7983 128.413 65.4147 128.864 64.1248L132.247 54.4659C132.492 53.766 133.15 53.3017 133.892 53.3017H148.424L152.203 64.0957C152.658 65.3954 151.829 66.7918 150.472 67.0143L149.323 67.2014L149.698 67.5916C149.794 67.6916 149.927 67.7464 150.062 67.7432L155.428 67.6239L160.962 67.7432C161.108 67.7432 161.249 67.6852 161.346 67.5723L161.717 67.1401L159.808 66.8467ZM133.044 52.218L140.806 30.1623L140.945 31.0782C141.074 31.9328 141.28 32.7713 141.564 33.5872L148.114 52.218H133.044Z\"/><path d=\"M75.9194 54.0213C75.6356 54.0632 75.4389 54.3212 75.426 54.605C75.1003 61.2227 69.105 66.3634 62.4325 66.473L51.9867 66.5117C51.9867 66.5117 53.2509 66.3215 53.2509 64.2026V46.5329C53.2509 46.0588 53.6379 45.6782 54.112 45.6847L58.3625 45.7266C62.3486 45.7911 65.5801 48.9452 65.7671 52.899C65.7768 53.0861 65.9252 53.2376 66.1154 53.2376C66.3057 53.2376 66.4637 53.0828 66.4637 52.8893V37.5319C66.4637 37.3384 66.3089 37.1836 66.1154 37.1836C65.9219 37.1836 65.7768 37.3352 65.7671 37.5222C65.5801 41.4535 62.3841 44.5882 58.4335 44.6882L54.8666 44.7236C54.2732 44.7236 53.7411 44.7978 53.2509 44.9268C50.816 45.5589 49.6002 47.5842 49.0004 49.3257C48.6005 50.4899 48.4199 51.7187 48.4199 52.9506V64.6896C48.4199 65.7797 47.6233 66.7085 46.5461 66.8762L44.4854 67.1954L44.7692 67.5308C44.882 67.6631 45.0497 67.7405 45.2239 67.734L50.8386 67.6179L75.197 67.7372C75.5905 67.7372 75.9485 67.447 75.9743 67.0535L76.5999 54.5954C76.5999 54.2438 76.2903 53.9665 75.9291 54.0181L75.9194 54.0213Z\"/><path d=\"M33.0756 26.6901C33.053 26.374 32.7853 26.1289 32.4661 26.1289L16.5088 26.2482L0.674024 26.1289C0.354749 26.1289 0.090299 26.3708 0.064499 26.6901L0 36.0587C0 36.2877 0.183825 36.4715 0.4128 36.4715C0.641775 36.4715 0.815924 36.2941 0.825599 36.0684C1.04812 31.3663 4.89233 27.3576 9.62985 27.2835H13.8836C14.032 27.2835 14.1545 27.406 14.1545 27.5544V66.5865L9.17835 67.138L9.56212 67.5831C9.6492 67.6863 9.78142 67.7443 9.91687 67.7411L16.5733 67.6218L22.9685 67.7379C23.1523 67.7411 23.3232 67.6572 23.4361 67.5121L23.7231 67.1348L18.992 66.5833V29.3571C18.992 27.5318 17.7278 27.277 17.7278 27.277H23.5231C28.2607 27.3544 32.1049 31.3631 32.3274 36.0651C32.3371 36.2877 32.5144 36.4683 32.7402 36.4683C32.9659 36.4683 33.153 36.2844 33.153 36.0555L33.0788 26.6868L33.0756 26.6901Z\"/><path d=\"M77.9421 14.6899C77.6648 14.6479 77.4293 14.4577 77.3326 14.1932C76.4941 11.9164 72.6015 1.33514 72.6015 1.33514C72.3403 0.625645 72.6918 0.280573 72.9627 0.128998L72.2468 0C72.2468 0 71.5018 0.187048 71.2341 0.925573L66.3031 14.19C66.2031 14.4577 65.9645 14.6479 65.6807 14.6866L64.8809 14.7963L65.0002 14.9511C65.026 14.9866 65.0679 15.0059 65.1131 15.0059L66.2547 14.9672C66.2902 14.9672 66.3289 14.9672 66.3644 14.9672L67.8124 15.0059C67.8543 15.0059 67.893 14.9898 67.9188 14.9575L68.0381 14.8156L67.7221 14.7608C67.2512 14.677 66.9674 14.1932 67.1255 13.7417L68.309 10.3651C68.3961 10.12 68.6251 9.95879 68.8831 9.95879H73.9657L75.2879 13.732C75.446 14.1868 75.1557 14.6737 74.6816 14.7511L74.2817 14.8156L74.414 14.9511C74.4462 14.9866 74.4946 15.0059 74.543 15.0027L76.4199 14.9608L78.3549 15.0027C78.4065 15.0027 78.4549 14.9833 78.4871 14.9446L78.6161 14.7931L77.9486 14.6899H77.9421ZM68.5832 9.57503L71.2986 1.86405L71.347 2.18332C71.3921 2.48325 71.4631 2.77672 71.5631 3.06052L73.8528 9.57503H68.5832Z\"/><path d=\"M93.8864 14.6899C93.6091 14.6479 93.3737 14.4577 93.2769 14.1932C92.4384 11.9164 88.5458 1.33514 88.5458 1.33514C88.2846 0.625645 88.6361 0.280573 88.907 0.128998L88.1911 0C88.1911 0 87.4461 0.187048 87.1784 0.925573L82.2474 14.19C82.1474 14.4577 81.9088 14.6479 81.625 14.6866L80.8252 14.7963L80.9445 14.9511C80.9703 14.9866 81.0122 15.0059 81.0574 15.0059L82.199 14.9672C82.2345 14.9672 82.2732 14.9672 82.3087 14.9672L83.7567 15.0059C83.7986 15.0059 83.8373 14.9898 83.8631 14.9575L83.9825 14.8156L83.6664 14.7608C83.1956 14.677 82.9118 14.1932 83.0698 13.7417L84.2534 10.3651C84.3404 10.12 84.5694 9.95879 84.8274 9.95879H89.91L91.2323 13.732C91.3903 14.1868 91.1 14.6737 90.626 14.7511L90.2261 14.8156L90.3583 14.9511C90.3905 14.9866 90.4389 15.0059 90.4873 15.0027L92.3642 14.9608L94.2992 15.0027C94.3508 15.0027 94.3992 14.9833 94.4315 14.9446L94.5605 14.7931L93.8929 14.6899H93.8864ZM84.5275 9.57503L87.2429 1.86405L87.2913 2.18332C87.3365 2.48325 87.4074 2.77672 87.5074 3.06052L89.7971 9.57503H84.5275Z\"/><path d=\"M58.2012 7.17232C60.0072 6.6531 61.3552 5.15992 61.3552 3.54097C61.3552 1.92202 60.0265 0.42885 57.2692 0.451425H51.29C51.2577 0.451425 51.2287 0.467548 51.2094 0.490123L51.0804 0.644927L51.8028 0.757794C52.1801 0.815844 52.4574 1.14158 52.4574 1.52213V13.9481C52.4574 14.3286 52.1769 14.6543 51.7996 14.7124L51.0771 14.8253L51.1771 14.9413C51.2158 14.9865 51.2739 15.0155 51.3352 15.0123H56.6048C59.9201 15.0123 62.2453 13.5804 62.2453 10.7198C62.2453 8.89447 60.836 7.27552 58.2012 7.17232ZM54.1635 0.831972L56.7274 0.851321C58.4495 0.909371 59.4234 2.27355 59.4234 3.7248C59.4234 5.4663 58.0947 7.16588 56.1468 7.18523H54.1635V0.828744V0.831972ZM56.3339 14.5931H54.1635V7.55287H56.8531C59.0106 7.569 60.2749 9.08153 60.2749 10.8037C60.2749 12.3388 59.3428 14.5801 56.3339 14.5963V14.5931Z\"/><path d=\"M110.546 0.523397C110.508 0.478247 110.45 0.449222 110.388 0.452447C110.388 0.452447 109.36 0.478243 108.986 0.478243C108.612 0.478243 107.592 0.452447 107.592 0.452447C107.531 0.452447 107.473 0.478247 107.434 0.523397L107.334 0.639493L108.057 0.75237C108.434 0.81042 108.711 1.13614 108.711 1.51669V1.48444V1.71019V12.3043L107.957 11.2659L100.533 0.449219H98.1012C98.069 0.449219 98.0399 0.462124 98.0206 0.484699L97.8916 0.639493L98.614 0.75237C99.1203 0.83622 99.2687 1.13614 99.2687 1.51669V3.0518V10.3177V13.9329C99.2687 14.3135 98.9913 14.6392 98.614 14.6973L97.8916 14.8101L97.9916 14.9262C98.0303 14.9714 98.0883 15.0004 98.1496 14.9972C98.1496 14.9972 99.1784 14.9714 99.5525 14.9714C99.9266 14.9714 100.946 14.9972 100.946 14.9972C101.007 14.9972 101.065 14.9714 101.104 14.9262L101.204 14.8101L100.481 14.6973C100.104 14.6392 99.8266 14.3135 99.8266 13.9329V13.9652V13.7394V10.6531V2.05849L100.491 3.32269L108.395 15.0004H109.273V1.51669C109.273 1.13614 109.55 0.81042 109.927 0.75237L110.65 0.639493L110.55 0.523397H110.546Z\"/><path d=\"M107.022 26.125H89.884C89.797 26.125 89.7131 26.1637 89.6551 26.2314L89.2842 26.67L91.345 26.9893C92.793 27.2344 93.2187 28.0858 93.2187 29.1759V50.6802C94.3345 48.7032 95.9922 47.4584 98.0497 47.0359V29.6757C98.0401 27.7665 96.9984 27.3279 96.8146 27.2667H98.0497L104.755 27.2183C111.621 27.2183 114.284 31.6075 114.181 37.4028C114.072 43.4497 109.118 48.284 103.071 48.284L99.659 48.3195C99.0688 48.3195 98.5367 48.3936 98.0497 48.5194C95.6116 49.1483 94.3926 51.1768 93.7927 52.9215C93.4251 53.9825 93.2187 55.1016 93.2187 56.2239C93.2187 56.8528 93.2187 58.246 93.2187 59.7231H93.2219V60.2294V64.6218C93.2219 65.7119 92.7962 66.5665 91.3482 66.8084L89.2874 67.1277L89.6583 67.5662C89.7163 67.634 89.8002 67.6727 89.8873 67.6727C89.8873 67.6727 93.3864 67.6404 94.37 67.6404C96.4888 67.6404 98.0465 66.1569 98.0465 63.3093L98.053 50.0642C98.082 49.6191 98.4335 49.2644 99.043 49.2644H105.493C114.207 49.2644 120.247 45.4976 120.247 37.477C120.247 30.3143 114.494 26.125 107.025 26.125H107.022Z\"/><path d=\"M75.655 26.5675C75.6453 26.3224 75.4454 26.1289 75.2003 26.1289H62.5679C62.4518 26.1289 62.339 26.1289 62.2229 26.1289H45.0852C44.9981 26.1289 44.9143 26.1676 44.8562 26.2353L44.4854 26.6739L46.5461 26.9932C47.9942 27.2383 48.4199 28.0897 48.4199 29.1798V47.1011C49.5357 45.1242 51.1934 43.8793 53.2509 43.4568V29.6796C53.2412 27.7704 52.1996 27.3318 52.0157 27.2706L66.038 27.2512C70.7111 27.2512 74.4134 32.8337 74.652 37.8873C74.6649 38.1646 74.8874 38.3871 75.1648 38.3871C75.4421 38.3871 75.6808 38.1549 75.6808 37.8711L75.655 26.5611V26.5675Z\"/></svg>";
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DOW=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
@@ -195,68 +203,99 @@ const STATUS=[['todo','To do'],['prog','In progress'],['done','Done'],['stuck','
 const TABS=[['overview','Overview'],['team','Team'],['mise','Mise en place'],['buy','To buy'],['marketing','Marketing'],['costs','Costs'],['notes','Notes']];
 const YEAR=2027;
 
-/* ---------- starting content ---------- */
+/* ---------- starting content (drafts, all editable) ---------- */
 const SETS0=[
- {id:'water',name:'Water Station',note:'Drinking water for guests',items:['Water dispenser','Ice bucket and scoop','Water','Rice husk cups']},
- {id:'brew',name:'Cold Brew Bar',note:'Garden cold brew to welcome guests',items:['Cold brew in jars','Rice husk cups']},
- {id:'table',name:'Garden Table',note:'For tasting and sharing',items:['Cutlery','Ceramic plates','Tissues']},
- {id:'wash',name:'Harvest Wash',note:'Washing station for the harvest',items:['Ice water bucket','Drying tray']},
- {id:'tea',name:'Tea Tray',note:'One tray per pair of guests',items:['Wood tray','Ceramic candle warmer and candle','Match sticks','Scales','Tea cups x2','Strainers x2','Glass teapot x2','Metal spoon','Wood tweezers','Ingredient cards','Kettle','Bamboo mat','4 tea menus held with stone','Tea notes card','Pencil','Cloth coaster']},
- {id:'bench',name:'Kitchen Bench',note:'For cooking workshops',items:[]},
- {id:'making',name:'Making Table',note:'For craft workshops',items:[]}
+ {id:'water',icon:'drop',name:'Water Station',note:'Drinking water for guests',items:['Water dispenser','Ice bucket and scoop','Water','Rice husk cups']},
+ {id:'brew',icon:'jar',name:'Cold Brew Bar',note:'Garden cold brew to welcome guests',items:['Cold brew in jars','Rice husk cups']},
+ {id:'table',icon:'plate',name:'Garden Table',note:'For lunch, tasting and sharing',items:['Cutlery','Ceramic plates','Tissues']},
+ {id:'wash',icon:'bucket',name:'Harvest Wash',note:'Washing station for the harvest',items:['Ice water bucket','Drying tray']},
+ {id:'tea',icon:'cup',name:'Tea Tray',note:'One tray per pair of guests',items:['Wood tray','Ceramic candle warmer and candle','Match sticks','Scales','Tea cups x2','Strainers x2','Glass teapot x2','Metal spoon','Wood tweezers','Ingredient cards','Kettle','Bamboo mat','4 tea menus held with stone','Tea notes card','Pencil','Cloth coaster']},
+ {id:'bench',icon:'pot',name:'Kitchen Bench',note:'For cooking workshops',items:['Chopping boards','Knives','Mixing bowls','Aprons','Induction hob and pans','Tasting spoons','Recipe cards','Cleaning cloths']},
+ {id:'making',icon:'print',name:'Making Table',note:'For craft workshops',items:['Table covers','Aprons','Gloves','Scissors','Buckets and tubs','Drying line and pegs','Paper or cloth for each guest']}
 ];
-const D=(...a)=>a.map(t=>({t,who:'',st:'todo'}));
+const D=(...a)=>a.map(x=>({t:x[0],who:x[1]||'',st:'todo'}));
+const B=(...a)=>a.map(x=>({t:x[0],q:x[1],c:x[2],got:false}));
 const TPL0=[
- {id:'free',name:'Community Gardening',kind:'Free session',photo:'bed',time:'',price:'Free',guests:'',purpose:'',audience:'',sets:['water','brew','table'],duties:D('Plan the garden jobs for the day','Set up Water Station and Cold Brew Bar','Welcome guests and lead the session','Reset the garden and wash up')},
- {id:'club',name:'Gardening Club',kind:'Paid session',photo:'seed',time:'9:30 to 11:30',price:'699',guests:'',purpose:'',audience:'',sets:['water','brew','table','wash'],duties:D('Prepare the lesson for the week','Set up stations','Welcome guests and lead the session','Harvest wash and pack take-homes','Reset the garden and wash up')},
- {id:'tea',name:'Tea Experience',kind:'Experience',photo:'work',time:'Evening, time tbc',price:'1,200',guests:'6',purpose:'',audience:'Baan Tepa dining guests',sets:['tea','wash'],duties:D('Harvest and prepare tea ingredients','Set one Tea Tray per pair','Print tea menus and tea notes cards','Welcome guests and guide the tasting','Reset trays and wash up')},
- {id:'gw',name:'Gardening Workshop',kind:'Workshop',photo:'grow',time:'10:00 to 12:00',price:'',guests:'10',purpose:'',audience:'',sets:['water','brew','wash'],duties:D('Confirm the workshop lead','Prepare materials and take-homes','Set up stations','Welcome guests and lead the session','Reset and wash up')},
- {id:'cw',name:'Cooking Workshop',kind:'Workshop',photo:'work',time:'10:00 to 12:00',price:'',guests:'10',purpose:'',audience:'',sets:['water','bench','wash','table'],duties:D('Agree the recipe with the kitchen','Order and prepare ingredients','Set up the Kitchen Bench','Welcome guests and lead the session','Reset and wash up')},
- {id:'craft',name:'Craft Workshop',kind:'Workshop',photo:'tour',time:'10:00 to 12:00',price:'',guests:'10',purpose:'',audience:'',sets:['water','making'],duties:D('Confirm the workshop lead','Prepare materials and take-homes','Set up the Making Table','Welcome guests and lead the session','Reset and wash up')},
- {id:'night',name:'Garden Night',kind:'Evening',photo:'tour',time:'18:00 to 21:00',price:'599 tbc',guests:'12',purpose:'',audience:'',sets:['water'],duties:D('Set up seating and lighting','Prepare drinks for sale','Welcome guests','Reset the garden')},
- {id:'other',name:'Visit or Market',kind:'Other',photo:'tour',time:'',price:'',guests:'',purpose:'',audience:'',sets:[],duties:[]}
+ {id:'g101',icon:'grower',name:'Gardening 101',kind:'Saturday morning',time:'9:30 to 11:30',price:'699',guests:'10',
+  purpose:'Give beginners the confidence to grow at home, one skill at a time.',audience:'Beginners, condo and balcony growers, and guests curious about the garden.',takehome:'A plant or seeds to grow at home and a one-page guide.',
+  sets:['water','brew','table','wash'],duties:D(['Plan the lesson and garden jobs','Jess'],['Prepare tools, beds and take-homes','P Rung'],['Set up Water Station, Cold Brew Bar and Garden Table','Bev team'],['Prepare the lunch wrap station','Kitchen team'],['Welcome guests and lead the session','Jess'],['Reset the garden and wash up','P Rung']),
+  buy:B(['Lunch wrap station and coffee','10','1500'],['Seeds, soil and pots for take-homes','10','500'])},
+ {id:'tea',icon:'cup',name:'Tea Experience',kind:'Once a month',time:'18:00 to 19:30',price:'1,200',guests:'6',
+  purpose:'Show how garden herbs become tea, through a guided tasting in the tea garden.',audience:'Baan Tepa dining guests and tea lovers.',takehome:'Tea notes card and a small tea blend.',
+  sets:['tea','wash'],duties:D(['Harvest and prepare tea ingredients','Chef Tur'],['Set one Tea Tray per pair','Jess'],['Print tea menus and tea notes cards','Jess'],['Welcome guests and guide the tasting','Jess'],['Reset trays and wash up','Bev team']),
+  buy:B(['Tea ingredients and snacks','6','900'],['Printing: tea menus and notes cards','6','150'])},
+ {id:'cw',icon:'pot',name:'Cooking Workshop',kind:'Workshop',time:'10:00 to 13:00',price:'2,500',guests:'8',
+  purpose:'Bring the garden into the kitchen: cook with what is in season and eat together.',audience:'Home cooks and Baan Tepa guests who want to learn from the kitchen team.',takehome:'Recipe cards and what you made.',
+  sets:['water','bench','wash','table'],duties:D(['Agree the recipe and lead chef','Chef Tam'],['Order and prepare ingredients','Kitchen team'],['Harvest from the garden','P Rung'],['Set up the Kitchen Bench','Kitchen team'],['Welcome guests and host','Jess'],['Reset and wash up','Kitchen team']),
+  buy:B(['Ingredients','8','4800'],['Recipe cards','8','200'])},
+ {id:'craft',icon:'print',name:'Craft Workshop',kind:'Workshop',time:'10:00 to 13:00',price:'2,500',guests:'8',
+  purpose:'Make something lasting from garden plants and kitchen leftovers.',audience:'Creative beginners, friends and couples looking for a slow morning.',takehome:'The piece you made.',
+  sets:['water','brew','making'],duties:D(['Confirm the workshop lead','Jess'],['Collect plant material and kitchen leftovers','P Rung'],['Prepare materials for each guest','Jess'],['Set up the Making Table','Jess'],['Welcome guests and lead the session','Jess'],['Reset and wash up','P Rung']),
+  buy:B(['Materials: cloth, paper, mordants','8','3200'],['Drinks and snacks','8','800'])},
+ {id:'gw',icon:'seasonality',name:'Garden Workshop',kind:'Workshop',time:'10:00 to 12:00',price:'1,200',guests:'10',
+  purpose:'Go deeper into one garden subject with our team or a guest expert.',audience:'Gardeners ready for more than the basics.',takehome:'Notes and a sample or plant to take home.',
+  sets:['water','brew','wash'],duties:D(['Confirm the workshop lead or guest expert','Jess'],['Prepare materials and take-homes','P Rung'],['Set up stations','Bev team'],['Welcome guests and host','Jess'],['Reset and wash up','P Rung']),
+  buy:B(['Materials and take-homes','10','1500'],['Drinks and snacks','10','1000'],['Guest expert fee','1','3000'])},
+ {id:'free',icon:'family',name:'Community Gardening',kind:'Free session',time:'9:30 to 11:30',price:'Free',guests:'10',
+  purpose:'Open the garden to neighbours and share the work of growing.',audience:'Neighbours, volunteers and first-time visitors.',takehome:'A share of the harvest.',
+  sets:['water','brew','table'],duties:D(['Plan the garden jobs for the day','P Rung'],['Set up Water Station and Cold Brew Bar','Bev team'],['Prepare lunch and coffee','Kitchen team'],['Welcome guests and lead the session','Jess'],['Reset the garden and wash up','P Rung']),
+  buy:B(['Lunch and coffee','10','1500'])},
+ {id:'night',icon:'moon',name:'Garden Night',kind:'Evening',time:'18:00 to 21:00',price:'599',guests:'12',
+  purpose:'Bring people into the garden after dark for a film or tea.',audience:'Friends, couples and neighbours.',takehome:'',
+  sets:['water'],duties:D(['Set up seating, screen and lighting','P Rung'],['Prepare drinks for sale','Bev team'],['Welcome guests','Jess'],['Reset the garden','P Rung']),
+  buy:B(['Snacks','12','1200'])},
+ {id:'other',icon:'category',name:'Visit or Market',kind:'Other',time:'',price:'',guests:'',
+  purpose:'Host visitors and share how the garden works.',audience:'',takehome:'',sets:['water'],duties:D(['Plan the visit','Jess'],['Prepare the garden','P Rung']),buy:[]}
 ];
-/* series by month, from the programme draft. Prices marked tbc are not confirmed. */
+const THEMES=[['Compost','How to turn kitchen scraps into food for your plants.','A jar of finished compost and a compost guide.'],['Soil','How to read, mix and feed soil for pots and beds.','A bag of Tepa soil mix and a soil guide.'],['Seeds','How to sow, save and store seeds.','A seed packet and a sowing guide.'],['Transplanting','How to move seedlings without losing them.','A seedling in a pot.'],['Plant Care','Watering, pruning, feeding and pests, made simple.','A plant care guide and a cutting.']];
+/* monthly series: [template, name, price, purpose, take-home] */
 const SERIES={
- 0:{name:'ReWaste',w:[['craft','ReWaste Dyeing','699 tbc'],['gw','Urban Composting 101','599 tbc']]},
- 1:{name:"Tea Series: Something's Brewing",w:[['cw','Tea Roasting','899 tbc'],['cw','Using Tea','1,000 tbc']]},
- 4:{name:'Stingless Bee Honey, with Tipsy Tickles',w:[['gw','Bees, Honey and Mead','1,000 tbc'],['cw','Honey and Mead Tasting','']]},
- 5:{name:'Fermentation: Wild Ferments',w:[['cw','Fermentation 101','899 tbc'],['cw','Ferment Workshop','1,000 tbc']]},
- 6:{name:'Ingredient Highlights',w:[['cw','Ingredient Highlight','699 tbc'],['cw','Ingredient Highlight','699 tbc']]},
- 7:{name:'Thai Medicinal Plants: Roots and Remedies',w:[['gw','Thai Medicinal Plants','799 tbc'],['craft','DIY Yadom and Tea Blends','799 tbc']]},
- 8:{name:'Crafts',w:[['craft','Craft Workshop','tbc'],['craft','Craft Workshop','tbc']]},
- 9:{name:'Seeds and Sharing',w:[['gw','Get to Know Seeds','599 tbc'],['free','Seed Swap','Free']]},
- 10:{name:'Rice',w:[['gw','Rice Varieties',''],['cw','Rice Recipe Highlight','']]},
- 11:{name:'Harvest',w:[['cw','Harvest Cookout','1,000 tbc']]}
+ 0:{name:'ReWaste',w:[['craft','ReWaste Dyeing','2,500','Dye cloth with colour from kitchen and garden leftovers.','Your dyed cloth.'],['gw','Urban Composting 101','1,200','Start composting at home, even in a condo.','A starter compost kit.']]},
+ 1:{name:"Tea Series: Something's Brewing",w:[['cw','Tea Roasting','2,500','Roast and blend garden herbs into tea with the kitchen team.','A tin of the tea you roasted.'],['cw','Cooking with Tea','2,500','Use tea as an ingredient in sweet and savoury dishes.','Recipe cards and a tea blend.']]},
+ 4:{name:'Stingless Bee Honey, with Tipsy Tickles',w:[['gw','Bees, Honey and Mead','1,200','Meet the stingless bees and learn how honey becomes mead.','A small jar of honey.'],['cw','Honey and Mead Tasting','2,500','Taste honeys and meads side by side, paired with small bites.','Tasting notes.']]},
+ 5:{name:'Fermentation: Wild Ferments',w:[['cw','Fermentation 101','2,500','Learn the basics of safe fermenting with garden produce.','A jar of your own ferment.'],['cw','Ferment Workshop','2,500','Make a seasonal ferment with the kitchen team.','A jar of your own ferment and recipe cards.']]},
+ 6:{name:'Ingredient Highlights',w:[['cw','Ingredient Highlight: Long Pepper','2,500','Cook with one heritage ingredient from the garden, start to finish.','Recipe cards and a seedling.'],['cw','Ingredient Highlight: Sand Ginger','2,500','Cook with one heritage ingredient from the garden, start to finish.','Recipe cards and a rhizome to plant.']]},
+ 7:{name:'Thai Medicinal Plants: Roots and Remedies',w:[['gw','Thai Medicinal Plants','1,200','Walk the garden with a Thai herbalist and learn everyday uses.','A herb guide and a plant.'],['craft','DIY Yadom and Tea Blends','2,500','Make your own yadom and a herbal tea blend.','Your yadom and tea blend.']]},
+ 8:{name:'Crafts',w:[['craft','Natural Dyeing','2,500','Dye cloth with plants from the garden.','Your dyed cloth.'],['craft','Cyanotype Printing','2,500','Print garden leaves and flowers with sunlight.','Your prints.']]},
+ 9:{name:'Seeds and Sharing',w:[['gw','Get to Know Seeds','1,200','Learn to save, clean and store seeds from heritage plants.','A set of heritage seeds.'],['free','Seed Swap','Free','Bring seeds, swap seeds and meet other growers.','Seeds from other growers.']]},
+ 10:{name:'Rice',w:[['gw','Rice Varieties','1,200','Taste and compare Thai rice varieties and learn where they grow.','A set of rice samples.'],['cw','Rice Recipe Highlight','2,500','Cook one rice recipe with the kitchen team.','Recipe cards and rice to take home.']]},
+ 11:{name:'Harvest',w:[['cw','Harvest Cookout','2,500','Harvest together, cook together and close the year at one table.','Recipe cards.']]}
 };
 const CLOSED=[2,3];
+const P=(n,price,guests,per,cpg,fixed,hrs)=>({n,price,guests,per,cpg,fixed,hrs});
+const PROJ0={
+ now:[P('Free community gardening (lunch and coffee)',0,10,4,150,0,8),P('Gardening club (lunch wrap and coffee)',699,8,2,150,0,8),P('Tea experience',899,4,2,175,0,6)],
+ tam:[P('Thursday gardening',300,10,4,150,0,8),P('Saturday intensive gardening',1200,6,4,200,0,12),P('Saturday cooking workshop',2500,8,4,625,0,16)],
+ jess:[P('Gardening 101',699,8,2,200,0,8),P('Cooking workshop',2500,8,1,625,0,16),P('Craft workshop',2500,8,1,500,0,10),P('Tea experience',1200,6,1,175,0,6)]
+};
+const PLANS=[['now','Today'],['tam',"Chef Tam's plan"],['jess','Proposed plan']];
+
 const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const clone=o=>JSON.parse(JSON.stringify(o));
 function fromTpl(tid,date,over){const t=S.TPL.find(x=>x.id===tid)||S.TPL[0];
-  return Object.assign({id:'e'+(S.seq++),tpl:tid,name:t.name,date,time:t.time,price:t.price,guests:t.guests,series:'',purpose:t.purpose,audience:t.audience,takehome:'',sets:t.sets.slice(),packed:{},duties:clone(t.duties),buy:[],
-    mk:[{t:'Graphic',who:'K Toey',st:'todo'},{t:'Photos and video',who:'K Tong',st:'todo'}],ch:[],notes:{worked:'',change:'',came:''}},over||{});}
+  return Object.assign({id:'e'+(S.seq++),tpl:tid,name:t.name,date,time:t.time,price:t.price,guests:t.guests,series:'',purpose:t.purpose,audience:t.audience,takehome:t.takehome,sets:t.sets.slice(),packed:{},duties:clone(t.duties),buy:clone(t.buy),
+    mk:[{t:'Graphic for the post',who:'K Toey',st:'todo'},{t:'Photos and video on the day',who:'K Tong',st:'todo'}],ch:tid==='other'?[]:['Instagram','LINE'],notes:{worked:'',change:'',came:''}},over||{});}
 function seed(){
-  const E=[];
+  const E=[];let th=0;
   for(let m=0;m<12;m++){ if(CLOSED.includes(m)) continue;
-    const sat=[],thu=[],fri=[];
-    for(let d=1;d<=31;d++){const x=new Date(YEAR,m,d); if(x.getMonth()!==m)break; const w=x.getDay(); if(w===6)sat.push(x); if(w===4)thu.push(x); if(w===5)fri.push(x);}
-    thu.forEach(x=>E.push(fromTpl('free',iso(x))));
-    [sat[0],sat[2]].forEach(x=>x&&E.push(fromTpl('club',iso(x))));
-    [fri[0],fri[2]].forEach(x=>x&&E.push(fromTpl('tea',iso(x))));
-    const s=SERIES[m]; if(s) s.w.forEach((w,i)=>{const x=[sat[1],sat[3]][i]; if(x)E.push(fromTpl(w[0],iso(x),{name:w[1],price:w[2],series:s.name}));});
-    if(m===0){[fri[1],fri[3]].forEach(x=>x&&E.push(fromTpl('night',iso(x),{name:'Movie Night'})));
-      E.push(fromTpl('other','2027-01-10',{name:'Singapore School Visit'}));
-      E.push(fromTpl('other','2027-01-28',{name:"Shannon's New York Farmer Friends"}));
-      E.push(fromTpl('other','2027-01-30',{name:'Farmers Market'}));E.push(fromTpl('other','2027-01-31',{name:'Farmers Market'}));}
+    const sat=[],fri=[];
+    for(let d=1;d<=31;d++){const x=new Date(YEAR,m,d); if(x.getMonth()!==m)break; const w=x.getDay(); if(w===6)sat.push(x); if(w===5)fri.push(x);}
+    [sat[0],sat[2]].forEach(x=>{if(!x)return;const t=THEMES[th++%THEMES.length];E.push(fromTpl('g101',iso(x),{name:'Gardening 101: '+t[0],series:'Gardening 101',purpose:t[1],takehome:t[2]}))});
+    if(fri[2])E.push(fromTpl('tea',iso(fri[2])));
+    const s=SERIES[m]; if(s) s.w.forEach((w,i)=>{const x=[sat[1],sat[3]][i]; if(x){const o={name:w[1],price:w[2],series:s.name,purpose:w[3],takehome:w[4]};if(w[2]==='Free')o.buy=[];E.push(fromTpl(w[0],iso(x),o))}});
+    if(m===0){
+      E.push(fromTpl('other','2027-01-10',{name:'Singapore School Visit',time:'Time tbc',purpose:'Show visiting students how a restaurant garden works.',audience:'School group from Singapore.'}));
+      E.push(fromTpl('other','2027-01-28',{name:"Shannon's New York Farmer Friends",time:'Time tbc',purpose:'Host visiting farmers and swap ideas on urban growing.',audience:'Farmer friends of Shannon, from New York.'}));
+      ['2027-01-30','2027-01-31'].forEach(d=>E.push(fromTpl('other',d,{name:'Farmers Market',time:'Time tbc',series:'ReWaste',purpose:'Bring growers and makers into the garden and close the ReWaste month.',audience:'Neighbours, Baan Tepa guests and local growers.'})));}
   }
   return E;
 }
 
 /* ---------- state ---------- */
-const KEY='tepa-garden-v1';
-let S={seq:1,TPL:clone(TPL0),SET:clone(SETS0),EV:[]};
+const KEY='tepa-garden-v2';
+let S={seq:1,TPL:clone(TPL0),SET:clone(SETS0),EV:[],PROJ:clone(PROJ0),open:10};
 let saved=null; try{saved=JSON.parse(localStorage.getItem(KEY))}catch(e){}
-if(saved&&saved.EV){S=saved}else{S.EV=seed()}
+if(saved&&saved.EV&&saved.PROJ){S=saved}else{S.EV=seed()}
 let saveT; function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},250)}
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const today=iso(new Date());
@@ -264,75 +303,106 @@ const isDone=e=>e.date<today;
 const pd=s=>{const[a,b,c]=s.split('-').map(Number);return new Date(a,b-1,c)};
 const nice=s=>{const d=pd(s);return DOW[(d.getDay()+6)%7]+' '+d.getDate()+' '+MONTHS[d.getMonth()]+' '+d.getFullYear()};
 const num=s=>{const n=parseFloat(String(s).replace(/,/g,''));return isNaN(n)?0:n};
-const baht=n=>n.toLocaleString('en-GB')+' THB';
+const fmt=n=>Math.round(n).toLocaleString('en-GB');
+const baht=n=>fmt(n)+' THB';
+const money=p=>/\d/.test(p)?p+' THB':p;
 
-/* ---------- routing ---------- */
-function route(){const h=location.hash.replace(/^#\/?/,'').split('/');return{page:h[0]||'calendar',a:h[1],b:h[2]}}
-function go(h){location.hash=h}
-window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0)});
+/* ---------- routing (works without relying on the address bar) ---------- */
+let HASH='/calendar'; try{if(location.hash.length>2)HASH=location.hash.slice(1)}catch(e){}
+function route(){const h=HASH.replace(/^\/?/,'').split('/');return{page:h[0]||'calendar',a:h[1],b:h[2]}}
+function setHash(h){HASH=h;try{history.replaceState(null,'','#'+h)}catch(e){}}
+function go(h){setHash(h);render();try{window.scrollTo(0,0)}catch(e){}}
+window.addEventListener('hashchange',()=>{let h='';try{h=location.hash.slice(1)}catch(e){}if(h&&h!==HASH){HASH=h;render()}});
 
 /* ---------- pieces ---------- */
-function header(p){const L=[['calendar','Calendar'],['templates','Templates'],['mise','Mise en place']];
+const NAV=[['calendar','Calendar'],['templates','Templates'],['mise','Mise en place'],['projection','Projection']];
+function header(p){
   return `<header><div class="wrap">
    <button class="burger" data-act="menu" aria-label="Menu">${IC('menu-dark')}</button>
-   <a href="#/calendar">${LOGO}</a>
-   <nav>${L.map(l=>`<a class="ul ${p===l[0]?'on':''}" href="#/${l[0]}">${l[1]}</a>`).join('')}</nav>
+   <a href="#/calendar" aria-label="Calendar">${LOGO}</a>
+   <nav>${NAV.map(l=>`<a class="ul ${p===l[0]?'on':''}" href="#/${l[0]}">${l[1]}</a>`).join('')}</nav>
    <a class="ul hd-r" href="#/templates">New event</a>
   </div></header>
-  <div class="mob" id="mob"><button data-act="menu" aria-label="Close">&times;</button>${L.map(l=>`<a href="#/${l[0]}" data-act="menu">${l[1]}</a>`).join('')}</div>`}
+  <div class="mob" id="mob"><button data-act="menu" aria-label="Close">&times;</button>${NAV.map(l=>`<a href="#/${l[0]}">${l[1]}</a>`).join('')}</div>`}
 const opts=(list,v,blank)=>(blank?`<option value="">${blank}</option>`:'')+list.map(o=>{const[k,l]=Array.isArray(o)?o:[o,o];return`<option value="${esc(k)}" ${k===v?'selected':''}>${esc(l)}</option>`}).join('');
 function evLink(e){return`<a class="ev ${isDone(e)?'done':''}" href="#/event/${e.id}"><span class="plum">${esc(isDone(e)?'Completed':(e.time||'Time tbc'))}</span><b>${esc(e.name)}</b></a>`}
+const head=(t,p)=>`<div class="title"><div class="eyebrow">TEPA GARDEN</div><h1>${t}</h1><p>${p}</p></div>`;
 
 function calendar(r){
   let m=parseInt(r.a,10); if(isNaN(m)||m<0||m>11) m=(new Date().getFullYear()===YEAR?new Date().getMonth():0);
   const first=new Date(YEAR,m,1), lead=(first.getDay()+6)%7, days=new Date(YEAR,m+1,0).getDate();
   const by={}; S.EV.forEach(e=>{(by[e.date]=by[e.date]||[]).push(e)});
-  const closed=CLOSED.includes(m)&&!S.EV.some(e=>pd(e.date).getMonth()===m&&e.date.startsWith(YEAR));
+  const any=S.EV.some(e=>e.date.slice(0,7)===YEAR+'-'+String(m+1).padStart(2,'0'));
   let cells='',rows='';
-  for(let i=0;i<lead;i++)cells+='<div class="cell out"></div>';
+  for(let i=0;i<lead;i++)cells+='<div class="cell"></div>';
   for(let d=1;d<=days;d++){const k=iso(new Date(YEAR,m,d)),ev=(by[k]||[]);
     cells+=`<div class="cell ${k===today?'today':''}"><span class="d">${d}</span>${ev.map(evLink).join('')}</div>`;
     if(ev.length)rows+=`<div class="row"><div><div class="d">${d}</div><div class="sm plum">${DOW[(new Date(YEAR,m,d).getDay()+6)%7]}</div></div><div>${ev.map(evLink).join('')}</div></div>`}
   const s=SERIES[m];
   return header('calendar')+`<main class="wrap fi">
-   <div class="title"><h1>Garden Calendar ${YEAR}</h1><p>A living garden for growing, learning and gathering.</p></div>
+   ${head('Garden Calendar '+YEAR,'A living garden for growing, learning and gathering.')}
    <div class="months"><a class="arrow" href="#/calendar/${(m+11)%12}" aria-label="Previous month">${IC('arrow-left-dark')}</a>
-     <div><h2>${MONTHS[m]}</h2></div>
+     <h2>${MONTHS[m]}</h2>
      <a class="arrow next" href="#/calendar/${(m+1)%12}" aria-label="Next month">${IC('arrow-left-dark')}</a></div>
    <div class="strip">${MONTHS.map((n,i)=>`<a class="ul ${i===m?'on':''}" href="#/calendar/${i}">${n.slice(0,3)}</a>`).join('')}</div>
-   ${s?`<p class="centre" style="margin:-8px 0 30px"><span class="sm plum">This month's series</span><br><span class="classic" style="font-size:var(--xl)">${esc(s.name)}</span></p>`:''}
-   ${closed?`<div class="closed"><h3>The garden is resting</h3><p class="plum" style="margin-top:8px">Closed for product development.</p><p style="margin-top:22px"><a class="btn" href="#/templates">Add an event</a></p></div>`:
+   ${s&&any?`<p class="centre" style="margin:-4px 0 28px"><span class="sm plum">This month's series</span><br><span class="classic" style="font-size:var(--xl)">${esc(s.name)}</span></p>`:''}
+   ${!any&&CLOSED.includes(m)?`<div class="closed"><h3>The garden is resting</h3><p class="plum" style="margin-top:8px">Closed for product development.</p><p style="margin-top:22px"><a class="btn" href="#/templates">Add an event</a></p></div>`:
    `<div class="dow">${DOW.map(d=>`<span>${d}</span>`).join('')}</div><div class="grid">${cells}</div><div class="list">${rows||'<p class="hint" style="padding:30px 0">No events this month.</p>'}</div>`}
-   <div class="foot"><span class="it" style="font-size:var(--lg)">Where the soil tells our story</span></div>
+   <div class="foot">TEPA GARDEN</div>
   </main>`}
 
 function templates(){
-  return header('templates')+`<main class="wrap fi"><div class="title"><h1>Templates</h1><p>Choose a template to add an event to the calendar.</p></div>
-   <div class="index">${S.TPL.map(t=>`<button class="item" data-act="new" data-id="${t.id}"><div class="ph"><img src="${PH[t.photo]}" alt="" loading="lazy"></div><div class="tx"><h3>${esc(t.name)}</h3><p class="sm">${esc(t.kind)}</p><p class="sm plum">${esc([t.time,t.price&&(/\d/.test(t.price)?t.price+' THB':t.price)].filter(Boolean).join(' · ')||'Details tbc')}</p></div></button>`).join('')}</div>
-   <div class="foot"></div></main>`}
+  return header('templates')+`<main class="wrap fi">${head('Templates','Choose a template to add an event to the calendar.')}
+   <div class="cards">${S.TPL.map(t=>`<button class="tcard" data-act="new" data-id="${t.id}"><div class="ic">${IC(t.icon)}</div><h3>${esc(t.name)}</h3><p class="sm">${esc(t.kind)}</p><p class="sm plum">${esc([t.time,t.price&&money(t.price)].filter(Boolean).join(' · ')||'Details tbc')}</p></button>`).join('')}</div>
+   <div class="foot">TEPA GARDEN</div></main>`}
 
 function mise(r){
   const s=S.SET.find(x=>x.id===r.a);
-  if(s) return `<div class="detail fi">${header('mise')}<div class="photo" style="background-color:var(--tan)"><div class="cap"><h1>${esc(s.name)}</h1><p>${esc(s.note)}</p><p>${s.items.length} items</p></div></div>
+  if(s) return `<div class="detail fi">${header('mise')}<div class="panel"><div class="eyebrow">MISE EN PLACE</div><h1>${esc(s.name)}</h1><p>${esc(s.note)}</p></div>
    <div class="pane"><a class="back" href="#/mise">${IC('arrow-left-dark')}Back</a>
     <div class="card"><div class="f"><label>Name</label><input type="text" data-set="${s.id}" data-k="name" value="${esc(s.name)}"></div><div class="f"><label>What it is for</label><input type="text" data-set="${s.id}" data-k="note" value="${esc(s.note)}" placeholder="Not stated"></div></div>
-    <div class="card"><h2>Items</h2>${s.items.map((it,i)=>`<div class="line" style="grid-template-columns:1fr 22px"><input type="text" data-setitem="${s.id}" data-i="${i}" value="${esc(it)}"><button class="x" data-act="delitem" data-id="${s.id}" data-i="${i}" aria-label="Remove">&times;</button></div>`).join('')||'<p class="hint" style="margin-top:0">No items listed yet.</p>'}
+    <div class="card"><h2>Items</h2>${s.items.map((it,i)=>`<div class="line" style="grid-template-columns:1fr 22px"><input type="text" style="grid-column:1" data-setitem="${s.id}" data-i="${i}" value="${esc(it)}"><button class="x" data-act="delitem" data-id="${s.id}" data-i="${i}" aria-label="Remove">&times;</button></div>`).join('')||'<p class="hint" style="margin-top:0">No items listed yet.</p>'}
      <button class="btn add" data-act="additem" data-id="${s.id}">Add item</button></div>
     <p class="hint">Changes here apply to every event that uses this set.</p></div></div>`;
-  return header('mise')+`<main class="wrap fi"><div class="title"><h1>Mise en place</h1><p>Everything in its place before guests arrive. Sets can be added to any event.</p></div>
-   <div class="index">${S.SET.map(s=>`<a class="item" href="#/mise/${s.id}"><div class="ph"></div><div class="tx"><h3>${esc(s.name)}</h3><p class="sm">${esc(s.note)}</p><p class="sm plum">${s.items.length} items</p></div></a>`).join('')}</div>
-   <div class="centre"><button class="btn" data-act="newset">Add a set</button></div><div class="foot"></div></main>`}
+  return header('mise')+`<main class="wrap fi">${head('Mise en place','Everything in its place before guests arrive. Sets can be added to any event.')}
+   <div class="cards">${S.SET.map(s=>`<a class="tcard" href="#/mise/${s.id}"><div class="ic">${IC(s.icon)}</div><h3>${esc(s.name)}</h3><p class="sm">${esc(s.note)}</p><p class="sm plum">${s.items.length} items</p></a>`).join('')}</div>
+   <div class="centre"><button class="btn" data-act="newset">Add a set</button></div><div class="foot">TEPA GARDEN</div></main>`}
+
+/* projection */
+function calc(rows){let inc=0,cost=0,hrs=0,ses=0;rows.forEach(r=>{const g=num(r.guests),n=num(r.per);inc+=num(r.price)*g*n;cost+=(num(r.cpg)*g+num(r.fixed))*n;hrs+=num(r.hrs)*n;ses+=n});return{inc,cost,profit:inc-cost,hrs,ses,perhr:hrs?(inc-cost)/hrs:0}}
+const rowProfit=r=>((num(r.price)-num(r.cpg))*num(r.guests)-num(r.fixed))*num(r.per);
+const signed=n=>`<span class="${n<0?'neg':''}">${fmt(n)}</span>`;
+function projBody(plan){const rows=S.PROJ[plan],c=calc(rows),all=PLANS.map(p=>calc(S.PROJ[p[0]]));
+  const cell=(i,k,cls)=>`<td class="${cls||'n'}"><input ${k==='n'?'type="text"':'type="text" inputmode="decimal"'} data-proj="${plan}" data-i="${i}" data-k="${k}" value="${esc(rows[i][k])}"></td>`;
+  return `<div class="card"><h2>${esc(PLANS.find(p=>p[0]===plan)[1])}: events each month</h2><div class="scroll"><table class="ptable">
+    <tr><th>Event</th><th>Price</th><th>Guests per session</th><th>Sessions per month</th><th>Cost per guest</th><th>Other cost per session</th><th>Team hours per session</th><th>Profit per month</th><th></th></tr>
+    ${rows.map((r,i)=>`<tr>${cell(i,'n','')}${cell(i,'price')}${cell(i,'guests')}${cell(i,'per')}${cell(i,'cpg')}${cell(i,'fixed')}${cell(i,'hrs')}<td data-rp="${i}">${signed(rowProfit(r))}</td><td><button class="x" data-act="delproj" data-id="${plan}" data-i="${i}" aria-label="Remove">&times;</button></td></tr>`).join('')}
+   </table></div><button class="btn add" data-act="addproj" data-id="${plan}">Add an event</button>
+   <p class="hint">Cost per guest covers food, drinks and materials. Team hours cover set up, the session and reset, for everyone involved.</p></div>
+   <div id="pout">${projOut(plan)}</div>`}
+function projOut(plan){const c=calc(S.PROJ[plan]),all=PLANS.map(p=>calc(S.PROJ[p[0]])),o=num(S.open);
+  const k=(l,v)=>`<div class="kpi"><span class="sm plum">${l}</span><b>${v}</b></div>`;
+  const line=(l,f)=>`<div>${l}</div>${all.map(a=>`<div>${f(a)}</div>`).join('')}`;
+  return `<div class="kpis">${k('Income per month',baht(c.inc))}${k('Costs per month',baht(c.cost))}${k('Profit per month',`<span class="${c.profit<0?'neg':''}">${baht(c.profit)}</span>`)}${k('Profit per team hour',baht(c.perhr))}</div>
+   <div class="card"><h2>Side by side</h2><div class="cmp"><div class="h"></div>${PLANS.map(p=>`<div class="h">${esc(p[1])}</div>`).join('')}
+    ${line('Sessions per month',a=>fmt(a.ses))}${line('Team hours per month',a=>fmt(a.hrs))}${line('Income per month',a=>fmt(a.inc))}${line('Costs per month',a=>fmt(a.cost))}${line('Profit per month',a=>signed(a.profit))}${line('Profit per team hour',a=>signed(a.perhr))}${line('Profit per year, '+o+' open months',a=>signed(a.profit*o))}</div>
+    <p class="hint">All figures in THB. Open months per year: <input type="text" inputmode="decimal" data-open="1" value="${esc(S.open)}" style="width:40px;border:0;border-bottom:1px solid var(--tan);background:transparent;text-align:center;outline:0"></p></div>
+   <div class="band"><div><h3>Profit</h3><p>What is left each month after food, drinks and materials.</p></div><div><h3>Team hours</h3><p>Every session takes hours away from field work and from the kitchen.</p></div><div><h3>Profit per hour</h3><p>The fairest way to compare plans: what each hour of the team's time brings in.</p></div></div>`}
+function projection(r){const plan=PLANS.some(p=>p[0]===r.a)?r.a:'jess';
+  return header('projection')+`<main class="wrap fi">${head('Projection','What our events cost, what they earn, and what they ask of the team.')}
+   <div class="plans">${PLANS.map(p=>`<a class="btn ${p[0]===plan?'on':''}" href="#/projection/${p[0]}">${esc(p[1])}</a>`).join('')}</div>
+   <div id="proj">${projBody(plan)}</div><div class="foot">TEPA GARDEN</div></main>`}
 
 function eventPage(r){
-  const e=S.EV.find(x=>x.id===r.a); if(!e) return header('calendar')+'<main class="wrap"><div class="title"><h1>Event not found</h1><p><a class="link" href="#/calendar">Back to the calendar</a></p></div></main>';
+  const e=S.EV.find(x=>x.id===r.a); if(!e) return header('calendar')+`<main class="wrap">${head('Event not found','')}<p class="centre"><a class="btn" href="#/calendar">Back to the calendar</a></p></main>`;
   const tab=TABS.some(t=>t[0]===r.b)?r.b:'overview', t=S.TPL.find(x=>x.id===e.tpl)||S.TPL[0], m=pd(e.date).getMonth();
   return `<div class="detail fi">${header('calendar')}
-   <div class="photo" style="background-image:url('${PH[t.photo]}')"><div class="cap"><h1>${esc(e.name)}</h1><p>${esc(nice(e.date))}</p><p>${esc(e.series||t.kind)}${isDone(e)?' · Completed':''}</p></div></div>
+   <div class="panel"><div class="eyebrow">${esc((e.series||t.kind).toUpperCase())}</div><h1>${esc(e.name)}</h1><p>${esc(nice(e.date))}${e.time?' · '+esc(e.time):''}${isDone(e)?' · Completed':''}</p></div>
    <div class="pane"><a class="back" href="#/calendar/${m}">${IC('arrow-left-dark')}Back</a><div id="tab">${tabBody(e,tab)}</div></div>
-   <div class="bar">${TABS.map(x=>`<button class="${x[0]===tab?'on':''}" data-act="tab" data-id="${e.id}" data-t="${x[0]}">${x[1]}</button>`).join('')}</div></div>`}
+   <div class="bar">${TABS.map(x=>`<button type="button" class="${x[0]===tab?'on':''}" data-act="tab" data-id="${e.id}" data-t="${x[0]}">${x[1]}</button>`).join('')}</div></div>`}
 
 const tile=(ic,label,inner)=>`<div class="tile"><div class="ic">${IC(ic)}</div><div style="flex:1;min-width:0"><label>${label}</label>${inner}</div></div>`;
-const fld=(e,k,label,ph)=>`<div class="f"><label>${label}</label><textarea rows="1" data-ev="${e.id}" data-k="${k}" placeholder="${ph||'Not stated'}">${esc(k.includes('.')?e.notes[k.split('.')[1]]:e[k])}</textarea></div>`;
+const fld=(e,k,label)=>`<div class="f"><label>${label}</label><textarea rows="1" data-ev="${e.id}" data-k="${k}" placeholder="Not stated">${esc(k.includes('.')?e.notes[k.split('.')[1]]:e[k])}</textarea></div>`;
 function dutyLine(e,list,i,cls){const d=e[list][i];return`<div class="line ${cls||''} ${d.st==='done'?'is-done':''}">
   ${cls==='mk'?'':`<input type="checkbox" data-chk="${list}" data-ev="${e.id}" data-i="${i}" ${d.st==='done'?'checked':''} aria-label="Done">`}
   <input type="text" data-ev="${e.id}" data-list="${list}" data-i="${i}" data-k="t" value="${esc(d.t)}" placeholder="What needs doing">
@@ -349,57 +419,67 @@ function tabBody(e,tab){
     <p class="hint"><button class="link" data-act="delev" data-id="${e.id}">Remove this event</button></p>`;
   if(tab==='team'){const n=e.duties.filter(d=>d.st==='done').length;return `<div class="card"><h2>Team and duties</h2>${e.duties.map((d,i)=>dutyLine(e,'duties',i)).join('')||'<p class="hint" style="margin-top:0">No duties yet.</p>'}
      <button class="btn add" data-act="addline" data-ev="${e.id}" data-list="duties">Add a duty</button></div><p class="hint">${n} of ${e.duties.length} done</p>`}
-  if(tab==='mise') return `<div class="card"><h2>Mise en place</h2><div class="sets">${S.SET.map(s=>`<button class="item ${e.sets.includes(s.id)?'on':''}" data-act="toggleset" data-ev="${e.id}" data-id="${s.id}"><div class="ph"></div><div class="tx"><h3 style="font-size:var(--base)">${esc(s.name)}</h3><p class="sm plum">${e.sets.includes(s.id)?'Added':'Add'}</p></div></button>`).join('')}</div></div>
+  if(tab==='mise') return `<div class="card"><h2>Mise en place</h2><div class="sets">${S.SET.map(s=>`<button type="button" class="tcard ${e.sets.includes(s.id)?'on':''}" data-act="toggleset" data-ev="${e.id}" data-id="${s.id}"><div class="ic">${IC(s.icon)}</div><h3>${esc(s.name)}</h3><p class="sm plum">${e.sets.includes(s.id)?'Added':'Add'}</p></button>`).join('')}</div></div>
     ${e.sets.map(id=>{const s=S.SET.find(x=>x.id===id);if(!s)return'';return`<div class="card"><h2>${esc(s.name)}</h2>${s.items.map(it=>{const k=id+'|'+it;return`<label class="check"><input type="checkbox" data-pack="${esc(k)}" data-ev="${e.id}" ${e.packed[k]?'checked':''}><span>${esc(it)}</span></label>`}).join('')||`<p class="hint" style="margin-top:0">No items listed yet. <a class="link" href="#/mise/${id}">Add items</a></p>`}</div>`}).join('')}`;
-  if(tab==='buy') return `<div class="card"><h2>To buy</h2><p class="hint" style="margin:-8px 0 10px">Only what needs buying for this event: jars, pots, ingredients, printing.</p>
-     ${e.buy.map((b,i)=>`<div class="line buy ${b.got?'is-done':''}"><input type="checkbox" data-got="${i}" data-ev="${e.id}" ${b.got?'checked':''} aria-label="Bought"><input type="text" data-ev="${e.id}" data-list="buy" data-i="${i}" data-k="t" value="${esc(b.t)}" placeholder="Item"><input type="text" data-ev="${e.id}" data-list="buy" data-i="${i}" data-k="q" value="${esc(b.q)}" placeholder="Qty"><input type="text" inputmode="decimal" data-ev="${e.id}" data-list="buy" data-i="${i}" data-k="c" value="${esc(b.c)}" placeholder="Cost THB"><button class="x" data-act="del" data-ev="${e.id}" data-list="buy" data-i="${i}" aria-label="Remove">&times;</button></div>`).join('')||'<p class="hint" style="margin-top:0">Nothing to buy yet.</p>'}
+  if(tab==='buy') return `<div class="card"><h2>To buy</h2><p class="hint" style="margin:-8px 0 10px">Only what needs buying for this event. Cost is the total for the line, in THB.</p>
+     ${e.buy.map((b,i)=>`<div class="line buy ${b.got?'is-done':''}"><input type="checkbox" data-got="${i}" data-ev="${e.id}" ${b.got?'checked':''} aria-label="Bought"><input type="text" data-ev="${e.id}" data-list="buy" data-i="${i}" data-k="t" value="${esc(b.t)}" placeholder="Item"><input type="text" data-ev="${e.id}" data-list="buy" data-i="${i}" data-k="q" value="${esc(b.q)}" placeholder="Qty"><input type="text" inputmode="decimal" data-ev="${e.id}" data-list="buy" data-i="${i}" data-k="c" value="${esc(b.c)}" placeholder="Cost"><button class="x" data-act="del" data-ev="${e.id}" data-list="buy" data-i="${i}" aria-label="Remove">&times;</button></div>`).join('')||'<p class="hint" style="margin-top:0">Nothing to buy yet.</p>'}
      <button class="btn add" data-act="addline" data-ev="${e.id}" data-list="buy">Add an item</button></div>`;
   if(tab==='marketing'){const CH=['Instagram','TikTok','LINE'];return `<div class="card"><h2>What we need</h2>${e.mk.map((d,i)=>dutyLine(e,'mk',i,'mk')).join('')}<button class="btn add" data-act="addline" data-ev="${e.id}" data-list="mk">Add a need</button></div>
-    <div class="card"><h2>Where it goes</h2><div class="chips">${CH.map(c=>`<button class="btn ${e.ch.includes(c)?'on':''}" data-act="ch" data-ev="${e.id}" data-id="${c}">${c}</button>`).join('')}</div></div>`}
-  if(tab==='costs'){const spend=e.buy.reduce((a,b)=>a+num(b.c),0),p=num(e.price),g=num(e.guests),inc=p*g;return `<div class="card"><h2>Costs</h2>
+    <div class="card"><h2>Where it goes</h2><div class="chips">${CH.map(c=>`<button type="button" class="btn ${e.ch.includes(c)?'on':''}" data-act="ch" data-ev="${e.id}" data-id="${c}">${c}</button>`).join('')}</div></div>`}
+  if(tab==='costs'){const spend=e.buy.reduce((a,b)=>a+num(b.c),0),p=num(e.price),g=num(e.guests),inc=p*g,be=p?Math.ceil(spend/p):0;return `<div class="card"><h2>Cost breakdown</h2>
      ${e.buy.filter(b=>b.t||b.c).map(b=>`<div class="tot"><span>${esc(b.t||'Item')}${b.q?' <span class="plum sm">x '+esc(b.q)+'</span>':''}</span><span>${b.c?baht(num(b.c)):'Not stated'}</span></div>`).join('')||'<p class="hint" style="margin-top:0">Add items under To buy and they total here.</p>'}
      <div class="tot big"><span>Spend</span><span>${baht(spend)}</span></div></div>
-    <div class="card"><div class="tot"><span>Price per guest</span><span>${p?baht(p):'Not stated'}</span></div><div class="tot"><span>Guests if full</span><span>${g||'Not stated'}</span></div><div class="tot"><span>Income if full</span><span>${inc?baht(inc):'Not stated'}</span></div><div class="tot big"><span>After spend</span><span>${inc?baht(inc-spend):'Not stated'}</span></div></div>
-    <p class="hint">Covers bought items only. Venue and staff time are not counted.</p>`}
+    <div class="card"><h2>If every seat is filled</h2><div class="tot"><span>Price per guest</span><span>${p?baht(p):'Free'}</span></div><div class="tot"><span>Guests</span><span>${g||'Not stated'}</span></div><div class="tot"><span>Income</span><span>${baht(inc)}</span></div><div class="tot"><span>Cost per guest</span><span>${g?baht(spend/g):'Not stated'}</span></div><div class="tot big"><span>Profit</span><span class="${inc-spend<0?'neg':''}">${baht(inc-spend)}</span></div>
+     ${p?`<div class="tot"><span>Guests needed to cover the spend</span><span>${be}</span></div>`:''}</div>
+    <p class="hint">Covers bought items only. Venue and staff time are not counted here. Change the numbers under To buy and Overview.</p>`}
   return `<div class="card"><h2>Notes</h2>${fld(e,'notes.came','How many guests came')}${fld(e,'notes.worked','What worked')}${fld(e,'notes.change','What to change next time')}</div>`}
 
-/* ---------- render ---------- */
+/* ---------- render and events ---------- */
 const app=document.getElementById('app');
 function render(){const r=route();
-  app.innerHTML=r.page==='event'?eventPage(r):r.page==='templates'?templates():r.page==='mise'?mise(r):calendar(r);
+  app.innerHTML=r.page==='event'?eventPage(r):r.page==='templates'?templates():r.page==='mise'?mise(r):r.page==='projection'?projection(r):calendar(r);
   grow()}
 function grow(){document.querySelectorAll('textarea').forEach(t=>{t.style.height='auto';t.style.height=t.scrollHeight+'px'})}
-function retab(){const r=route(),e=S.EV.find(x=>x.id===r.a);if(e){document.getElementById('tab').innerHTML=tabBody(e,r.b||'overview');grow()}}
+function retab(){const r=route(),e=S.EV.find(x=>x.id===r.a),el=document.getElementById('tab');if(e&&el){el.innerHTML=tabBody(e,r.b||'overview');grow()}}
 const EV=id=>S.EV.find(x=>x.id===id);
 
 app.addEventListener('input',ev=>{const t=ev.target,d=t.dataset;
   if(t.tagName==='TEXTAREA'){t.style.height='auto';t.style.height=t.scrollHeight+'px'}
+  if(d.proj){const r=S.PROJ[d.proj][+d.i];r[d.k]=t.value;save();const c=document.querySelector('[data-rp="'+d.i+'"]');if(c)c.innerHTML=signed(rowProfit(r));if(d.k!=='n')document.getElementById('pout').innerHTML=projOut(d.proj);return}
+  if(d.open){S.open=t.value;save();return}
   if(d.set){S.SET.find(s=>s.id===d.set)[d.k]=t.value;save();return}
   if(d.setitem){S.SET.find(s=>s.id===d.setitem).items[+d.i]=t.value;save();return}
   if(!d.ev||t.type==='checkbox'||t.type==='date'||t.tagName==='SELECT')return;
   const e=EV(d.ev); if(d.list)e[d.list][+d.i][d.k]=t.value; else if(d.k.includes('.'))e.notes[d.k.split('.')[1]]=t.value; else e[d.k]=t.value; save()});
-app.addEventListener('change',ev=>{const t=ev.target,d=t.dataset;if(!d.ev)return;const e=EV(d.ev);
+app.addEventListener('change',ev=>{const t=ev.target,d=t.dataset;
+  if(d.open){render();return}
+  if(!d.ev)return;const e=EV(d.ev);
   if(d.chk){e[d.chk][+d.i].st=t.checked?'done':'todo'}
   else if(d.pack){e.packed[d.pack]=t.checked;save();return}
   else if(d.got!==undefined){e.buy[+d.got].got=t.checked}
   else if(t.type==='date'){if(!t.value)return;e.date=t.value;save();render();return}
   else if(t.tagName==='SELECT'){e[d.list][+d.i][d.k]=t.value}
-  else {if(d.k==='name')render();return}
+  else {if(d.k==='name'||d.k==='time'||d.k==='series')render();return}
   save();retab()});
-app.addEventListener('click',ev=>{const b=ev.target.closest('[data-act]');if(!b)return;const d=b.dataset,e=d.ev&&EV(d.ev);
+app.addEventListener('click',ev=>{
+  const a=ev.target.closest('a[href^="#/"]');
+  if(a){ev.preventDefault();go(a.getAttribute('href').slice(1));return}
+  const b=ev.target.closest('[data-act]');if(!b)return;const d=b.dataset,e=d.ev&&EV(d.ev);
   switch(d.act){
    case'menu':document.getElementById('mob').classList.toggle('open');return;
-   case'tab':history.replaceState(null,'','#/event/'+d.id+'/'+d.t);document.querySelectorAll('.bar button').forEach(x=>x.classList.toggle('on',x===b));retab();window.scrollTo({top:0,behavior:'smooth'});return;
+   case'tab':setHash('/event/'+d.id+'/'+d.t);document.querySelectorAll('.bar button').forEach(x=>x.classList.toggle('on',x===b));retab();try{window.scrollTo(0,0)}catch(err){}return;
    case'addline':e[d.list].push(d.list==='buy'?{t:'',q:'',c:'',got:false}:{t:'',who:'',st:'todo'});break;
    case'del':e[d.list].splice(+d.i,1);break;
    case'toggleset':e.sets.includes(d.id)?e.sets.splice(e.sets.indexOf(d.id),1):e.sets.push(d.id);break;
    case'ch':e.ch.includes(d.id)?e.ch.splice(e.ch.indexOf(d.id),1):e.ch.push(d.id);break;
-   case'delev':if(b.dataset.sure){const m=pd(EV(d.id).date).getMonth();S.EV=S.EV.filter(x=>x.id!==d.id);save();go('/calendar/'+m)}else{b.dataset.sure=1;b.textContent='Click again to remove'}return;
+   case'delev':if(d.sure){const m=pd(EV(d.id).date).getMonth();S.EV=S.EV.filter(x=>x.id!==d.id);save();go('/calendar/'+m)}else{b.dataset.sure=1;b.textContent='Click again to remove'}return;
    case'additem':S.SET.find(s=>s.id===d.id).items.push('');save();render();return;
    case'delitem':S.SET.find(s=>s.id===d.id).items.splice(+d.i,1);save();render();return;
-   case'newset':{const id='s'+(S.seq++);S.SET.push({id,name:'New set',note:'',items:[]});save();go('/mise/'+id);return}
+   case'newset':{const id='s'+(S.seq++);S.SET.push({id,icon:'category',name:'New set',note:'',items:[]});save();go('/mise/'+id);return}
+   case'addproj':S.PROJ[d.id].push(P('New event',0,0,1,0,0,0));save();render();return;
+   case'delproj':S.PROJ[d.id].splice(+d.i,1);save();render();return;
    case'new':dialog(d.id);return;
-   case'close':document.querySelector('.veil')?.remove();return;
+   case'close':{const v=document.querySelector('.veil');if(v)v.remove();return}
    case'create':{const v=document.getElementById('nd').value;if(!v)return;const n=fromTpl(d.id,v);const nm=document.getElementById('nn').value.trim();if(nm)n.name=nm;S.EV.push(n);save();document.querySelector('.veil').remove();go('/event/'+n.id);return}
   }
   save();retab()});
