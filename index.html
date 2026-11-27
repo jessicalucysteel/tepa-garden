@@ -217,9 +217,10 @@ const teamOf=w=>({'Chef Tam':'kitchen','Chef Tur':'kitchen','Kitchen team':'kitc
 const STATUS=[['todo','To do'],['prog','In progress'],['done','Done'],['stuck','Stuck']];
 const TABS=[['overview','Overview'],['team','Team'],['mise','Material list'],['buy','To buy'],['marketing','Marketing'],['costs','Costs'],['notes','Notes']];
 const YEAR=2027;
-const VERSION='8';
+const VERSION='9';
+const DB_URL='';
 try{if(location.protocol.indexOf('http')===0)fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():'').then(v=>{v=v.trim();if(v&&v!==VERSION&&!location.search.includes('v='+v))location.replace(location.pathname+'?v='+v+location.hash)}).catch(()=>{})}catch(e){}
-const FOOT=`<div class="foot">TEPA GARDEN<div style="letter-spacing:.2px;font-family:var(--body);color:var(--plum);margin-top:10px">Version ${VERSION}</div></div>`;
+const FOOT=`<div class="foot">TEPA GARDEN<div style="letter-spacing:.2px;font-family:var(--body);color:var(--plum);margin-top:10px">Version ${VERSION} · <span class="sync"></span></div></div>`;
 
 /* ---------- starting content (drafts, all editable) ---------- */
 const SETS0=[
@@ -336,10 +337,27 @@ const KEY='tepa-garden-v5';
 let S={seq:1,TPL:clone(TPL0),SET:clone(SETS0),EV:[],PROJ:clone(PROJ0),IDEAS:clone(IDEAS0),open:10,fill:1,cap:60};
 let saved=null; try{saved=JSON.parse(localStorage.getItem(KEY))}catch(e){}
 if(saved&&saved.EV&&saved.PROJ&&saved.IDEAS&&saved.cap!==undefined){S=saved}else{S.EV=seed()}
-S.EV.forEach(e=>{if(!e.base)e.base=e.name});
-S.EV.concat(S.TPL).forEach(x=>(x.duties||[]).forEach(d=>{if(!d.team)d.team=teamOf(d.who)}));
-if(!S.THEME){S.THEME={};for(let k=12;k<=23;k++)if(SERIES[k%12])S.THEME[k]=SERIES[k%12].name}
-let saveT; function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},250)}
+function norm(){S.EV.forEach(e=>{if(!e.base)e.base=e.name});
+  S.EV.concat(S.TPL).forEach(x=>(x.duties||[]).forEach(d=>{if(!d.team)d.team=teamOf(d.who)}));
+  if(!S.THEME){S.THEME={};for(let k=12;k<=23;k++)if(SERIES[k%12])S.THEME[k]=SERIES[k%12].name}}
+norm();
+/* shared saving: one copy of the planner kept online, everyone reads and writes it */
+const REMOTE=DB_URL?DB_URL.replace(/\/+$/,'')+'/planner.json':'';
+let saveT,pushT,dirty=false,lastRev=0,syncMsg=REMOTE?'Connecting to shared saving':'Saving on this device only';
+const clock=()=>{const d=new Date();return d.getHours()+':'+String(d.getMinutes()).padStart(2,'0')};
+function setSync(m){syncMsg=m;document.querySelectorAll('.sync').forEach(x=>x.textContent=m)}
+function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},250);
+  if(REMOTE){dirty=true;setSync('Saving');clearTimeout(pushT);pushT=setTimeout(push,800)}}
+async function push(){if(!dirty)return;dirty=false;const rev=Date.now();
+  try{const r=await fetch(REMOTE,{method:'PUT',body:JSON.stringify({rev,data:JSON.stringify(S)})});if(!r.ok)throw 0;lastRev=rev;setSync('Shared with the team. Saved '+clock())}
+  catch(e){dirty=true;setSync('Could not reach shared saving. Trying again');clearTimeout(pushT);pushT=setTimeout(push,5000)}}
+const typing=()=>{const a=document.activeElement;return !!a&&/INPUT|TEXTAREA|SELECT/.test(a.tagName)};
+async function pull(first){if(!REMOTE)return;
+  try{const r=await fetch(REMOTE+'?t='+Date.now(),{cache:'no-store'});if(!r.ok)throw 0;const j=await r.json();
+    if(j&&j.data&&j.rev>lastRev){if(dirty||(!first&&typing()))return;const n=JSON.parse(j.data);if(n&&n.EV){S=n;norm();lastRev=j.rev;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}const y=window.scrollY;render();window.scrollTo(0,y)}}
+    else if(first&&!j){dirty=true;push();return}
+    if(!dirty)setSync('Shared with the team. Up to date '+clock())}
+  catch(e){setSync('Could not reach shared saving')}}
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const today=iso(new Date());
 const isDone=e=>e.date<today;
@@ -507,7 +525,7 @@ function tabInner(e,tab){
 const app=document.getElementById('app');
 function render(){const r=route();
   app.innerHTML=r.page==='event'?eventPage(r):r.page==='templates'?(S.TPL.find(t=>t.id===r.a)?tplPage(S.TPL.find(t=>t.id===r.a)):templates()):r.page==='mise'?mise(r):r.page==='projection'?projection(r):r.page==='ideas'?ideas():calendar(r);
-  grow();setTimeout(()=>document.querySelectorAll('.fi').forEach(x=>x.classList.remove('fi')),900)}
+  setSync(syncMsg);grow();setTimeout(()=>document.querySelectorAll('.fi').forEach(x=>x.classList.remove('fi')),900)}
 function grow(){document.querySelectorAll('textarea').forEach(t=>{t.style.height='auto';t.style.height=t.scrollHeight+'px'})}
 function retab(){const r=route(),e=S.EV.find(x=>x.id===r.a),el=document.getElementById('tab');if(e&&el){el.innerHTML=tabBody(e,r.b||'overview');grow()}}
 const EV=id=>S.EV.find(x=>x.id===id);
@@ -581,6 +599,7 @@ function dialog(tid,name,note){const t=S.TPL.find(x=>x.id===tid)||S.TPL[0];tid=t
   v.innerHTML=`<div class="dlg"><h2>${esc(t.name)}</h2><label>Event name</label><input id="nn" type="text" value="${esc(name||t.name)}"><label>Date</label><input id="nd" type="date" value="${YEAR}-01-01"><div class="acts"><button class="btn" data-act="close">Cancel</button><button class="btn on" data-act="create" data-id="${tid}" data-note="${esc(note||'')}">Add to calendar</button></div></div>`;
   app.appendChild(v)}
 render();
+if(REMOTE){pull(true);setInterval(()=>pull(false),12000);document.addEventListener('visibilitychange',()=>{if(!document.hidden)pull(false)})}
 </script>
 </body>
 </html>
