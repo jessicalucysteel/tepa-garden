@@ -71,6 +71,7 @@ nav{display:flex;gap:clamp(16px,3vw,44px);font-size:clamp(15px,1.5vw,20px)}
 .ev b{font-weight:400;font-family:var(--classic);font-size:var(--base);display:block}
 .ev:hover{color:var(--red)}
 .ev.done{opacity:.45}
+.theme{border:0;border-bottom:1px solid transparent;background:transparent;text-align:center;font-family:var(--classic);font-size:var(--xl);width:min(620px,92%);outline:0;padding:2px 0}.theme:hover,.theme:focus{border-bottom-color:var(--tan)}
 .closed{text-align:center;padding:90px 0;border-top:1px solid var(--maroon);border-bottom:1px solid rgba(51,15,15,.25)}
 .closed h3{font-size:var(--x2)}
 .list{display:none;border-top:1px solid var(--maroon)}
@@ -95,6 +96,8 @@ nav{display:flex;gap:clamp(16px,3vw,44px);font-size:clamp(15px,1.5vw,20px)}
 
 .detail{background:var(--white);min-height:100vh}
 .panel{position:relative;background:var(--red);color:var(--white);padding:104px 24px 30px;min-height:250px;display:flex;flex-direction:column;justify-content:flex-end}
+.panel[data-act]{cursor:pointer}.panel.has{background-size:cover;background-position:center}.panel.has:before{content:"";position:absolute;inset:0;background:linear-gradient(rgba(0,0,0,.2),rgba(0,0,0,.62))}.panel>*{position:relative}
+.pbtns{display:flex;flex-wrap:wrap;gap:8px;margin-top:18px}.pb{border-color:var(--beige);color:var(--white)}.pb:hover{background:var(--white);border-color:var(--white);color:var(--red)}
 .panel h1{font-size:var(--x3);line-height:1.12}
 .panel p{margin-top:8px;font-size:var(--base)}
 .panel .eyebrow{font-family:var(--classic);letter-spacing:.34em;font-size:var(--sm);margin-bottom:14px}
@@ -214,7 +217,7 @@ const teamOf=w=>({'Chef Tam':'kitchen','Chef Tur':'kitchen','Kitchen team':'kitc
 const STATUS=[['todo','To do'],['prog','In progress'],['done','Done'],['stuck','Stuck']];
 const TABS=[['overview','Overview'],['team','Team'],['mise','Material list'],['buy','To buy'],['marketing','Marketing'],['costs','Costs'],['notes','Notes']];
 const YEAR=2027;
-const VERSION='7';
+const VERSION='8';
 try{if(location.protocol.indexOf('http')===0)fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():'').then(v=>{v=v.trim();if(v&&v!==VERSION&&!location.search.includes('v='+v))location.replace(location.pathname+'?v='+v+location.hash)}).catch(()=>{})}catch(e){}
 const FOOT=`<div class="foot">TEPA GARDEN<div style="letter-spacing:.2px;font-family:var(--body);color:var(--plum);margin-top:10px">Version ${VERSION}</div></div>`;
 
@@ -335,6 +338,7 @@ let saved=null; try{saved=JSON.parse(localStorage.getItem(KEY))}catch(e){}
 if(saved&&saved.EV&&saved.PROJ&&saved.IDEAS&&saved.cap!==undefined){S=saved}else{S.EV=seed()}
 S.EV.forEach(e=>{if(!e.base)e.base=e.name});
 S.EV.concat(S.TPL).forEach(x=>(x.duties||[]).forEach(d=>{if(!d.team)d.team=teamOf(d.who)}));
+if(!S.THEME){S.THEME={};for(let k=12;k<=23;k++)if(SERIES[k%12])S.THEME[k]=SERIES[k%12].name}
 let saveT; function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},250)}
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const today=iso(new Date());
@@ -391,7 +395,7 @@ function calendar(r){
      <h2>${MONTHS[m]} ${y}</h2>
      <a class="arrow next" href="#/calendar/${Math.min(MI1,i+1)}" aria-label="Next month" style="${i===MI1?'opacity:.25':''}">${IC('arrow-left-dark')}</a></div>
    <div class="strip">${strip}</div>
-   ${s&&any?`<p class="centre" style="margin:-4px 0 28px"><span class="sm plum">This month's series</span><br><span class="classic" style="font-size:var(--xl)">${esc(s.name)}</span></p>`:''}
+   <p class="centre" style="margin:-4px 0 28px"><span class="sm plum">This month's theme</span><br><input class="theme" type="text" data-theme="${i}" value="${esc(S.THEME[i]||'')}" placeholder="Click to add a theme"></p>
    ${!any&&closed?`<div class="closed"><h3>The garden is resting</h3><p class="plum" style="margin-top:8px">Closed for product development.</p><p style="margin-top:22px"><a class="btn" href="#/templates">Add an event</a></p></div>`:
    `<div class="dow">${DOW.map(d=>`<span>${d}</span>`).join('')}</div><div class="grid">${cells}</div><div class="list">${rows||'<p class="hint" style="padding:30px 0">No events this month.</p>'}</div>`}
    ${FOOT}
@@ -459,7 +463,7 @@ function eventPage(r){
   const e=S.EV.find(x=>x.id===r.a); if(!e) return header('calendar')+`<main class="wrap">${head('Event not found','')}<p class="centre"><a class="btn" href="#/calendar">Back to the calendar</a></p></main>`;
   const tab=TABS.some(t=>t[0]===r.b)?r.b:'overview', t=S.TPL.find(x=>x.id===e.tpl)||S.TPL[0], m=mi(e.date);
   return `<div class="detail fi">${header('calendar')}
-   <div class="panel"><div class="eyebrow">${esc((e.series||t.kind).toUpperCase())}</div><h1>${esc(e.name)}</h1><p>${esc(nice(e.date))}${e.time?' · '+esc(e.time):''}${isDone(e)?' · Completed':''}</p><p>${esc([e.price&&money(e.price),e.guests&&e.guests+' guests'].filter(Boolean).join(' · '))}</p></div>
+   <div class="panel ${e.photo?'has':''}" data-act="photo" data-id="${e.id}" ${e.photo?`style="background-image:url(${e.photo})"`:''} title="Click to add a photo"><div class="eyebrow">${esc((e.series||t.kind).toUpperCase())}</div><h1>${esc(e.name)}</h1><p>${esc(nice(e.date))}${e.time?' · '+esc(e.time):''}${isDone(e)?' · Completed':''}</p><p>${esc([e.price&&money(e.price),e.guests&&e.guests+' guests'].filter(Boolean).join(' · '))}</p><div class="pbtns"><button type="button" class="btn pb" data-act="photo" data-id="${e.id}">${e.photo?'Change photo':'Add photo'}</button>${e.photo?`<button type="button" class="btn pb" data-act="nophoto" data-id="${e.id}">Remove photo</button>`:''}</div></div>
    <div class="pane"><a class="back" href="#/calendar/${m}">${IC('arrow-left-dark')}Back</a><div class="tabs">${TABS.map(x=>`<button type="button" class="btn ${x[0]===tab?'on':''}" data-act="tab" data-id="${e.id}" data-t="${x[0]}">${x[1]}</button>`).join('')}</div><div id="tab">${tabBody(e,tab)}</div></div></div>`}
 
 const tile=(ic,label,inner)=>`<div class="tile"><div class="ic">${IC(ic)}</div><div style="flex:1;min-width:0"><label>${label}</label>${inner}</div></div>`;
@@ -509,7 +513,7 @@ function retab(){const r=route(),e=S.EV.find(x=>x.id===r.a),el=document.getEleme
 const EV=id=>S.EV.find(x=>x.id===id);
 
 app.addEventListener('input',ev=>{const t=ev.target,d=t.dataset;
-  if(d.tm!==undefined)return;
+  if(d.tm!==undefined||d.theme)return;
   if(t.tagName==='TEXTAREA'){t.style.height='auto';t.style.height=t.scrollHeight+'px'}
   if(d.proj){const r=S.PROJ[d.proj][+d.i];r[d.k]=t.value;save();const c=document.querySelector('[data-rp="'+d.i+'"]');if(c)c.innerHTML=signed(rowProfit(r));const hc=document.querySelector('[data-rh="'+d.i+'"]');if(hc)hc.textContent=fmt(num(r.hrs)*num(r.per));if(d.k!=='n')document.getElementById('pout').innerHTML=projOut(d.proj);return}
   if(d.open){S.open=t.value;save();return}
@@ -521,6 +525,7 @@ app.addEventListener('input',ev=>{const t=ev.target,d=t.dataset;
   if(!d.ev||t.type==='checkbox'||t.type==='date'||t.tagName==='SELECT')return;
   const e=EV(d.ev); if(d.list)e[d.list][+d.i][d.k]=t.value; else if(d.k.includes('.'))e.notes[d.k.split('.')[1]]=t.value; else e[d.k]=t.value; if(d.k==='name'){const h=document.querySelector('.panel h1');if(h)h.textContent=t.value} save()});
 app.addEventListener('change',ev=>{const t=ev.target,d=t.dataset;
+  if(d.theme){const old=S.THEME[d.theme]||'',nv=t.value.trim(),pre=(2026+Math.floor(d.theme/12))+'-'+String(d.theme%12+1).padStart(2,'0');S.THEME[d.theme]=nv;if(old)S.EV.forEach(e=>{if(e.date.slice(0,7)===pre&&e.series===old)e.series=nv});save();return}
   if(d.tm!==undefined){const o=d.ev?EV(d.ev):S.TPL.find(x=>x.id===d.tpl),p=parseT(o.time);p[+d.tm]=t.value;o.time=p[0]?(p[1]?p[0]+' to '+p[1]:p[0]):'';save();if(d.ev){const y=window.scrollY;render();window.scrollTo(0,y)}return}
   if(d.open||d.cap){render();return}
   if(!d.ev)return;const e=EV(d.ev);
@@ -549,6 +554,11 @@ app.addEventListener('click',ev=>{
    case'addproj':S.PROJ[d.id].push(P('New event',0,0,1,0,0,0));save();render();return;
    case'delproj':S.PROJ[d.id].splice(+d.i,1);save();render();return;
    case'new':dialog(d.id);return;
+   case'nophoto':EV(d.id).photo='';save();render();return;
+   case'photo':{const inp=document.createElement('input');inp.type='file';inp.accept='image/*';inp.onchange=()=>{const f=inp.files[0];if(!f)return;const img=new Image(),url=URL.createObjectURL(f);
+       img.onload=()=>{const k=Math.min(1,1400/Math.max(img.width,img.height)),c=document.createElement('canvas');c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);c.getContext('2d').drawImage(img,0,0,c.width,c.height);
+         const x=EV(d.id);x.photo=c.toDataURL('image/jpeg',.72);URL.revokeObjectURL(url);let ok=true;try{localStorage.setItem(KEY,JSON.stringify(S))}catch(err){ok=false;x.photo=''}
+         render();if(!ok){const pb=document.querySelector('.pb');if(pb)pb.textContent='No room to save more photos. Remove one first'}};img.src=url};inp.click();return}
    case'fill':S.fill=+d.id;save();render();return;
    case'applyall':{if(!d.sure){b.dataset.sure=1;b.textContent='Click again to confirm';return}
      const src=EV(d.id),reset=a=>clone(a).map(x=>{if(x.st)x.st='todo';if('got' in x)x.got=false;return x});let n=0;
