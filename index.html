@@ -467,7 +467,7 @@ function tabBody(e,tab){
 const app=document.getElementById('app');
 function render(){const r=route();
   app.innerHTML=r.page==='event'?eventPage(r):r.page==='templates'?templates():r.page==='mise'?mise(r):r.page==='projection'?projection(r):r.page==='ideas'?ideas():calendar(r);
-  grow()}
+  grow();setTimeout(()=>document.querySelectorAll('.fi').forEach(x=>x.classList.remove('fi')),900)}
 function grow(){document.querySelectorAll('textarea').forEach(t=>{t.style.height='auto';t.style.height=t.scrollHeight+'px'})}
 function retab(){const r=route(),e=S.EV.find(x=>x.id===r.a),el=document.getElementById('tab');if(e&&el){el.innerHTML=tabBody(e,r.b||'overview');grow()}}
 const EV=id=>S.EV.find(x=>x.id===id);
