@@ -32,7 +32,7 @@ button{background:none;border:0;cursor:pointer}
 /* header */
 header{position:sticky;top:0;z-index:30;backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);background:linear-gradient(rgba(230,225,214,.92),rgba(230,225,214,0))}
 header .wrap{display:flex;align-items:center;justify-content:space-between;height:104px}
-header img.logo{width:161px;height:67px;display:block}
+header .logo{width:161px;height:67px;display:block}
 nav{display:flex;gap:44px;font-size:20px}.hd-r{font-size:20px}
 .ul{position:relative;display:inline-block;padding-bottom:2px}
 .ul:after{content:"";position:absolute;left:0;bottom:0;height:1px;width:100%;background:currentColor;transform:scaleX(0);transform-origin:left;transition:transform .35s ease-in-out}
@@ -41,8 +41,8 @@ nav{display:flex;gap:44px;font-size:20px}.hd-r{font-size:20px}
 .mob{display:none}
 @media(max-width:1099px){
   header .wrap{height:76px;display:grid;grid-template-columns:1fr auto 1fr}
-  header img.logo{width:110px;height:46px}
-  nav{display:none}.burger{display:block;justify-self:start}.hd-r{justify-self:end;font-size:var(--sm)}
+  header .logo{width:110px;height:46px}
+  nav{display:none}.burger{display:block;justify-self:start;line-height:0}.hd-r{justify-self:end;font-size:var(--sm)}
   .mob{position:fixed;inset:0;background:#e5d2be;z-index:40;padding:28px 24px;flex-direction:column;gap:26px;font-family:var(--classic);font-size:28px}
   .mob.open{display:flex}
   .mob button{align-self:flex-end;font-size:26px;line-height:1}
@@ -63,9 +63,9 @@ nav{display:flex;gap:44px;font-size:20px}.hd-r{font-size:20px}
 .months .count{font-size:var(--sm);color:var(--plum);min-width:60px;text-align:center}
 .arrow{width:38px;height:38px;border:1px solid var(--maroon);display:grid;place-items:center;transition:all .3s}
 .arrow:hover{background:var(--red);border-color:var(--red)}
-.arrow:hover img{filter:brightness(0) invert(.92)}
-.arrow img{width:19px}
-.arrow.next img{transform:scaleX(-1)}
+.arrow:hover{color:var(--beige)}
+.arrow svg{width:19px}
+.arrow.next svg{transform:scaleX(-1)}
 .strip{display:flex;justify-content:center;flex-wrap:wrap;gap:6px 22px;font-size:var(--sm);margin-bottom:34px}
 .dow{display:grid;grid-template-columns:repeat(7,1fr);font-size:var(--sm);color:var(--plum);padding-bottom:10px}
 .grid{display:grid;grid-template-columns:repeat(7,1fr);border-top:1px solid var(--maroon)}
@@ -106,11 +106,11 @@ nav{display:flex;gap:44px;font-size:20px}.hd-r{font-size:20px}
 .cap p{font-size:var(--sm);margin-top:6px}
 .pane{padding:28px 24px 170px}
 .back{display:inline-flex;align-items:center;gap:10px;font-size:var(--sm);margin-bottom:26px}
-.back img{width:19px}
+.back svg{width:19px}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .tile{background:#fff;border-radius:14px;padding:12px;display:flex;gap:12px;align-items:center}
 .tile .ic{width:43px;height:43px;border-radius:8px;background:var(--beige);display:grid;place-items:center;flex:none}
-.tile .ic img{width:20px;height:20px}
+.tile .ic svg{width:20px;height:20px}
 .tile label{display:block;font-size:var(--sm)}
 .tile input,.tile select{border:0;background:transparent;color:var(--plum);font-size:var(--sm);width:100%;outline:0;padding:0}
 .card{background:#fff;border-radius:14px;padding:26px;margin-top:12px}
@@ -125,7 +125,7 @@ nav{display:flex;gap:44px;font-size:20px}.hd-r{font-size:20px}
   .pane{margin-left:50%;padding:132px 40px 170px}
   .detail header{position:absolute;left:0;right:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none}
   .detail header nav,.detail header .hd-r{display:none}
-  .detail header img.logo{filter:brightness(0) invert(.96)}
+  .detail header .logo{color:var(--white)}
 }
 /* lines in cards */
 .line{display:grid;grid-template-columns:22px 1fr 22px;gap:10px;align-items:center;padding:12px 0;border-top:1px solid rgba(51,15,15,.14)}
@@ -185,8 +185,9 @@ const PH={
   seed:cms('2026/10/gallery-1-garden-seed.jpg'),
   bed:cms('2026/10/gallery-2-garden-seed.jpg')
 };
-const IC=n=>SITE+'/images/icons/'+n+'.svg';
-const LOGO=SITE+'/images/logos/baan-tepa-dark.svg';
+const ICONS={"arrow-left-dark": "<svg width=\"19\" height=\"11\" viewBox=\"0 0 19 11\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1\" stroke-linecap=\"round\" stroke-linejoin=\"round\"><path d=\"M18 5.5H1M5.1 1.2.8 5.5l4.3 4.3\"/></svg>", "menu-dark": "<svg width=\"32\" height=\"17\" viewBox=\"0 0 32 17\" fill=\"none\" stroke=\"currentColor\" stroke-width=\"1.2\" stroke-linecap=\"square\"><path d=\"M.75 1.5h30M.75 8.5h30M.75 15.5h30\"/></svg>", "grower": "<svg width=\"21\" height=\"16\" viewBox=\"0 0 21 16\" fill=\"currentColor\"><path d=\"M20.5746 1.19861C18.7984 0.350061 16.7505 0.271018 14.9135 0.980608C13.0766 1.69106 11.6139 3.12672 10.8695 4.94986C10.1252 3.12683 8.66262 1.69121 6.82559 0.980608C4.98866 0.271025 2.9406 0.350068 1.16454 1.19861C0.971722 1.2898 0.852745 1.48783 0.864018 1.70148C0.979531 3.94669 2.14335 6.00669 4.00727 7.26448C5.87112 8.52209 8.21709 8.8313 10.3422 8.09826V14.9726C10.3422 15.2636 10.5785 15.4998 10.8694 15.4998C11.1604 15.4998 11.3966 15.2636 11.3966 14.9726V8.09826C13.5219 8.83043 15.8677 8.52122 17.7307 7.26361C19.5946 6.006 20.7583 3.94582 20.8749 1.7015C20.8861 1.48784 20.7674 1.28979 20.5746 1.19861Z\"/></svg>", "seasonality": "<svg width=\"20\" height=\"21\" viewBox=\"0 0 20 21\" fill=\"currentColor\"><path fill-rule=\"evenodd\" d=\"M5.1.5h1.6v1.5h2.4V.5h1.6v1.5h2.4V.5h1.5v1.5h.8a4 4 0 0 1 4 4v10.6a4 4 0 0 1-4 4H4.3a4 4 0 0 1-4-4V6a4 4 0 0 1 4-4h.8V.5ZM2 7.4h15.8V6a2.3 2.3 0 0 0-2.4-2.4H4.3A2.3 2.3 0 0 0 2 6v1.4Z\"/></svg>", "category": "<svg width=\"19\" height=\"19\" viewBox=\"0 0 19 19\" fill=\"currentColor\"><path d=\"M2.94 8.58H7.8c.36 0 .65-.29.65-.65V3.07A2.57 2.57 0 0 0 5.88.5H2.94A2.57 2.57 0 0 0 .37 3.07V6a2.57 2.57 0 0 0 2.57 2.58ZM15.8.5h-2.93a2.57 2.57 0 0 0-2.57 2.57v4.86c0 .36.28.65.64.65h4.86A2.57 2.57 0 0 0 18.37 6V3.07A2.57 2.57 0 0 0 15.8.5ZM2.94 18.5h2.94a2.57 2.57 0 0 0 2.57-2.57v-4.86a.64.64 0 0 0-.65-.64H2.94a2.57 2.57 0 0 0-2.57 2.57v2.93a2.57 2.57 0 0 0 2.57 2.57ZM15.8 10.43h-4.86a.64.64 0 0 0-.64.64v4.86a2.57 2.57 0 0 0 2.57 2.57h2.93a2.57 2.57 0 0 0 2.57-2.57V13a2.57 2.57 0 0 0-2.57-2.57Z\"/></svg>", "family": "<svg width=\"22\" height=\"20\" viewBox=\"0 0 22 20\" fill=\"currentColor\"><circle cx=\"10.87\" cy=\"5\" r=\"4.5\"/><circle cx=\"16.87\" cy=\"15\" r=\"4.5\"/><circle cx=\"4.87\" cy=\"15\" r=\"4.5\"/></svg>"};
+const IC=n=>ICONS[n];
+const LOGO="<svg class=\"logo\" viewBox=\"0 0 162 68\" fill=\"currentColor\" xmlns=\"http://www.w3.org/2000/svg\" role=\"img\" aria-label=\"Baan Tepa\"><path d=\"M159.808 66.8467C159.011 66.7241 158.344 66.1823 158.066 65.4244C155.67 58.9132 144.531 28.6498 144.531 28.6498C143.783 26.618 144.789 25.6344 145.563 25.199L143.512 24.8281C143.512 24.8281 141.387 25.3667 140.613 27.4726L126.51 65.4051C126.226 66.1694 125.542 66.7177 124.733 66.8273L122.446 67.1369L122.785 67.582C122.862 67.6819 122.982 67.74 123.107 67.7367L126.374 67.6271C126.478 67.6239 126.584 67.6239 126.687 67.6271L130.825 67.74C130.944 67.7432 131.057 67.6916 131.134 67.6013L131.476 67.1982L130.57 67.0369C129.225 66.7983 128.413 65.4147 128.864 64.1248L132.247 54.4659C132.492 53.766 133.15 53.3017 133.892 53.3017H148.424L152.203 64.0957C152.658 65.3954 151.829 66.7918 150.472 67.0143L149.323 67.2014L149.698 67.5916C149.794 67.6916 149.927 67.7464 150.062 67.7432L155.428 67.6239L160.962 67.7432C161.108 67.7432 161.249 67.6852 161.346 67.5723L161.717 67.1401L159.808 66.8467ZM133.044 52.218L140.806 30.1623L140.945 31.0782C141.074 31.9328 141.28 32.7713 141.564 33.5872L148.114 52.218H133.044Z\"/><path d=\"M75.9194 54.0213C75.6356 54.0632 75.4389 54.3212 75.426 54.605C75.1003 61.2227 69.105 66.3634 62.4325 66.473L51.9867 66.5117C51.9867 66.5117 53.2509 66.3215 53.2509 64.2026V46.5329C53.2509 46.0588 53.6379 45.6782 54.112 45.6847L58.3625 45.7266C62.3486 45.7911 65.5801 48.9452 65.7671 52.899C65.7768 53.0861 65.9252 53.2376 66.1154 53.2376C66.3057 53.2376 66.4637 53.0828 66.4637 52.8893V37.5319C66.4637 37.3384 66.3089 37.1836 66.1154 37.1836C65.9219 37.1836 65.7768 37.3352 65.7671 37.5222C65.5801 41.4535 62.3841 44.5882 58.4335 44.6882L54.8666 44.7236C54.2732 44.7236 53.7411 44.7978 53.2509 44.9268C50.816 45.5589 49.6002 47.5842 49.0004 49.3257C48.6005 50.4899 48.4199 51.7187 48.4199 52.9506V64.6896C48.4199 65.7797 47.6233 66.7085 46.5461 66.8762L44.4854 67.1954L44.7692 67.5308C44.882 67.6631 45.0497 67.7405 45.2239 67.734L50.8386 67.6179L75.197 67.7372C75.5905 67.7372 75.9485 67.447 75.9743 67.0535L76.5999 54.5954C76.5999 54.2438 76.2903 53.9665 75.9291 54.0181L75.9194 54.0213Z\"/><path d=\"M33.0756 26.6901C33.053 26.374 32.7853 26.1289 32.4661 26.1289L16.5088 26.2482L0.674024 26.1289C0.354749 26.1289 0.090299 26.3708 0.064499 26.6901L0 36.0587C0 36.2877 0.183825 36.4715 0.4128 36.4715C0.641775 36.4715 0.815924 36.2941 0.825599 36.0684C1.04812 31.3663 4.89233 27.3576 9.62985 27.2835H13.8836C14.032 27.2835 14.1545 27.406 14.1545 27.5544V66.5865L9.17835 67.138L9.56212 67.5831C9.6492 67.6863 9.78142 67.7443 9.91687 67.7411L16.5733 67.6218L22.9685 67.7379C23.1523 67.7411 23.3232 67.6572 23.4361 67.5121L23.7231 67.1348L18.992 66.5833V29.3571C18.992 27.5318 17.7278 27.277 17.7278 27.277H23.5231C28.2607 27.3544 32.1049 31.3631 32.3274 36.0651C32.3371 36.2877 32.5144 36.4683 32.7402 36.4683C32.9659 36.4683 33.153 36.2844 33.153 36.0555L33.0788 26.6868L33.0756 26.6901Z\"/><path d=\"M77.9421 14.6899C77.6648 14.6479 77.4293 14.4577 77.3326 14.1932C76.4941 11.9164 72.6015 1.33514 72.6015 1.33514C72.3403 0.625645 72.6918 0.280573 72.9627 0.128998L72.2468 0C72.2468 0 71.5018 0.187048 71.2341 0.925573L66.3031 14.19C66.2031 14.4577 65.9645 14.6479 65.6807 14.6866L64.8809 14.7963L65.0002 14.9511C65.026 14.9866 65.0679 15.0059 65.1131 15.0059L66.2547 14.9672C66.2902 14.9672 66.3289 14.9672 66.3644 14.9672L67.8124 15.0059C67.8543 15.0059 67.893 14.9898 67.9188 14.9575L68.0381 14.8156L67.7221 14.7608C67.2512 14.677 66.9674 14.1932 67.1255 13.7417L68.309 10.3651C68.3961 10.12 68.6251 9.95879 68.8831 9.95879H73.9657L75.2879 13.732C75.446 14.1868 75.1557 14.6737 74.6816 14.7511L74.2817 14.8156L74.414 14.9511C74.4462 14.9866 74.4946 15.0059 74.543 15.0027L76.4199 14.9608L78.3549 15.0027C78.4065 15.0027 78.4549 14.9833 78.4871 14.9446L78.6161 14.7931L77.9486 14.6899H77.9421ZM68.5832 9.57503L71.2986 1.86405L71.347 2.18332C71.3921 2.48325 71.4631 2.77672 71.5631 3.06052L73.8528 9.57503H68.5832Z\"/><path d=\"M93.8864 14.6899C93.6091 14.6479 93.3737 14.4577 93.2769 14.1932C92.4384 11.9164 88.5458 1.33514 88.5458 1.33514C88.2846 0.625645 88.6361 0.280573 88.907 0.128998L88.1911 0C88.1911 0 87.4461 0.187048 87.1784 0.925573L82.2474 14.19C82.1474 14.4577 81.9088 14.6479 81.625 14.6866L80.8252 14.7963L80.9445 14.9511C80.9703 14.9866 81.0122 15.0059 81.0574 15.0059L82.199 14.9672C82.2345 14.9672 82.2732 14.9672 82.3087 14.9672L83.7567 15.0059C83.7986 15.0059 83.8373 14.9898 83.8631 14.9575L83.9825 14.8156L83.6664 14.7608C83.1956 14.677 82.9118 14.1932 83.0698 13.7417L84.2534 10.3651C84.3404 10.12 84.5694 9.95879 84.8274 9.95879H89.91L91.2323 13.732C91.3903 14.1868 91.1 14.6737 90.626 14.7511L90.2261 14.8156L90.3583 14.9511C90.3905 14.9866 90.4389 15.0059 90.4873 15.0027L92.3642 14.9608L94.2992 15.0027C94.3508 15.0027 94.3992 14.9833 94.4315 14.9446L94.5605 14.7931L93.8929 14.6899H93.8864ZM84.5275 9.57503L87.2429 1.86405L87.2913 2.18332C87.3365 2.48325 87.4074 2.77672 87.5074 3.06052L89.7971 9.57503H84.5275Z\"/><path d=\"M58.2012 7.17232C60.0072 6.6531 61.3552 5.15992 61.3552 3.54097C61.3552 1.92202 60.0265 0.42885 57.2692 0.451425H51.29C51.2577 0.451425 51.2287 0.467548 51.2094 0.490123L51.0804 0.644927L51.8028 0.757794C52.1801 0.815844 52.4574 1.14158 52.4574 1.52213V13.9481C52.4574 14.3286 52.1769 14.6543 51.7996 14.7124L51.0771 14.8253L51.1771 14.9413C51.2158 14.9865 51.2739 15.0155 51.3352 15.0123H56.6048C59.9201 15.0123 62.2453 13.5804 62.2453 10.7198C62.2453 8.89447 60.836 7.27552 58.2012 7.17232ZM54.1635 0.831972L56.7274 0.851321C58.4495 0.909371 59.4234 2.27355 59.4234 3.7248C59.4234 5.4663 58.0947 7.16588 56.1468 7.18523H54.1635V0.828744V0.831972ZM56.3339 14.5931H54.1635V7.55287H56.8531C59.0106 7.569 60.2749 9.08153 60.2749 10.8037C60.2749 12.3388 59.3428 14.5801 56.3339 14.5963V14.5931Z\"/><path d=\"M110.546 0.523397C110.508 0.478247 110.45 0.449222 110.388 0.452447C110.388 0.452447 109.36 0.478243 108.986 0.478243C108.612 0.478243 107.592 0.452447 107.592 0.452447C107.531 0.452447 107.473 0.478247 107.434 0.523397L107.334 0.639493L108.057 0.75237C108.434 0.81042 108.711 1.13614 108.711 1.51669V1.48444V1.71019V12.3043L107.957 11.2659L100.533 0.449219H98.1012C98.069 0.449219 98.0399 0.462124 98.0206 0.484699L97.8916 0.639493L98.614 0.75237C99.1203 0.83622 99.2687 1.13614 99.2687 1.51669V3.0518V10.3177V13.9329C99.2687 14.3135 98.9913 14.6392 98.614 14.6973L97.8916 14.8101L97.9916 14.9262C98.0303 14.9714 98.0883 15.0004 98.1496 14.9972C98.1496 14.9972 99.1784 14.9714 99.5525 14.9714C99.9266 14.9714 100.946 14.9972 100.946 14.9972C101.007 14.9972 101.065 14.9714 101.104 14.9262L101.204 14.8101L100.481 14.6973C100.104 14.6392 99.8266 14.3135 99.8266 13.9329V13.9652V13.7394V10.6531V2.05849L100.491 3.32269L108.395 15.0004H109.273V1.51669C109.273 1.13614 109.55 0.81042 109.927 0.75237L110.65 0.639493L110.55 0.523397H110.546Z\"/><path d=\"M107.022 26.125H89.884C89.797 26.125 89.7131 26.1637 89.6551 26.2314L89.2842 26.67L91.345 26.9893C92.793 27.2344 93.2187 28.0858 93.2187 29.1759V50.6802C94.3345 48.7032 95.9922 47.4584 98.0497 47.0359V29.6757C98.0401 27.7665 96.9984 27.3279 96.8146 27.2667H98.0497L104.755 27.2183C111.621 27.2183 114.284 31.6075 114.181 37.4028C114.072 43.4497 109.118 48.284 103.071 48.284L99.659 48.3195C99.0688 48.3195 98.5367 48.3936 98.0497 48.5194C95.6116 49.1483 94.3926 51.1768 93.7927 52.9215C93.4251 53.9825 93.2187 55.1016 93.2187 56.2239C93.2187 56.8528 93.2187 58.246 93.2187 59.7231H93.2219V60.2294V64.6218C93.2219 65.7119 92.7962 66.5665 91.3482 66.8084L89.2874 67.1277L89.6583 67.5662C89.7163 67.634 89.8002 67.6727 89.8873 67.6727C89.8873 67.6727 93.3864 67.6404 94.37 67.6404C96.4888 67.6404 98.0465 66.1569 98.0465 63.3093L98.053 50.0642C98.082 49.6191 98.4335 49.2644 99.043 49.2644H105.493C114.207 49.2644 120.247 45.4976 120.247 37.477C120.247 30.3143 114.494 26.125 107.025 26.125H107.022Z\"/><path d=\"M75.655 26.5675C75.6453 26.3224 75.4454 26.1289 75.2003 26.1289H62.5679C62.4518 26.1289 62.339 26.1289 62.2229 26.1289H45.0852C44.9981 26.1289 44.9143 26.1676 44.8562 26.2353L44.4854 26.6739L46.5461 26.9932C47.9942 27.2383 48.4199 28.0897 48.4199 29.1798V47.1011C49.5357 45.1242 51.1934 43.8793 53.2509 43.4568V29.6796C53.2412 27.7704 52.1996 27.3318 52.0157 27.2706L66.038 27.2512C70.7111 27.2512 74.4134 32.8337 74.652 37.8873C74.6649 38.1646 74.8874 38.3871 75.1648 38.3871C75.4421 38.3871 75.6808 38.1549 75.6808 37.8711L75.655 26.5611V26.5675Z\"/></svg>";
 const MONTHS=['January','February','March','April','May','June','July','August','September','October','November','December'];
 const DOW=['Mon','Tue','Wed','Thu','Fri','Sat','Sun'];
 const PEOPLE=['Jess','P Rung','Shannon','Chef Tam','Chef Tur','P Aek','Bev team','Kitchen team','K Toey','K Tong'];
@@ -273,8 +274,8 @@ window.addEventListener('hashchange',()=>{render();window.scrollTo(0,0)});
 /* ---------- pieces ---------- */
 function header(p){const L=[['calendar','Calendar'],['templates','Templates'],['mise','Mise en place']];
   return `<header><div class="wrap">
-   <button class="burger" data-act="menu" aria-label="Menu"><img src="${IC('menu-dark')}" alt=""></button>
-   <a href="#/calendar"><img class="logo" src="${LOGO}" alt="Baan Tepa"></a>
+   <button class="burger" data-act="menu" aria-label="Menu">${IC('menu-dark')}</button>
+   <a href="#/calendar">${LOGO}</a>
    <nav>${L.map(l=>`<a class="ul ${p===l[0]?'on':''}" href="#/${l[0]}">${l[1]}</a>`).join('')}</nav>
    <a class="ul hd-r" href="#/templates">New event</a>
   </div></header>
@@ -295,9 +296,9 @@ function calendar(r){
   const s=SERIES[m];
   return header('calendar')+`<main class="wrap fi">
    <div class="title"><h1>Garden Calendar ${YEAR}</h1><p>A living garden for growing, learning and gathering.</p></div>
-   <div class="months"><a class="arrow" href="#/calendar/${(m+11)%12}" aria-label="Previous month"><img src="${IC('arrow-left-dark')}" alt=""></a>
+   <div class="months"><a class="arrow" href="#/calendar/${(m+11)%12}" aria-label="Previous month">${IC('arrow-left-dark')}</a>
      <div><h2>${MONTHS[m]}</h2></div>
-     <a class="arrow next" href="#/calendar/${(m+1)%12}" aria-label="Next month"><img src="${IC('arrow-left-dark')}" alt=""></a></div>
+     <a class="arrow next" href="#/calendar/${(m+1)%12}" aria-label="Next month">${IC('arrow-left-dark')}</a></div>
    <div class="strip">${MONTHS.map((n,i)=>`<a class="ul ${i===m?'on':''}" href="#/calendar/${i}">${n.slice(0,3)}</a>`).join('')}</div>
    ${s?`<p class="centre" style="margin:-8px 0 30px"><span class="sm plum">This month's series</span><br><span class="classic" style="font-size:var(--xl)">${esc(s.name)}</span></p>`:''}
    ${closed?`<div class="closed"><h3>The garden is resting</h3><p class="plum" style="margin-top:8px">Closed for product development.</p><p style="margin-top:22px"><a class="btn" href="#/templates">Add an event</a></p></div>`:
@@ -313,7 +314,7 @@ function templates(){
 function mise(r){
   const s=S.SET.find(x=>x.id===r.a);
   if(s) return `<div class="detail fi">${header('mise')}<div class="photo" style="background-color:var(--tan)"><div class="cap"><h1>${esc(s.name)}</h1><p>${esc(s.note)}</p><p>${s.items.length} items</p></div></div>
-   <div class="pane"><a class="back" href="#/mise"><img src="${IC('arrow-left-dark')}" alt="">Back</a>
+   <div class="pane"><a class="back" href="#/mise">${IC('arrow-left-dark')}Back</a>
     <div class="card"><div class="f"><label>Name</label><input type="text" data-set="${s.id}" data-k="name" value="${esc(s.name)}"></div><div class="f"><label>What it is for</label><input type="text" data-set="${s.id}" data-k="note" value="${esc(s.note)}" placeholder="Not stated"></div></div>
     <div class="card"><h2>Items</h2>${s.items.map((it,i)=>`<div class="line" style="grid-template-columns:1fr 22px"><input type="text" data-setitem="${s.id}" data-i="${i}" value="${esc(it)}"><button class="x" data-act="delitem" data-id="${s.id}" data-i="${i}" aria-label="Remove">&times;</button></div>`).join('')||'<p class="hint" style="margin-top:0">No items listed yet.</p>'}
      <button class="btn add" data-act="additem" data-id="${s.id}">Add item</button></div>
@@ -327,10 +328,10 @@ function eventPage(r){
   const tab=TABS.some(t=>t[0]===r.b)?r.b:'overview', t=S.TPL.find(x=>x.id===e.tpl)||S.TPL[0], m=pd(e.date).getMonth();
   return `<div class="detail fi">${header('calendar')}
    <div class="photo" style="background-image:url('${PH[t.photo]}')"><div class="cap"><h1>${esc(e.name)}</h1><p>${esc(nice(e.date))}</p><p>${esc(e.series||t.kind)}${isDone(e)?' · Completed':''}</p></div></div>
-   <div class="pane"><a class="back" href="#/calendar/${m}"><img src="${IC('arrow-left-dark')}" alt="">Back</a><div id="tab">${tabBody(e,tab)}</div></div>
+   <div class="pane"><a class="back" href="#/calendar/${m}">${IC('arrow-left-dark')}Back</a><div id="tab">${tabBody(e,tab)}</div></div>
    <div class="bar">${TABS.map(x=>`<button class="${x[0]===tab?'on':''}" data-act="tab" data-id="${e.id}" data-t="${x[0]}">${x[1]}</button>`).join('')}</div></div>`}
 
-const tile=(ic,label,inner)=>`<div class="tile"><div class="ic"><img src="${IC(ic)}" alt=""></div><div style="flex:1;min-width:0"><label>${label}</label>${inner}</div></div>`;
+const tile=(ic,label,inner)=>`<div class="tile"><div class="ic">${IC(ic)}</div><div style="flex:1;min-width:0"><label>${label}</label>${inner}</div></div>`;
 const fld=(e,k,label,ph)=>`<div class="f"><label>${label}</label><textarea rows="1" data-ev="${e.id}" data-k="${k}" placeholder="${ph||'Not stated'}">${esc(k.includes('.')?e.notes[k.split('.')[1]]:e[k])}</textarea></div>`;
 function dutyLine(e,list,i,cls){const d=e[list][i];return`<div class="line ${cls||''} ${d.st==='done'?'is-done':''}">
   ${cls==='mk'?'':`<input type="checkbox" data-chk="${list}" data-ev="${e.id}" data-i="${i}" ${d.st==='done'?'checked':''} aria-label="Done">`}
