@@ -100,9 +100,17 @@ nav{display:flex;gap:clamp(16px,3vw,44px);font-size:clamp(15px,1.5vw,20px)}
 .panel .eyebrow{font-family:var(--classic);letter-spacing:.34em;font-size:var(--sm);margin-bottom:14px}
 .detail header{position:absolute;left:0;right:0;background:none;backdrop-filter:none;-webkit-backdrop-filter:none;color:var(--white)}
 .detail header .logo{color:var(--white)}
-.pane{padding:26px 24px 170px}
+.pane{padding:26px 24px 90px}
 .back{display:inline-flex;align-items:center;gap:10px;font-size:var(--sm);margin-bottom:22px}
 .back svg{width:19px}
+.tabs{display:flex;flex-wrap:wrap;gap:8px;position:sticky;top:0;z-index:5;background:var(--white);padding:12px 0;margin-bottom:6px}
+.idea{display:grid;grid-template-columns:1fr 200px;gap:10px 20px;align-items:start}
+.idea input[type=text]{border:0;border-bottom:1px solid transparent;background:transparent;outline:0;width:100%;font-family:var(--classic);font-size:var(--xl)}
+.idea textarea{width:100%;border:0;border-bottom:1px solid transparent;background:transparent;resize:none;outline:0;color:var(--plum);overflow:hidden;grid-column:1/-1}
+.idea input:focus,.idea textarea:focus,.idea input:hover,.idea textarea:hover{border-bottom-color:var(--tan)}
+.idea .acts{grid-column:1/-1;display:flex;gap:16px;align-items:center}
+.ideas{max-width:860px;margin:0 auto}
+@media(max-width:600px){.idea{grid-template-columns:1fr}}
 .tiles{display:grid;grid-template-columns:1fr 1fr;gap:12px}
 .tile{background:#fff;border-radius:14px;padding:12px;display:flex;gap:12px;align-items:center;min-width:0}
 .tile label{display:block;font-size:var(--sm)}
@@ -116,7 +124,7 @@ nav{display:flex;gap:clamp(16px,3vw,44px);font-size:clamp(15px,1.5vw,20px)}
 ::placeholder{color:#b9aa9c}
 @media(min-width:900px){
   .panel{position:fixed;left:0;top:0;width:42%;height:100vh;padding:40px}
-  .pane{margin-left:42%;padding:40px 40px 170px}
+  .pane{margin-left:42%;padding:40px 40px 90px}
   .detail header{width:42%;right:auto}
   .detail header nav,.detail header .hd-r{display:none}
   .detail header .wrap{padding:0 40px}
@@ -145,7 +153,7 @@ input[type=checkbox]:checked:after{content:"";width:9px;height:5px;border-left:1
 @media(max-width:520px){.sets{grid-template-columns:repeat(2,1fr)}.line.buy{grid-template-columns:22px 1fr 44px 70px 22px}}
 .check{display:flex;gap:12px;align-items:center;padding:9px 0}
 .tot{display:flex;justify-content:space-between;gap:16px;padding:12px 0;border-top:1px solid rgba(51,15,15,.14)}
-.tot:first-of-type{border-top:0}
+.tot:first-of-type{border-top:0}.tot>span:last-child{white-space:nowrap}
 .tot.big{font-family:var(--classic);font-size:var(--xl)}
 .chips{display:flex;flex-wrap:wrap;gap:10px}
 
@@ -216,26 +224,26 @@ const SETS0=[
 const D=(...a)=>a.map(x=>({t:x[0],who:x[1]||'',st:'todo'}));
 const B=(...a)=>a.map(x=>({t:x[0],q:x[1],c:x[2],got:false}));
 const TPL0=[
- {id:'g101',icon:'grower',name:'Gardening 101',kind:'Saturday morning',time:'9:30 to 11:30',price:'699',guests:'10',
+ {id:'g101',icon:'grower',name:'Gardening 101',kind:'Saturday morning',time:'9:30 to 11:30',price:'699',guests:'12',
   purpose:'Give beginners the confidence to grow at home, one skill at a time.',audience:'Beginners, condo and balcony growers, and guests curious about the garden.',takehome:'A plant or seeds to grow at home and a one-page guide.',
   sets:['water','brew','table','wash'],duties:D(['Plan the lesson and garden jobs','Jess'],['Prepare tools, beds and take-homes','P Rung'],['Set up Water Station, Cold Brew Bar and Garden Table','Bev team'],['Prepare the lunch wrap station','Kitchen team'],['Welcome guests and lead the session','Jess'],['Reset the garden and wash up','P Rung']),
-  buy:B(['Lunch wrap station and coffee','10','1500'],['Seeds, soil and pots for take-homes','10','500'])},
+  buy:B(['Lunch wrap station and coffee','12','1800'],['Seeds, soil and pots for take-homes','12','600'])},
  {id:'tea',icon:'cup',name:'Tea Experience',kind:'Once a month',time:'18:00 to 19:30',price:'1,200',guests:'6',
   purpose:'Show how garden herbs become tea, through a guided tasting in the tea garden.',audience:'Baan Tepa dining guests and tea lovers.',takehome:'Tea notes card and a small tea blend.',
   sets:['tea','wash'],duties:D(['Harvest and prepare tea ingredients','Chef Tur'],['Set one Tea Tray per pair','Jess'],['Print tea menus and tea notes cards','Jess'],['Welcome guests and guide the tasting','Jess'],['Reset trays and wash up','Bev team']),
   buy:B(['Tea ingredients and snacks','6','900'],['Printing: tea menus and notes cards','6','150'])},
- {id:'cw',icon:'pot',name:'Cooking Workshop',kind:'Workshop',time:'10:00 to 13:00',price:'2,500',guests:'8',
+ {id:'cw',icon:'pot',name:'Cooking Workshop',kind:'Workshop',time:'10:00 to 13:00',price:'2,500',guests:'10',
   purpose:'Bring the garden into the kitchen: cook with what is in season and eat together.',audience:'Home cooks and Baan Tepa guests who want to learn from the kitchen team.',takehome:'Recipe cards and what you made.',
   sets:['water','bench','wash','table'],duties:D(['Agree the recipe and lead chef','Chef Tam'],['Order and prepare ingredients','Kitchen team'],['Harvest from the garden','P Rung'],['Set up the Kitchen Bench','Kitchen team'],['Welcome guests and host','Jess'],['Reset and wash up','Kitchen team']),
-  buy:B(['Ingredients','8','4800'],['Recipe cards','8','200'])},
- {id:'craft',icon:'print',name:'Craft Workshop',kind:'Workshop',time:'10:00 to 13:00',price:'2,500',guests:'8',
+  buy:B(['Ingredients','10','6000'],['Recipe cards','10','250'])},
+ {id:'craft',icon:'print',name:'Craft Workshop',kind:'Workshop',time:'10:00 to 13:00',price:'2,500',guests:'10',
   purpose:'Make something lasting from garden plants and kitchen leftovers.',audience:'Creative beginners, friends and couples looking for a slow morning.',takehome:'The piece you made.',
   sets:['water','brew','making'],duties:D(['Confirm the workshop lead','Jess'],['Collect plant material and kitchen leftovers','P Rung'],['Prepare materials for each guest','Jess'],['Set up the Making Table','Jess'],['Welcome guests and lead the session','Jess'],['Reset and wash up','P Rung']),
-  buy:B(['Materials: cloth, paper, mordants','8','3200'],['Drinks and snacks','8','800'])},
- {id:'gw',icon:'seasonality',name:'Garden Workshop',kind:'Workshop',time:'10:00 to 12:00',price:'1,200',guests:'10',
+  buy:B(['Materials: cloth, paper, mordants','10','4000'],['Drinks and snacks','10','1000'])},
+ {id:'gw',icon:'seasonality',name:'Garden Workshop',kind:'Workshop',time:'10:00 to 12:00',price:'1,200',guests:'12',
   purpose:'Go deeper into one garden subject with our team or a guest expert.',audience:'Gardeners ready for more than the basics.',takehome:'Notes and a sample or plant to take home.',
   sets:['water','brew','wash'],duties:D(['Confirm the workshop lead or guest expert','Jess'],['Prepare materials and take-homes','P Rung'],['Set up stations','Bev team'],['Welcome guests and host','Jess'],['Reset and wash up','P Rung']),
-  buy:B(['Materials and take-homes','10','1500'],['Drinks and snacks','10','1000'],['Guest expert fee','1','3000'])},
+  buy:B(['Materials and take-homes','12','1800'],['Drinks and snacks','12','1200'],['Guest expert fee','1','3000'])},
  {id:'free',icon:'family',name:'Community Gardening',kind:'Free session',time:'9:30 to 11:30',price:'Free',guests:'10',
   purpose:'Open the garden to neighbours and share the work of growing.',audience:'Neighbours, volunteers and first-time visitors.',takehome:'A share of the harvest.',
   sets:['water','brew','table'],duties:D(['Plan the garden jobs for the day','P Rung'],['Set up Water Station and Cold Brew Bar','Bev team'],['Prepare lunch and coffee','Kitchen team'],['Welcome guests and lead the session','Jess'],['Reset the garden and wash up','P Rung']),
@@ -264,10 +272,26 @@ const SERIES={
 const CLOSED=[2,3];
 const P=(n,price,guests,per,cpg,fixed,hrs)=>({n,price,guests,per,cpg,fixed,hrs});
 const PROJ0={
- now:[P('Free community gardening (lunch and coffee)',0,10,4,150,0,8),P('Gardening club (lunch wrap and coffee)',699,8,2,150,0,8),P('Tea experience',899,4,2,175,0,6)],
- tam:[P('Thursday gardening',300,10,4,150,0,8),P('Saturday intensive gardening',1200,6,4,200,0,12),P('Saturday cooking workshop',2500,8,4,625,0,16)],
- jess:[P('Gardening 101',699,8,2,200,0,8),P('Cooking workshop',2500,8,1,625,0,16),P('Craft workshop',2500,8,1,500,0,10),P('Tea experience',1200,6,1,175,0,6)]
+ now:[P('Free community gardening (lunch and coffee)',0,10,4,150,0,8),P('Gardening club (lunch wrap and coffee)',699,10,2,150,0,8),P('Tea experience',899,6,2,175,0,6)],
+ tam:[P('Thursday gardening',300,10,4,150,0,8),P('Saturday intensive gardening',1200,10,4,200,0,12),P('Saturday cooking workshop',2500,10,4,625,0,16)],
+ jess:[P('Gardening 101',699,12,2,200,0,8),P('Cooking workshop',2500,10,1,625,0,16),P('Craft workshop',2500,10,1,500,0,10),P('Tea experience',1200,6,1,175,0,6)]
 };
+const IDEAS0=[
+ ['Balcony Growing','gw','From the programme draft. Growing food in pots on a condo balcony.'],
+ ['Garden Taste and Tour','gw','From the programme draft. A guided walk with tastings along the way.'],
+ ['Mulled Wine Workshop','cw','From the programme draft. A December idea.'],
+ ['Movie Night','night','Friday evening film in the garden, drinks sold.'],
+ ['Garden Tea Night','night','Evening tea in the tea garden.'],
+ ['Koji and Rice Drinks','cw','For the Rice series: koji, rice tea drink or sticky rice cakes.'],
+ ['Kokedama','craft','Moss ball planting.'],
+ ['Sun Printing','craft','Prints from garden leaves and flowers.'],
+ ['Natural Incense','craft','Incense from dried garden herbs.'],
+ ['Microbe Balls','gw','Making microbe balls for soil and water.'],
+ ['Qigong in the Garden','other','A slow morning movement session.'],
+ ['Thai Herbalism with kaori.craftroom','gw','Possible collaboration.'],
+ ['Nature and Food with eatplayroot.journey','gw','Possible collaboration.'],
+ ['DIY Yadom with homprungbybaihor','craft','Possible collaboration.']
+].map(x=>({n:x[0],tpl:x[1],note:x[2]}));
 const PLANS=[['now','Today'],['tam',"Chef Tam's plan"],['jess','Proposed plan']];
 
 const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
@@ -292,10 +316,10 @@ function seed(){
 }
 
 /* ---------- state ---------- */
-const KEY='tepa-garden-v2';
-let S={seq:1,TPL:clone(TPL0),SET:clone(SETS0),EV:[],PROJ:clone(PROJ0),open:10};
+const KEY='tepa-garden-v3';
+let S={seq:1,TPL:clone(TPL0),SET:clone(SETS0),EV:[],PROJ:clone(PROJ0),IDEAS:clone(IDEAS0),open:10};
 let saved=null; try{saved=JSON.parse(localStorage.getItem(KEY))}catch(e){}
-if(saved&&saved.EV&&saved.PROJ){S=saved}else{S.EV=seed()}
+if(saved&&saved.EV&&saved.PROJ&&saved.IDEAS){S=saved}else{S.EV=seed()}
 let saveT; function save(){clearTimeout(saveT);saveT=setTimeout(()=>{try{localStorage.setItem(KEY,JSON.stringify(S))}catch(e){}},250)}
 const esc=s=>String(s==null?'':s).replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
 const today=iso(new Date());
@@ -315,7 +339,7 @@ function go(h){setHash(h);render();try{window.scrollTo(0,0)}catch(e){}}
 window.addEventListener('hashchange',()=>{let h='';try{h=location.hash.slice(1)}catch(e){}if(h&&h!==HASH){HASH=h;render()}});
 
 /* ---------- pieces ---------- */
-const NAV=[['calendar','Calendar'],['templates','Templates'],['mise','Mise en place'],['projection','Projection']];
+const NAV=[['calendar','Calendar'],['templates','Templates'],['mise','Mise en place'],['ideas','Ideas'],['projection','Projection']];
 function header(p){
   return `<header><div class="wrap">
    <button class="burger" data-act="menu" aria-label="Menu">${IC('menu-dark')}</button>
@@ -368,6 +392,12 @@ function mise(r){
    <div class="cards">${S.SET.map(s=>`<a class="tcard" href="#/mise/${s.id}"><div class="ic">${IC(s.icon)}</div><h3>${esc(s.name)}</h3><p class="sm">${esc(s.note)}</p><p class="sm plum">${s.items.length} items</p></a>`).join('')}</div>
    <div class="centre"><button class="btn" data-act="newset">Add a set</button></div><div class="foot">TEPA GARDEN</div></main>`}
 
+function ideas(){
+  return header('ideas')+`<main class="wrap fi">${head('Workshop Ideas','A place to keep ideas until they are ready for the calendar.')}
+   <div class="centre" style="margin-top:30px"><button class="btn" data-act="addidea">Add an idea</button></div>
+   <div class="ideas">${S.IDEAS.map((d,i)=>`<div class="card idea"><input type="text" data-idea="${i}" data-k="n" value="${esc(d.n)}" placeholder="Idea name"><select data-idea="${i}" data-k="tpl">${opts(S.TPL.map(t=>[t.id,t.name]),d.tpl)}</select><textarea rows="1" data-idea="${i}" data-k="note" placeholder="Notes: who could lead it, season, price, what guests take home">${esc(d.note)}</textarea><div class="acts"><button class="btn" data-act="ideacal" data-i="${i}">Add to calendar</button><button class="link" data-act="delidea" data-i="${i}">Remove</button></div></div>`).join('')}</div>
+   <div class="foot">TEPA GARDEN</div></main>`}
+
 /* projection */
 function calc(rows){let inc=0,cost=0,hrs=0,ses=0;rows.forEach(r=>{const g=num(r.guests),n=num(r.per);inc+=num(r.price)*g*n;cost+=(num(r.cpg)*g+num(r.fixed))*n;hrs+=num(r.hrs)*n;ses+=n});return{inc,cost,profit:inc-cost,hrs,ses,perhr:hrs?(inc-cost)/hrs:0}}
 const rowProfit=r=>((num(r.price)-num(r.cpg))*num(r.guests)-num(r.fixed))*num(r.per);
@@ -398,8 +428,7 @@ function eventPage(r){
   const tab=TABS.some(t=>t[0]===r.b)?r.b:'overview', t=S.TPL.find(x=>x.id===e.tpl)||S.TPL[0], m=pd(e.date).getMonth();
   return `<div class="detail fi">${header('calendar')}
    <div class="panel"><div class="eyebrow">${esc((e.series||t.kind).toUpperCase())}</div><h1>${esc(e.name)}</h1><p>${esc(nice(e.date))}${e.time?' · '+esc(e.time):''}${isDone(e)?' · Completed':''}</p></div>
-   <div class="pane"><a class="back" href="#/calendar/${m}">${IC('arrow-left-dark')}Back</a><div id="tab">${tabBody(e,tab)}</div></div>
-   <div class="bar">${TABS.map(x=>`<button type="button" class="${x[0]===tab?'on':''}" data-act="tab" data-id="${e.id}" data-t="${x[0]}">${x[1]}</button>`).join('')}</div></div>`}
+   <div class="pane"><a class="back" href="#/calendar/${m}">${IC('arrow-left-dark')}Back</a><div class="tabs">${TABS.map(x=>`<button type="button" class="btn ${x[0]===tab?'on':''}" data-act="tab" data-id="${e.id}" data-t="${x[0]}">${x[1]}</button>`).join('')}</div><div id="tab">${tabBody(e,tab)}</div></div></div>`}
 
 const tile=(ic,label,inner)=>`<div class="tile"><div class="ic">${IC(ic)}</div><div style="flex:1;min-width:0"><label>${label}</label>${inner}</div></div>`;
 const fld=(e,k,label)=>`<div class="f"><label>${label}</label><textarea rows="1" data-ev="${e.id}" data-k="${k}" placeholder="Not stated">${esc(k.includes('.')?e.notes[k.split('.')[1]]:e[k])}</textarea></div>`;
@@ -437,7 +466,7 @@ function tabBody(e,tab){
 /* ---------- render and events ---------- */
 const app=document.getElementById('app');
 function render(){const r=route();
-  app.innerHTML=r.page==='event'?eventPage(r):r.page==='templates'?templates():r.page==='mise'?mise(r):r.page==='projection'?projection(r):calendar(r);
+  app.innerHTML=r.page==='event'?eventPage(r):r.page==='templates'?templates():r.page==='mise'?mise(r):r.page==='projection'?projection(r):r.page==='ideas'?ideas():calendar(r);
   grow()}
 function grow(){document.querySelectorAll('textarea').forEach(t=>{t.style.height='auto';t.style.height=t.scrollHeight+'px'})}
 function retab(){const r=route(),e=S.EV.find(x=>x.id===r.a),el=document.getElementById('tab');if(e&&el){el.innerHTML=tabBody(e,r.b||'overview');grow()}}
@@ -447,6 +476,7 @@ app.addEventListener('input',ev=>{const t=ev.target,d=t.dataset;
   if(t.tagName==='TEXTAREA'){t.style.height='auto';t.style.height=t.scrollHeight+'px'}
   if(d.proj){const r=S.PROJ[d.proj][+d.i];r[d.k]=t.value;save();const c=document.querySelector('[data-rp="'+d.i+'"]');if(c)c.innerHTML=signed(rowProfit(r));if(d.k!=='n')document.getElementById('pout').innerHTML=projOut(d.proj);return}
   if(d.open){S.open=t.value;save();return}
+  if(d.idea){S.IDEAS[+d.idea][d.k]=t.value;save();return}
   if(d.set){S.SET.find(s=>s.id===d.set)[d.k]=t.value;save();return}
   if(d.setitem){S.SET.find(s=>s.id===d.setitem).items[+d.i]=t.value;save();return}
   if(!d.ev||t.type==='checkbox'||t.type==='date'||t.tagName==='SELECT')return;
@@ -467,7 +497,7 @@ app.addEventListener('click',ev=>{
   const b=ev.target.closest('[data-act]');if(!b)return;const d=b.dataset,e=d.ev&&EV(d.ev);
   switch(d.act){
    case'menu':document.getElementById('mob').classList.toggle('open');return;
-   case'tab':setHash('/event/'+d.id+'/'+d.t);document.querySelectorAll('.bar button').forEach(x=>x.classList.toggle('on',x===b));retab();try{window.scrollTo(0,0)}catch(err){}return;
+   case'tab':setHash('/event/'+d.id+'/'+d.t);document.querySelectorAll('.tabs button').forEach(x=>x.classList.toggle('on',x===b));retab();return;
    case'addline':e[d.list].push(d.list==='buy'?{t:'',q:'',c:'',got:false}:{t:'',who:'',st:'todo'});break;
    case'del':e[d.list].splice(+d.i,1);break;
    case'toggleset':e.sets.includes(d.id)?e.sets.splice(e.sets.indexOf(d.id),1):e.sets.push(d.id);break;
@@ -479,12 +509,15 @@ app.addEventListener('click',ev=>{
    case'addproj':S.PROJ[d.id].push(P('New event',0,0,1,0,0,0));save();render();return;
    case'delproj':S.PROJ[d.id].splice(+d.i,1);save();render();return;
    case'new':dialog(d.id);return;
+   case'addidea':S.IDEAS.unshift({n:'',tpl:'gw',note:''});save();render();return;
+   case'delidea':if(d.sure){S.IDEAS.splice(+d.i,1);save();render()}else{b.dataset.sure=1;b.textContent='Click again to remove'}return;
+   case'ideacal':{const it=S.IDEAS[+d.i];dialog(it.tpl,it.n,it.note);return}
    case'close':{const v=document.querySelector('.veil');if(v)v.remove();return}
-   case'create':{const v=document.getElementById('nd').value;if(!v)return;const n=fromTpl(d.id,v);const nm=document.getElementById('nn').value.trim();if(nm)n.name=nm;S.EV.push(n);save();document.querySelector('.veil').remove();go('/event/'+n.id);return}
+   case'create':{const v=document.getElementById('nd').value;if(!v)return;const n=fromTpl(d.id,v);const nm=document.getElementById('nn').value.trim();if(nm)n.name=nm;if(b.dataset.note)n.purpose=b.dataset.note;S.EV.push(n);save();document.querySelector('.veil').remove();go('/event/'+n.id);return}
   }
   save();retab()});
-function dialog(tid){const t=S.TPL.find(x=>x.id===tid);const v=document.createElement('div');v.className='veil fi';
-  v.innerHTML=`<div class="dlg"><h2>${esc(t.name)}</h2><label>Event name</label><input id="nn" type="text" value="${esc(t.name)}"><label>Date</label><input id="nd" type="date" value="${YEAR}-01-01"><div class="acts"><button class="btn" data-act="close">Cancel</button><button class="btn on" data-act="create" data-id="${tid}">Add to calendar</button></div></div>`;
+function dialog(tid,name,note){const t=S.TPL.find(x=>x.id===tid)||S.TPL[0];tid=t.id;const v=document.createElement('div');v.className='veil fi';
+  v.innerHTML=`<div class="dlg"><h2>${esc(t.name)}</h2><label>Event name</label><input id="nn" type="text" value="${esc(name||t.name)}"><label>Date</label><input id="nd" type="date" value="${YEAR}-01-01"><div class="acts"><button class="btn" data-act="close">Cancel</button><button class="btn on" data-act="create" data-id="${tid}" data-note="${esc(note||'')}">Add to calendar</button></div></div>`;
   app.appendChild(v)}
 render();
 </script>
