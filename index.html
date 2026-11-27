@@ -180,9 +180,9 @@ input[type=checkbox]:checked:after{content:"";width:9px;height:5px;border-left:1
 @media(max-width:759px){.kpis{grid-template-columns:1fr 1fr}}
 .kpi{background:#fff;border-radius:14px;padding:16px}
 .kpi b{display:block;font-weight:400;font-family:var(--classic);font-size:var(--x2);line-height:1.2;margin-top:6px}
-.cmp{display:grid;grid-template-columns:1.3fr repeat(3,1fr);gap:0}
+.cmp{display:grid;grid-template-columns:1.4fr repeat(2,1fr);gap:0}
 .cmp>div{padding:11px 6px;border-top:1px solid rgba(51,15,15,.14);text-align:right}
-.cmp>div:nth-child(4n+1){text-align:left;padding-left:0;color:var(--plum);font-size:var(--sm)}
+.cmp>div:nth-child(3n+1){text-align:left;padding-left:0;color:var(--plum);font-size:var(--sm)}
 .cmp>.h{border-top:0;font-family:var(--classic);font-size:var(--lg)}
 .neg{color:var(--red)}
 .lt{display:inline-block;width:11px;height:11px;border-radius:50%;margin-right:8px}.lt-g{background:#4f7a2a}.lt-a{background:#e0a030}.lt-r{background:#c0261c}
@@ -214,7 +214,7 @@ const teamOf=w=>({'Chef Tam':'kitchen','Chef Tur':'kitchen','Kitchen team':'kitc
 const STATUS=[['todo','To do'],['prog','In progress'],['done','Done'],['stuck','Stuck']];
 const TABS=[['overview','Overview'],['team','Team'],['mise','Material list'],['buy','To buy'],['marketing','Marketing'],['costs','Costs'],['notes','Notes']];
 const YEAR=2027;
-const VERSION='6';
+const VERSION='7';
 try{if(location.protocol.indexOf('http')===0)fetch('version.txt?'+Date.now(),{cache:'no-store'}).then(r=>r.ok?r.text():'').then(v=>{v=v.trim();if(v&&v!==VERSION&&!location.search.includes('v='+v))location.replace(location.pathname+'?v='+v+location.hash)}).catch(()=>{})}catch(e){}
 const FOOT=`<div class="foot">TEPA GARDEN<div style="letter-spacing:.2px;font-family:var(--body);color:var(--plum);margin-top:10px">Version ${VERSION}</div></div>`;
 
@@ -299,7 +299,7 @@ const IDEAS0=[
  ['Nature and Food with eatplayroot.journey','gw','Possible collaboration.'],
  ['DIY Yadom with homprungbybaihor','craft','Possible collaboration.']
 ].map(x=>({n:x[0],tpl:x[1],note:x[2]}));
-const PLANS=[['now','Today'],['tam',"Chef Tam's plan"],['jess','Proposed plan']];
+const PLANS=[['now','Current'],['jess','Proposed']];
 
 const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
 const clone=o=>JSON.parse(JSON.stringify(o));
@@ -439,7 +439,7 @@ function projBody(plan){const rows=S.PROJ[plan];
     <tr><th>Event</th><th>Price</th><th>Seats per session</th><th>Sessions per month</th><th>Cost per guest</th><th>Other cost per session</th><th>Team hours per session</th><th>Team hours per month</th><th>Profit per month</th><th></th></tr>
     ${rows.map((r,i)=>`<tr>${cell(i,'n','')}${cell(i,'price')}${cell(i,'guests')}${cell(i,'per')}${cell(i,'cpg')}${cell(i,'fixed')}${cell(i,'hrs')}<td data-rh="${i}">${fmt(num(r.hrs)*num(r.per))}</td><td data-rp="${i}">${signed(rowProfit(r))}</td><td><button class="x" data-act="delproj" data-id="${plan}" data-i="${i}" aria-label="Remove">&times;</button></td></tr>`).join('')}
    </table></div><button class="btn add" data-act="addproj" data-id="${plan}">Add an event</button>
-   <p class="hint">Cost per guest covers food, drinks and materials. Team hours cover set up, the session and reset, for everyone involved.</p></div>
+   <p class="hint">Every underlined number and name can be changed: click it and type. Cost per guest covers food, drinks and materials. Team hours cover set up, the session and reset, for everyone involved.</p></div>
    <div id="pout">${projOut(plan)}</div>`}
 function projOut(plan){const c=calc(S.PROJ[plan]),o=num(S.open),F=num(S.fill)||1,all=PLANS.map(p=>calc(S.PROJ[p[0]])),full=PLANS.map(p=>calc(S.PROJ[p[0]],1)),half=PLANS.map(p=>calc(S.PROJ[p[0]],.5));
   const k=(l,v)=>`<div class="kpi"><span class="sm plum">${l}</span><b>${v}</b></div>`;
@@ -448,12 +448,12 @@ function projOut(plan){const c=calc(S.PROJ[plan]),o=num(S.open),F=num(S.fill)||1
   return `<div class="kpis">${k('Income per month',baht(c.inc))}${k('Costs per month',baht(c.cost))}${k('Profit per month',`<span class="${c.profit<0?'neg':''}">${baht(c.profit)}</span>`)}${k(fmt(c.hrs)+' hours projected, '+esc(S.cap)+' available',light(c.hrs))}</div>
    <div class="card"><h2>Side by side</h2><div class="cmp"><div class="h"></div>${PLANS.map(p=>`<div class="h">${esc(p[1])}</div>`).join('')}
     ${line('Sessions per month',all,a=>fmt(a.ses))}${line('Projected team hours per month',all,a=>fmt(a.hrs))}${line('Hours the team has for events',all,a=>fmt(num(S.cap)))}${line('Spare or over',all,a=>{const x=num(S.cap)-a.hrs;return x>=0?fmt(x)+' spare':'<span class="neg">'+fmt(-x)+' over</span>'})}${line('Workload',all,a=>light(a.hrs))}${line('Profit per month, full capacity',full,a=>signed(a.profit))}${line('Profit per month, half capacity',half,a=>signed(a.profit))}${line('Profit per team hour, '+(F===1?'full':'half'),all,a=>signed(a.perhr))}${line('Profit per year, '+(F===1?'full':'half')+', '+o+' open months',all,a=>signed(a.profit*o))}</div>
-    <p class="hint">All figures in THB. Open months per year: ${inp('open',S.open)} &nbsp; Hours the team can give to events each month: ${inp('cap',S.cap)}</p>
+    <p class="hint">All figures in THB. Open months per year: ${inp('open',S.open)}</p>
     <p class="hint"><span class="lt lt-g"></span>Doable: up to 80% of those hours &nbsp; <span class="lt lt-a"></span>At the limit: 80 to 100% &nbsp; <span class="lt lt-r"></span>Too much: over 100%</p></div>`}
 function projection(r){const plan=PLANS.some(p=>p[0]===r.a)?r.a:'jess';
   return header('projection')+`<main class="wrap fi">${head('Projection and Workload','What our events cost, what they earn, and what they ask of the team.')}
    <div class="plans">${PLANS.map(p=>`<a class="btn ${p[0]===plan?'on':''}" href="#/projection/${p[0]}">${esc(p[1])}</a>`).join('')}</div>
-   <div class="plans" style="margin:0 0 20px"><button class="btn ${(num(S.fill)||1)===1?'on':''}" data-act="fill" data-id="1">Full capacity</button><button class="btn ${num(S.fill)===.5?'on':''}" data-act="fill" data-id="0.5">Half capacity</button></div><div id="proj">${projBody(plan)}</div>${FOOT}</main>`}
+   <div class="plans" style="margin:0 0 20px"><button class="btn ${(num(S.fill)||1)===1?'on':''}" data-act="fill" data-id="1">Full capacity</button><button class="btn ${num(S.fill)===.5?'on':''}" data-act="fill" data-id="0.5">Half capacity</button></div><p class="centre" style="margin:0 0 22px">Hours the team can give to events each month <input type="text" inputmode="decimal" data-cap="1" value="${esc(S.cap)}" style="width:64px;border:1px solid var(--maroon);background:transparent;text-align:center;outline:0;padding:7px 4px;margin-left:8px"></p><div id="proj">${projBody(plan)}</div>${FOOT}</main>`}
 
 function eventPage(r){
   const e=S.EV.find(x=>x.id===r.a); if(!e) return header('calendar')+`<main class="wrap">${head('Event not found','')}<p class="centre"><a class="btn" href="#/calendar">Back to the calendar</a></p></main>`;
